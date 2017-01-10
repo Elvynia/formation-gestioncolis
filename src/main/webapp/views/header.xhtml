@@ -10,10 +10,11 @@
 <h:head>
 	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<h:outputStylesheet name="css/application.css" />
 </h:head>
 
 <h:body>
-	<b:navBar brand="GestionColis" brandHref="/">
+	<b:navBar brand="GestionColis" brandHref="#{request.contextPath}/">
 		<b:navbarLinks>
 			<b:navLink value="Gestion des adresses" href="#" />
 			<b:navLink value="Gestion des commandes" href="#" />

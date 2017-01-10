@@ -1,0 +1,18 @@
+<persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence
+             http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd"
+             version="2.1">
+	<persistence-unit name="gestioncolis">
+		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+		<jta-data-source>jdbc/gestioncolis</jta-data-source>
+		<class>fr.formation.gestioncolis.entity.Bordereau</class>
+		<class>fr.formation.gestioncolis.entity.Product</class>
+		<class>fr.formation.gestioncolis.entity.Commande</class>
+		<class>fr.formation.gestioncolis.entity.Coordonnee</class>
+		<class>fr.formation.gestioncolis.entity.Etat</class>
+		<class>fr.formation.gestioncolis.entity.Facture</class>
+		<class>fr.formation.gestioncolis.entity.Liasse</class>
+		<class>fr.formation.gestioncolis.entity.Paquet</class>
+	</persistence-unit>
+</persistence>
