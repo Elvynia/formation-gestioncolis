@@ -14,14 +14,22 @@
 </h:head>
 
 <h:body>
-	<b:navBar brand="GestionColis" brandHref="#{request.contextPath}/">
-		<b:navbarLinks>
-			<b:navLink value="Gestion des adresses" href="#" />
-			<b:navLink value="Gestion des commandes" href="#" />
-		</b:navbarLinks>
-		<b:navbarLinks pull="right">
-			<h:outputLabel value="#{loginBean.name}" />
-		</b:navbarLinks>
-	</b:navBar>
+	<h:form>
+		<b:navBar brand="GestionColis" brandHref="#{request.contextPath}/">
+			<b:navbarLinks>
+				<b:navLink value="Gestion des adresses" href="#" />
+				<b:navLink value="Gestion des commandes" href="#" />
+				<b:dropMenu value="Gestion des produits">
+					<b:navCommandLink value="Créer un produit"
+						action="/views/product/create" />
+					<b:navCommandLink value="Liste des produits"
+						action="/views/product/display" />
+				</b:dropMenu>
+			</b:navbarLinks>
+			<b:navbarLinks pull="right">
+				<h:outputLabel value="#{loginBean.name}" />
+			</b:navbarLinks>
+		</b:navBar>
+	</h:form>
 </h:body>
 </html>
