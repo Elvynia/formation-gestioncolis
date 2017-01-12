@@ -34,6 +34,7 @@ public class ProductController implements Serializable {
 
 	@PostConstruct
 	public void _init() {
+		ProductController.LOGGER.debug("Chargement de la liste des produits.");
 		this.products = this.productDao.readAll();
 	}
 
@@ -44,7 +45,6 @@ public class ProductController implements Serializable {
 	}
 
 	public List<Product> getProducts() {
-		ProductController.LOGGER.debug("Chargement de la liste des produits.");
 		return this.products;
 	}
 

@@ -17,7 +17,12 @@
 	<h:form>
 		<b:navBar brand="GestionColis" brandHref="#{request.contextPath}/">
 			<b:navbarLinks>
-				<b:navLink value="Gestion des adresses" href="#" />
+				<b:dropMenu value="Gestion des coordonnées">
+					<b:navCommandLink value="Créer une coordonnée"
+						action="/views/coordonnee/create" />
+					<b:navCommandLink value="Liste des coordonnées"
+						action="/views/coordonnee/display" />
+				</b:dropMenu>
 				<b:navLink value="Gestion des commandes" href="#" />
 				<b:dropMenu value="Gestion des produits">
 					<b:navCommandLink value="Créer un produit"
