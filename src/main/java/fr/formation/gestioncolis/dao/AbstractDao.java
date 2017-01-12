@@ -32,8 +32,8 @@ public abstract class AbstractDao<ENTITY> {
 		// });
 	}
 
-	public void delete(final ENTITY product) {
-		this.executeWithTransaction(() -> this.em.remove(product));
+	public void delete(final Integer id) {
+		this.executeWithTransaction(() -> this.em.remove(this.read(id)));
 	}
 
 	protected void executeWithTransaction(final Runnable runnable) {

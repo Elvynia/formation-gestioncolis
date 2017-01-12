@@ -10,24 +10,31 @@
 <ui:composition template="../template.xhtml">
 	<ui:define name="content">
 		<h2>Liste des produits :</h2>
-		<b:dataTable value="#{productController.products}" var="product">
-			<b:column>
-				<f:facet name="header">Id</f:facet>
-				<h:outputText value="#{product.id}" />
-			</b:column>
-			<b:column>
-				<f:facet name="header">Intitulé</f:facet>
-				<h:outputText value="#{product.intitule}" />
-			</b:column>
-			<b:column>
-				<f:facet name="header">Poids</f:facet>
-				<h:outputText value="#{product.poids}" />
-			</b:column>
-			<b:column>
-				<f:facet name="header">Référence</f:facet>
-				<h:outputText value="#{product.reference}" />
-			</b:column>
-		</b:dataTable>
+		<h:form>
+			<b:dataTable value="#{productController.products}" var="product">
+				<b:dataTableColumn>
+					<f:facet name="header">Id</f:facet>
+					<h:outputText value="#{product.id}" />
+				</b:dataTableColumn>
+				<b:dataTableColumn>
+					<f:facet name="header">Intitulé</f:facet>
+					<h:outputText value="#{product.intitule}" />
+				</b:dataTableColumn>
+				<b:dataTableColumn>
+					<f:facet name="header">Poids</f:facet>
+					<h:outputText value="#{product.poids}" />
+				</b:dataTableColumn>
+				<b:dataTableColumn>
+					<f:facet name="header">Référence</f:facet>
+					<h:outputText value="#{product.reference}" />
+				</b:dataTableColumn>
+				<b:dataTableColumn>
+					<f:facet name="header">&nbsp;</f:facet>
+					<b:commandButton value="Supprimer"
+						action="#{productController.delete(product)}" />
+				</b:dataTableColumn>
+			</b:dataTable>
+		</h:form>
 	</ui:define>
 </ui:composition>
 </html>
