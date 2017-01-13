@@ -14,6 +14,9 @@ import org.slf4j.LoggerFactory;
 import fr.formation.gestioncolis.bean.CoordonneeBean;
 import fr.formation.gestioncolis.dao.CoordonneeDao;
 import fr.formation.gestioncolis.entity.Coordonnee;
+import fr.formation.gestioncolis.exception.CreateEntityException;
+import fr.formation.gestioncolis.exception.DeleteEntityException;
+import net.bootsfaces.utils.FacesMessages;
 
 @ManagedBean
 @ViewScoped
@@ -40,8 +43,17 @@ public class CoordonneeController implements Serializable {
 	}
 
 	public String delete(final Coordonnee coord) {
-		this.coordonneeDao.delete(coord.getId());
-		this.coordonnees.remove(coord);
+		try {
+			this.coordonneeDao.delete(coord.getId());
+			this.coordonnees.remove(coord);
+			FacesMessages.info("La coordonnée a été supprimée avec succès.");
+		} catch (final DeleteEntityException e) {
+			CoordonneeController.LOGGER
+					.error("Erreur lors de la suppression de la coordonnée d'id="
+							+ coord.getId(), e);
+			FacesMessages.error(
+					"Impossible de supprimer la coordonnée car elle est utilisée dans un paquet.");
+		}
 		return "/views/coordonnee/display";
 	}
 
@@ -63,7 +75,14 @@ public class CoordonneeController implements Serializable {
 		coord.setPostalCode(this.coordonneeBean.getPostalCode());
 		coord.setAddressLine1(this.coordonneeBean.getAddressLine1());
 
-		this.coordonneeDao.create(coord);
+		try {
+			this.coordonneeDao.create(coord);
+			FacesMessages.info("La coordonnée a été créée avec succès.");
+		} catch (final CreateEntityException e) {
+			CoordonneeController.LOGGER.error(
+					"Erreur pendant la création d'une nouvelle coordonnée.", e);
+			FacesMessages.error("Impossible de créer la coordonnée.");
+		}
 
 		return "/views/dashboard";
 	}

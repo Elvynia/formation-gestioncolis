@@ -14,7 +14,23 @@ import javax.transaction.RollbackException;
 import javax.transaction.SystemException;
 import javax.transaction.UserTransaction;
 
+import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.hibernate.exception.ConstraintViolationException;
+import org.hibernate.exception.DataException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import fr.formation.gestioncolis.exception.CreateEntityException;
+import fr.formation.gestioncolis.exception.DaoException;
+import fr.formation.gestioncolis.exception.DeleteEntityException;
+import fr.formation.gestioncolis.exception.FunctionalDaoException;
+import fr.formation.gestioncolis.exception.TechnicalDaoException;
+import fr.formation.gestioncolis.exception.UpdateEntityException;
+
 public abstract class AbstractDao<ENTITY> {
+
+	private static final Logger LOGGER = LoggerFactory
+			.getLogger(AbstractDao.class);
 
 	@PersistenceContext
 	protected EntityManager em;
@@ -22,8 +38,18 @@ public abstract class AbstractDao<ENTITY> {
 	@Resource
 	private UserTransaction transaction;
 
-	public void create(final ENTITY product) {
-		this.executeWithTransaction(() -> this.em.persist(product));
+	public void create(final ENTITY product) throws CreateEntityException {
+		try {
+			this.executeWithTransaction(() -> this.em.persist(product));
+		} catch (final FunctionalDaoException e) {
+			throw new CreateEntityException(
+					"Impossible de créer l'entité à cause "
+							+ "d'une containte de la base de données.",
+					e);
+		} catch (final DaoException e) {
+			AbstractDao.LOGGER.error(
+					"Erreur technique pendant la création de l'entité.", e);
+		}
 		// this.executeWithTransaction(new Runnable() {
 		// @Override
 		// public void run() {
@@ -32,11 +58,22 @@ public abstract class AbstractDao<ENTITY> {
 		// });
 	}
 
-	public void delete(final Integer id) {
-		this.executeWithTransaction(() -> this.em.remove(this.read(id)));
+	public void delete(final Integer id) throws DeleteEntityException {
+		try {
+			this.executeWithTransaction(() -> this.em.remove(this.read(id)));
+		} catch (final FunctionalDaoException e) {
+			throw new DeleteEntityException(
+					"Impossible de supprimer l'entité à cause "
+							+ "d'une contrainte de la base de données.",
+					e);
+		} catch (final DaoException e) {
+			AbstractDao.LOGGER.error(
+					"Erreur technique pendant la suppression de l'entité.", e);
+		}
 	}
 
-	protected void executeWithTransaction(final Runnable runnable) {
+	protected void executeWithTransaction(final Runnable runnable)
+			throws DaoException {
 		try {
 			this.transaction.begin();
 			try {
@@ -44,12 +81,25 @@ public abstract class AbstractDao<ENTITY> {
 				this.transaction.commit();
 			} catch (final PersistenceException e) {
 				this.transaction.rollback();
-				e.printStackTrace();
+				AbstractDao.LOGGER.error(
+						"Erreur pendant l'exécution d'une transaction.", e);
+				if (ExceptionUtils.indexOfThrowable(e,
+						DataException.class) >= 0) {
+					throw new FunctionalDaoException(e);
+				}
 			}
 		} catch (NotSupportedException | SystemException | SecurityException
 				| IllegalStateException | RollbackException
 				| HeuristicMixedException | HeuristicRollbackException e) {
-			e.printStackTrace();
+			AbstractDao.LOGGER.error("Erreur de gestion de la transaction.", e);
+			if (ExceptionUtils.indexOfThrowable(e,
+					ConstraintViolationException.class) >= 0) {
+				throw new FunctionalDaoException(e);
+			} else {
+				throw new TechnicalDaoException(
+						"Erreur pendant l'exécution des traitements du DAO.",
+						e);
+			}
 		}
 	}
 
@@ -67,7 +117,17 @@ public abstract class AbstractDao<ENTITY> {
 		return query.getResultList();
 	}
 
-	public void update(final ENTITY product) {
-		this.executeWithTransaction(() -> this.em.merge(product));
+	public void update(final ENTITY product) throws UpdateEntityException {
+		try {
+			this.executeWithTransaction(() -> this.em.merge(product));
+		} catch (final FunctionalDaoException e) {
+			throw new UpdateEntityException(
+					"Impossible de mettre à jour l'entité à cause "
+							+ "d'une contrainte de la base de données.",
+					e);
+		} catch (final DaoException e) {
+			AbstractDao.LOGGER.error(
+					"Erreur technique pendant la mise à jour de l'entité.", e);
+		}
 	}
 }

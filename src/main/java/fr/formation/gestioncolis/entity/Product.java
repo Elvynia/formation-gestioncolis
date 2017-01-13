@@ -92,4 +92,23 @@ public class Product implements Serializable {
 		this.reference = reference;
 	}
 
+	@Override
+	public String toString() {
+		final StringBuilder sb = new StringBuilder("Product[");
+		sb.append("Id:");
+		sb.append(this.id != null ? this.id : "null");
+		sb.append(",");
+		sb.append("Intitulé:");
+		sb.append(this.intitule != null ? this.intitule : "null");
+		sb.append(",");
+		sb.append("Poids:");
+		sb.append(this.poids);
+		sb.append(",");
+		sb.append("Référence:");
+		sb.append(this.reference != null ? this.reference : "null");
+
+		sb.append(']');
+		return sb.toString();
+	}
+
 }
