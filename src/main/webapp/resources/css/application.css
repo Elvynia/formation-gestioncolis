@@ -1,3 +1,17 @@
 a {
 	text-shadow: none !important;
 }
+
+.etatList {
+	float: left;
+	min-width: 50%;
+	margin-top: 10px;
+	margin-left: 20px;
+}
+
+.etat {
+	float: left;
+	max-width: 50%;
+	margin-top: 10px;
+	margin-left: 20px;
+}
