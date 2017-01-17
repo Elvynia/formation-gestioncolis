@@ -10,6 +10,7 @@ import java.util.Date;
  * 
  */
 @Entity
+@Table(name = "bordereau")
 @NamedQuery(name="Bordereau.findAll", query="SELECT b FROM Bordereau b")
 public class Bordereau implements Serializable {
 	private static final long serialVersionUID = 1L;

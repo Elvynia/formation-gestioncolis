@@ -2,10 +2,57 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
-<f:view>
-    <h:outputLabel value="Hello, world"/>
-</f:view>
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:b="http://bootsfaces.net/ui">
+
+<ui:composition template="../template.xhtml">
+    <ui:define name="content">
+        <div class="col-md-5">
+            <h2>Liste des bordereaux :</h2>
+            <h:form>
+                <b:dataTable value="#{bordereauController.bordereaux}" var="bordereau">
+                    <b:dataTableColumn>
+                        <f:facet name="header">Id</f:facet>
+                        <h:outputText value="#{bordereau.id}" />
+                    </b:dataTableColumn>
+                    <b:dataTableColumn>
+                        <f:facet name="header">Commande</f:facet>
+                    <h:outputText value="#{bordereau.commandeBean.getId()}" />
+                    </b:dataTableColumn>
+                    <b:dataTableColumn>
+                        <f:facet name="header">Date</f:facet>
+                        <h:outputText value="#{bordereau.dateSignature}" />
+                    </b:dataTableColumn>
+
+                    <b:dataTableColumn>
+                        <f:facet name="header">Detail</f:facet>
+                        <b:commandButton value=">"
+                                         action="#{bordereauController.detail(bordereau.id)}" />
+                    </b:dataTableColumn>
+                </b:dataTable>
+            </h:form>
+        </div>
+        <div class="col-md-7">
+            <h3>Detail du bordereau :</h3>
+            <h:form>
+                <div>
+                    <h4>Bordereau n° #{bordereau.id}</h4>
+                    <b:inputTextarea label="Détail" value="#{bordereau.detail}"/>
+                    <b:inputText label="Date signature" value="#{bordereau.dateSignature}"/>
+                </div>
+                <div>
+                    <h4>Commande n° #{commandeBean.id}</h4>
+                    <b:inputText label="Paquet" value="#{commandeBean.paquet}"/>
+                    <b:inputText label="Date Commande" value="#{commandeBean.dateCommande}"/>
+                    <b:inputText label="Date Envoi" value="#{commandeBean.dateEnvoi}"/>
+                    <b:inputText label="Etat" value="#{commandeBean.etat}"/>
+                    <b:inputText label="Date expédition" value="#{commandeBean.ackSent}"/>
+                    <b:inputText label="Date réception" value="#{commandeBean.ackReceived}"/>
+                </div>
+            </h:form>
+        </div>
+    </ui:define>
+</ui:composition>
 </html>
