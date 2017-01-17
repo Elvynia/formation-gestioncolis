@@ -9,7 +9,7 @@ import fr.formation.gestioncolis.entity.Facture;
 
 @ManagedBean
 @ApplicationScoped
-public class FacureDao extends AbstractDao<Facture> {
+public class FactureDao extends AbstractDao<Facture> {
 
 	@Override
 	public Facture read(final Integer id) {
@@ -20,5 +20,4 @@ public class FacureDao extends AbstractDao<Facture> {
 	public List<Facture> readAll() {
 		return this.readAll(Facture.class);
 	}
-
 }
