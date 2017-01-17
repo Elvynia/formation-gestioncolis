@@ -60,21 +60,21 @@ public class CommandeController implements Serializable {
 
 		try {
 			if (commandeId == null) {
-				CommandeController.LOGGER.debug("Création d'une nouvelle commande {}", commande);
+				CommandeController.LOGGER.debug("CrÃ©ation d'une nouvelle commande {}", commande);
 				commandeDao.create(commande);
-				FacesMessages.info("La commande a été créée avec succès.");
+				FacesMessages.info("La commande a Ã©tÃ© crÃ©Ã©e avec succï¿½s.");
 			} else {
 				commande.setId(getCommandeId());
-				CommandeController.LOGGER.debug("Mise à jour de la commande {}", commande);
+				CommandeController.LOGGER.debug("Mise Ã  jour de la commande {}", commande);
 				commandeDao.update(commande);
-				FacesMessages.info("La commande a été mise à jour avec succès.");
+				FacesMessages.info("La commande a Ã©tÃ© mise Ã  jour avec succï¿½s.");
 			}
 		} catch (final CreateEntityException e) {
-			CommandeController.LOGGER.error("Erreur pendant la création d'une nouvelle commande.", e);
-			FacesMessages.error("Impossible de créer la commande.");
+			CommandeController.LOGGER.error("Erreur pendant la crÃ©ation d'une nouvelle commande.", e);
+			FacesMessages.error("Impossible de crÃ©er la commande.");
 		} catch (final UpdateEntityException e) {
-			CommandeController.LOGGER.error("Erreur pendant la mise à jour de la commande d'id=" + commandeId, e);
-			FacesMessages.error("Impossible de mettre à jour cette commande.");
+			CommandeController.LOGGER.error("Erreur pendant la mise Ã  jour de la commande d'id=" + commandeId, e);
+			FacesMessages.error("Impossible de mettre Ã  jour cette commande.");
 		}
 
 		return "/views/dashboard";
@@ -86,8 +86,8 @@ public class CommandeController implements Serializable {
 			if (commande.getEtatBean().getId() == 1) {
 
 			}
-			CommandeController.LOGGER.debug("Mise à jour de la commande d'id={}", commande);
-			FacesMessages.info("Impossible de mettre à jour cette commande.");
+			CommandeController.LOGGER.debug("Mise Ã  jour de la commande d'id={}", commande);
+			FacesMessages.info("Impossible de mettre Ã  jour cette commande.");
 		} catch (final UpdateEntityException e) {
 			e.printStackTrace();
 		}
@@ -98,7 +98,7 @@ public class CommandeController implements Serializable {
 		try {
 			commandeDao.delete(commande.getId());
 			commandes.remove(commande);
-			FacesMessages.info("La commande a été supprimée avec succès.");
+			FacesMessages.info("La commande a Ã©tÃ© supprimÃ©e avec succÃ©s.");
 		} catch (final DeleteEntityException e) {
 			CommandeController.LOGGER.error("Erreur lors de la suppression de la commande d'id=" + commande.getId(), e);
 			FacesMessages.error("Impossible de supprimer la commande.");
