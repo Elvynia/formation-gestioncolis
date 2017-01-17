@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:b="http://bootsfaces.net/ui">
+	
+	<h:body>
+		<h2>Effectuer une commande :</h2>
+		<h:form>
+			<b:selectOneMenu label="Sélectionner un produit" value="#{createCommandeBean.productId}">
+				<f:selectItems value="#{productController.products}" var="product" itemValue="#{product.id}" itemLabel="#{product.intitule}"/>
+			</b:selectOneMenu>
+			<b:selectOneMenu label="Sélectionner une adresse de livraison" value="#{createCommandeBean.coordonneeId}">
+				<f:selectItems value="#{coordonneeController.coordonnees}" var="coordonnee" itemValue="#{coordonnee.id}" itemLabel="#{coordonnee}"/>
+			</b:selectOneMenu>
+			<b:commandButton value="Valider" action="#{commandeController.create}" />
+		</h:form>
+	</h:body>
+</html>

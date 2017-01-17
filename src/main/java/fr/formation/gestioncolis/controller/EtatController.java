@@ -23,6 +23,7 @@ import net.bootsfaces.utils.FacesMessages;
 
 @ManagedBean
 @ViewScoped
+// FIXME ViewScoped not read because of package view meant for CDI beans ?
 public class EtatController implements Serializable {
 
 	private static final Logger LOGGER = LoggerFactory
