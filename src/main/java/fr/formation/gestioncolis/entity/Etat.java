@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.persistence.Transient;
 
 /**
@@ -16,6 +17,7 @@ import javax.persistence.Transient;
  *
  */
 @Entity
+@Table(name = "etat")
 @NamedQuery(name = "Etat.findAll", query = "SELECT e FROM Etat e")
 public class Etat implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -88,7 +90,8 @@ public class Etat implements Serializable {
 	}
 
 	/**
-	 * @param ordre the ordre to set
+	 * @param ordre
+	 *          the ordre to set
 	 */
 	public void setOrdre(final int ordre) {
 		this.ordre = ordre;
