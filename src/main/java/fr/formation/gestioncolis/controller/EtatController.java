@@ -2,10 +2,13 @@ package fr.formation.gestioncolis.controller;
 
 import java.io.Serializable;
 
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.view.ViewScoped;
 
+import org.primefaces.event.SelectEvent;
+import org.primefaces.event.UnselectEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -14,6 +17,7 @@ import fr.formation.gestioncolis.bean.EtatOrderBean;
 import fr.formation.gestioncolis.dao.EtatDao;
 import fr.formation.gestioncolis.entity.Etat;
 import fr.formation.gestioncolis.exception.CreateEntityException;
+import fr.formation.gestioncolis.exception.DeleteEntityException;
 import fr.formation.gestioncolis.exception.UpdateEntityException;
 import net.bootsfaces.utils.FacesMessages;
 
@@ -32,8 +36,42 @@ public class EtatController implements Serializable {
 	@ManagedProperty("#{etatDao}")
 	private EtatDao etatDao;
 
+	private int etatId;
+
 	@ManagedProperty("#{etatOrderBean}")
 	private EtatOrderBean etatOrderBean;
+
+	@PostConstruct
+	public void _init() {
+		this.etatId = -1;
+	}
+
+	public void delete() {
+		if (this.etatId >= 0) {
+			try {
+				this.etatDao.delete(this.etatId);
+				FacesMessages.info(
+						"Etat d'id " + this.etatId + " supprimé avec succès.");
+			} catch (final DeleteEntityException e) {
+				EtatController.LOGGER.error(
+						"Erreur pendant la suppression d'un nouvel etat", e);
+				FacesMessages.error(
+						"Impossible de supprimer l'état d'id " + this.etatId);
+			}
+			this.etatId = -1;
+			this.etatOrderBean.refresh();
+		} else {
+			FacesMessages
+					.error("Impossible de supprimer : aucun état sélectionné.");
+		}
+	}
+
+	/**
+	 * @return the etatId
+	 */
+	public int getEtatId() {
+		return this.etatId;
+	}
 
 	public void save() {
 		EtatController.LOGGER.debug("Sauvegarde de etatBean en BDD.");
@@ -75,6 +113,10 @@ public class EtatController implements Serializable {
 		}
 	}
 
+	public void selectEtat(final SelectEvent event) {
+		this.etatId = Integer.parseInt(event.getObject().toString());
+	}
+
 	/**
 	 * @param etatBean the etatBean to set
 	 */
@@ -90,10 +132,21 @@ public class EtatController implements Serializable {
 	}
 
 	/**
+	 * @param etatId the etatId to set
+	 */
+	public void setEtatId(final int etatId) {
+		this.etatId = etatId;
+	}
+
+	/**
 	 * @param etatOrderBean the etatOrderBean to set
 	 */
 	public void setEtatOrderBean(final EtatOrderBean etatOrderBean) {
 		this.etatOrderBean = etatOrderBean;
+	}
+
+	public void unselectEtat(final UnselectEvent event) {
+		this.etatId = -1;
 	}
 
 }

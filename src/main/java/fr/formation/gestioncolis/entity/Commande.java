@@ -11,6 +11,7 @@ import java.util.List;
  * 
  */
 @Entity
+@Table(name = "commande")
 @NamedQuery(name="Commande.findAll", query="SELECT c FROM Commande c")
 public class Commande implements Serializable {
 	private static final long serialVersionUID = 1L;

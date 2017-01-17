@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:b="http://bootsfaces.net/ui">
+
+<ui:composition template="../template.xhtml">
+	<ui:define name="content">
+		<h2>Liste des paquets</h2>
+			<b:dataTable value="#{paquetController.paquets}" var="paquet">
+				<b:dataTableColumn>
+					<f:facet name="header">Id</f:facet>
+					<h:outputText value="#{paquet.id}"/>
+				</b:dataTableColumn>
+				<b:dataTableColumn>
+					<f:facet name="header">Date récépissé</f:facet>
+					<h:outputText value="#{paquet.dateRecipisse}"/>
+				</b:dataTableColumn>
+			</b:dataTable>
+	</ui:define>
+</ui:composition>
+</html>
