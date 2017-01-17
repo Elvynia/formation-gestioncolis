@@ -23,7 +23,10 @@
 					<b:navCommandLink value="Liste des coordonnées"
 						action="/views/coordonnee/display" />
 				</b:dropMenu>
-				<b:navLink value="Gestion des commandes" href="#" />
+				<b:dropMenu value="Gestion des commandes" href="#">
+					<b:navCommandLink value="Gérer les états"
+						action="/views/etat/manage" />
+				</b:dropMenu>
 				<b:dropMenu value="Gestion des produits">
 					<b:navCommandLink value="Créer un produit"
 						action="/views/product/create" />

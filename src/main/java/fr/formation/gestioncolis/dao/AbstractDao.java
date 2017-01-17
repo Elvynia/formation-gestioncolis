@@ -38,9 +38,9 @@ public abstract class AbstractDao<ENTITY> {
 	@Resource
 	private UserTransaction transaction;
 
-	public void create(final ENTITY product) throws CreateEntityException {
+	public void create(final ENTITY entity) throws CreateEntityException {
 		try {
-			this.executeWithTransaction(() -> this.em.persist(product));
+			this.executeWithTransaction(() -> this.em.persist(entity));
 		} catch (final FunctionalDaoException e) {
 			throw new CreateEntityException(
 					"Impossible de créer l'entité à cause "
@@ -53,7 +53,7 @@ public abstract class AbstractDao<ENTITY> {
 		// this.executeWithTransaction(new Runnable() {
 		// @Override
 		// public void run() {
-		// AbstractDao.this.em.persist(product);
+		// AbstractDao.this.em.persist(entity);
 		// }
 		// });
 	}
@@ -83,8 +83,9 @@ public abstract class AbstractDao<ENTITY> {
 				this.transaction.rollback();
 				AbstractDao.LOGGER.error(
 						"Erreur pendant l'exécution d'une transaction.", e);
-				if (ExceptionUtils.indexOfThrowable(e,
-						DataException.class) >= 0) {
+				if (ExceptionUtils.indexOfThrowable(e, DataException.class) >= 0
+						|| ExceptionUtils.indexOfThrowable(e,
+								ConstraintViolationException.class) >= 0) {
 					throw new FunctionalDaoException(e);
 				}
 			}
@@ -117,9 +118,9 @@ public abstract class AbstractDao<ENTITY> {
 		return query.getResultList();
 	}
 
-	public void update(final ENTITY product) throws UpdateEntityException {
+	public void update(final ENTITY entity) throws UpdateEntityException {
 		try {
-			this.executeWithTransaction(() -> this.em.merge(product));
+			this.executeWithTransaction(() -> this.em.merge(entity));
 		} catch (final FunctionalDaoException e) {
 			throw new UpdateEntityException(
 					"Impossible de mettre à jour l'entité à cause "
@@ -130,4 +131,5 @@ public abstract class AbstractDao<ENTITY> {
 					"Erreur technique pendant la mise à jour de l'entité.", e);
 		}
 	}
+
 }
