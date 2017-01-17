@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:b="http://bootsfaces.net/ui">
+
+<ui:composition template="../template.xhtml">
+	<ui:define name="content">
+		<h2>Créer un paquet</h2>
+		<b:form>
+			<b:panelGrid>
+	         <h:outputLabel value="Produit" for="productId" />
+	         <b:selectOneMenu value="#{paquetController.products}" id="productID" >
+	             <f:selectItems value="#{paquetController.products" var="product"
+	             	itemValue="product.id" itemLabel="product.intitule]"/>
+	         </b:selectOneMenu>
+			</b:panelGrid>
+		</b:form>
+		</ui:define>
+</ui:composition>	
+</html>
