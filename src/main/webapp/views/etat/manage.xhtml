@@ -14,13 +14,22 @@
 			<div class="etatList">
 				<h:form id="etatListForm">
 					<h3>Ordre des états :</h3>
+					<h:inputHidden id="etatId" value="#{etatController.etatId}" />
 					<p:orderList id="etatList" controlsLocation="right"
 						itemLabel="#{etat.nom}" itemValue="#{etat.id}"
 						value="#{etatOrderBean.list}" var="etat">
+						<p:ajax event="select" update="etatId"
+							listener="#{etatController.selectEtat}" />
+						<p:ajax event="unselect" update="etatId"
+							listener="#{etatController.unselectEtat}" />
 					</p:orderList>
 					<b:commandButton value="Valider">
 						<f:ajax execute="@form" render="messages"
 							listener="#{etatController.saveOrder}" />
+					</b:commandButton>
+					<b:commandButton value="Supprimer">
+						<f:ajax execute="@form" render="@form messages"
+							listener="#{etatController.delete}" />
 					</b:commandButton>
 				</h:form>
 			</div>
