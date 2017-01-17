@@ -62,12 +62,12 @@ public class CommandeController implements Serializable {
 			if (commandeId == null) {
 				CommandeController.LOGGER.debug("Création d'une nouvelle commande {}", commande);
 				commandeDao.create(commande);
-				FacesMessages.info("La commande a été créée avec succ�s.");
+				FacesMessages.info("La commande a été créée avec succés.");
 			} else {
 				commande.setId(getCommandeId());
 				CommandeController.LOGGER.debug("Mise à jour de la commande {}", commande);
 				commandeDao.update(commande);
-				FacesMessages.info("La commande a été mise à jour avec succ�s.");
+				FacesMessages.info("La commande a été mise à jour avec succés.");
 			}
 		} catch (final CreateEntityException e) {
 			CommandeController.LOGGER.error("Erreur pendant la création d'une nouvelle commande.", e);
