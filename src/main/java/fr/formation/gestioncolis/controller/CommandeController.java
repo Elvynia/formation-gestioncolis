@@ -14,7 +14,12 @@ import org.slf4j.LoggerFactory;
 import fr.formation.gestioncolis.bean.CommandeBean;
 import fr.formation.gestioncolis.bean.CreateCommandeBean;
 import fr.formation.gestioncolis.dao.CommandeDao;
+import fr.formation.gestioncolis.dao.EtatDao;
 import fr.formation.gestioncolis.entity.Commande;
+import fr.formation.gestioncolis.entity.Etat;
+import fr.formation.gestioncolis.exception.CreateEntityException;
+import fr.formation.gestioncolis.exception.DeleteEntityException;
+import fr.formation.gestioncolis.exception.UpdateEntityException;
 import fr.formation.gestioncolis.service.CommandeService;
 import net.bootsfaces.utils.FacesMessages;
 
@@ -33,19 +38,24 @@ public class CommandeController implements Serializable {
 	@ManagedProperty("#{commandeDao}")
 	private CommandeDao commandeDao;
 
+	private Integer commandeId;
 	private List<Commande> commandes;
 
 	@ManagedProperty("#{commandeService}")
 	private CommandeService commandeService;
-
 	@ManagedProperty("#{createCommandeBean}")
 	private CreateCommandeBean createCommandeBean;
+
+	@ManagedProperty("#{etatDao}")
+	private EtatDao etatDao;
+	private List<Etat> etats;
 
 	@PostConstruct
 	public void _init() {
 		CommandeController.LOGGER
-				.debug("Chargment des commandes depuis la BDD.");
+				.debug("Chargement de la liste des commandes.");
 		this.commandes = this.commandeDao.readAll();
+		this.etats = this.etatDao.readAll();
 	}
 
 	public String create() {
@@ -59,11 +69,65 @@ public class CommandeController implements Serializable {
 		return "/views/dashboard";
 	}
 
-	/**
-	 * @return the commandes
-	 */
+	public String delete(final Commande commande) {
+		try {
+			this.commandeDao.delete(commande.getId());
+			this.commandes.remove(commande);
+			FacesMessages.info("La commande a été supprimée avec succés.");
+		} catch (final DeleteEntityException e) {
+			CommandeController.LOGGER
+					.error("Erreur lors de la suppression de la commande d'id="
+							+ commande.getId(), e);
+			FacesMessages.error("Impossible de supprimer la commande.");
+		}
+		return "/views/commande/display";
+	}
+
+	public Integer getCommandeId() {
+		return this.commandeId;
+	}
+
 	public List<Commande> getCommandes() {
 		return this.commandes;
+	}
+
+	public List<Etat> getEtats() {
+		return this.etats;
+	}
+
+	public String save() {
+		final Commande commande = new Commande();
+		commande.setDateCommande(this.commandeBean.getDateCommande());
+		commande.setDateEnvoi(this.commandeBean.getDateEnvoi());
+		commande.setAckSent(this.commandeBean.getAckSent());
+		commande.setAckReceived(this.commandeBean.getAckReceived());
+
+		try {
+			if (this.commandeId == null) {
+				CommandeController.LOGGER
+						.debug("Création d'une nouvelle commande {}", commande);
+				this.commandeDao.create(commande);
+				FacesMessages.info("La commande a été créée avec succés.");
+			} else {
+				commande.setId(this.getCommandeId());
+				CommandeController.LOGGER.debug("Mise à jour de la commande {}",
+						commande);
+				this.commandeDao.update(commande);
+				FacesMessages
+						.info("La commande a été mise à jour avec succés.");
+			}
+		} catch (final CreateEntityException e) {
+			CommandeController.LOGGER.error(
+					"Erreur pendant la création d'une nouvelle commande.", e);
+			FacesMessages.error("Impossible de créer la commande.");
+		} catch (final UpdateEntityException e) {
+			CommandeController.LOGGER
+					.error("Erreur pendant la mise à jour de la commande d'id="
+							+ this.commandeId, e);
+			FacesMessages.error("Impossible de mettre à jour cette commande.");
+		}
+
+		return "/views/dashboard";
 	}
 
 	public void setCommandeBean(final CommandeBean commandeBean) {
@@ -72,6 +136,14 @@ public class CommandeController implements Serializable {
 
 	public void setCommandeDao(final CommandeDao commandeDao) {
 		this.commandeDao = commandeDao;
+	}
+
+	public void setCommandeId(final Integer commandeId) {
+		this.commandeId = commandeId;
+	}
+
+	public void setCommandes(final List<Commande> commandes) {
+		this.commandes = commandes;
 	}
 
 	/**
@@ -87,5 +159,28 @@ public class CommandeController implements Serializable {
 	public void setCreateCommandeBean(
 			final CreateCommandeBean createCommandeBean) {
 		this.createCommandeBean = createCommandeBean;
+	}
+
+	public void setEtatDao(final EtatDao etatDao) {
+		this.etatDao = etatDao;
+	}
+
+	public void setEtats(final List<Etat> etats) {
+		this.etats = etats;
+	}
+
+	public String update(final Commande commande) {
+		try {
+			this.commandeDao.update(commande);
+			if (commande.getEtatBean().getId() == 1) {
+
+			}
+			CommandeController.LOGGER
+					.debug("Mise à jour de la commande d'id={}", commande);
+			FacesMessages.info("Impossible de mettre à jour cette commande.");
+		} catch (final UpdateEntityException e) {
+			e.printStackTrace();
+		}
+		return "/views/commande/display";
 	}
 }

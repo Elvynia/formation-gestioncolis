@@ -12,6 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import fr.formation.gestioncolis.bean.CoordonneeBean;
+import fr.formation.gestioncolis.bean.PaquetBean;
 import fr.formation.gestioncolis.bean.ProductBean;
 import fr.formation.gestioncolis.dao.PaquetDao;
 import fr.formation.gestioncolis.entity.Paquet;
@@ -34,16 +35,24 @@ public class PaquetController implements Serializable {
 	@ManagedProperty("#{paquetDao}")
 	private PaquetDao paquetDao;
 
+	@ManagedProperty("#{paquetBean}")
+	private PaquetBean paquetBean;
+
 	List<Paquet> paquets;
 
 	@PostConstruct
 	public void _init() {
-		PaquetController.LOGGER.debug("Chargement de la liste des paquets");
+		PaquetController.LOGGER.debug(
+				"Chargement de la liste des paquets, des produits et des coordonnées…");
 		this.paquets = this.paquetDao.readAll();
 	}
 
 	public CoordonneeBean getCoordonneeBean() {
 		return this.coordonneeBean;
+	}
+
+	public PaquetBean getPaquetBean() {
+		return this.paquetBean;
 	}
 
 	public PaquetDao getPaquetDao() {
@@ -58,8 +67,20 @@ public class PaquetController implements Serializable {
 		return this.productBean;
 	}
 
+	public String save() {
+		final Paquet paquet = new Paquet();
+		paquet.setColi(this.paquetBean.getProduit());
+		paquet.setCoordonnee1(this.paquetBean.getExpediteur());
+		paquet.setCoordonnee2(this.paquetBean.getDestinataire());
+		return "/views/dashboard";
+	}
+
 	public void setCoordonneeBean(final CoordonneeBean coordonneeBean) {
 		this.coordonneeBean = coordonneeBean;
+	}
+
+	public void setPaquetBean(final PaquetBean paquetBean) {
+		this.paquetBean = paquetBean;
 	}
 
 	public void setPaquetDao(final PaquetDao paquetDao) {
