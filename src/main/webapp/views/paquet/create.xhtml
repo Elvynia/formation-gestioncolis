@@ -22,17 +22,17 @@
 								var="product" itemValue="#{product.id}"
 								itemLabel="#{product.intitule}" />
 						</b:selectOneMenu>
-						<h:outputLabel value="Expéditeur" for="coordExp" />
+						<h:outputLabel value="Expéditeur" for="expediteurId" />
 						<b:selectOneMenu value="#{coordonneeController.coordonnees}"
-							id="coordExp">
+							id="expediteurId">
 							<f:selectItem itemLabel="Choisir expéditeur" itemValue="" disabled="" />
 							<f:selectItems value="#{coordonneeController.coordonnees}"
 								var="coordE" itemValue="#{coordE.id}"
 								itemLabel="#{coordE.firstname} #{coordE.lastname}" />
 						</b:selectOneMenu>
-						<h:outputLabel value="Destinataire" for="coordDest" />
+						<h:outputLabel value="Destinataire" for="destinataireId" />
 						<b:selectOneMenu value="#{coordonneeController.coordonnees}"
-							id="coordDest">
+							id="destinataireId">
 							<f:selectItem itemLabel="Choisir destinataire" itemValue="" disabled="" />
 							<f:selectItems value="#{coordonneeController.coordonnees}"
 								var="coordD" itemValue="#{coordD.id}"
