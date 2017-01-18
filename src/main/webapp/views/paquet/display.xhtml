@@ -9,17 +9,21 @@
 
 <ui:composition template="../template.xhtml">
 	<ui:define name="content">
-		<h2>Liste des paquets</h2>
-			<b:dataTable value="#{paquetController.paquets}" var="paquet">
-				<b:dataTableColumn>
-					<f:facet name="header">Id</f:facet>
-					<h:outputText value="#{paquet.id}"/>
-				</b:dataTableColumn>
-				<b:dataTableColumn>
-					<f:facet name="header">Date récépissé</f:facet>
-					<h:outputText value="#{paquet.dateRecipisse}"/>
-				</b:dataTableColumn>
-			</b:dataTable>
+		<b:container>
+			<h2>Liste des paquets</h2>
+			<b:well>
+				<b:dataTable value="#{paquetController.paquets}" var="paquet">
+					<b:dataTableColumn>
+						<f:facet name="header">Id</f:facet>
+						<h:outputText value="#{paquet.id}" />
+					</b:dataTableColumn>
+					<b:dataTableColumn>
+						<f:facet name="header">Date récépissé</f:facet>
+						<h:outputText value="#{paquet.dateRecipisse}" />
+					</b:dataTableColumn>
+				</b:dataTable>
+			</b:well>
+		</b:container>
 	</ui:define>
 </ui:composition>
 </html>

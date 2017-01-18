@@ -10,13 +10,14 @@
 <ui:composition template="../template.xhtml">
 	<ui:define name="content">
 		<b:container>
+			<h2>Créer un paquet</h2>
 			<b:well>
-				<h2>Créer un paquet</h2>
 				<b:form>
-					<b:panelGrid colSpans="1,2,1,2,1,2,3">
+					<b:panelGrid colSpans="1,2,1,2,1,2,1,2">
 						<h:outputLabel value="Produit" for="productId" />
 						<b:selectOneMenu value="#{productController.products}"
 							id="productId">
+							<f:selectItem itemLabel="Choisir produit" itemValue="" disabled="" />
 							<f:selectItems value="#{productController.products}"
 								var="product" itemValue="#{product.id}"
 								itemLabel="#{product.intitule}" />
@@ -24,6 +25,7 @@
 						<h:outputLabel value="Expéditeur" for="coordExp" />
 						<b:selectOneMenu value="#{coordonneeController.coordonnees}"
 							id="coordExp">
+							<f:selectItem itemLabel="Choisir expéditeur" itemValue="" disabled="" />
 							<f:selectItems value="#{coordonneeController.coordonnees}"
 								var="coordE" itemValue="#{coordE.id}"
 								itemLabel="#{coordE.firstname} #{coordE.lastname}" />
@@ -31,12 +33,14 @@
 						<h:outputLabel value="Destinataire" for="coordDest" />
 						<b:selectOneMenu value="#{coordonneeController.coordonnees}"
 							id="coordDest">
+							<f:selectItem itemLabel="Choisir destinataire" itemValue="" disabled="" />
 							<f:selectItems value="#{coordonneeController.coordonnees}"
 								var="coordD" itemValue="#{coordD.id}"
 								itemLabel="#{coordD.firstname} #{coordD.lastname}" />
 						</b:selectOneMenu>
-						<b:datepicker />
-						<b:commandButton value="Valider" action="#{paquetController.save}"/>
+						<h:outputLabel value="Date Récepissé" for="dateRcp"/>
+						<b:datepicker id="dateRcp"/>
+						<b:commandButton value="Valider" action="#{paquetController.save}" />
 					</b:panelGrid>
 				</b:form>
 			</b:well>
