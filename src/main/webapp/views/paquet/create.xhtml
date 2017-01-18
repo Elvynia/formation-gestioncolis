@@ -15,7 +15,7 @@
 				<b:form>
 					<b:panelGrid colSpans="1,2,1,2,1,2,1,2">
 						<h:outputLabel value="Produit" for="productId" />
-						<b:selectOneMenu value="#{productController.products}"
+						<b:selectOneMenu value="#{paquetController.productId}"
 							id="productId">
 							<f:selectItem itemLabel="Choisir produit" itemValue="" disabled="" />
 							<f:selectItems value="#{productController.products}"
@@ -23,7 +23,7 @@
 								itemLabel="#{product.intitule}" />
 						</b:selectOneMenu>
 						<h:outputLabel value="Expéditeur" for="expediteurId" />
-						<b:selectOneMenu value="#{coordonneeController.coordonnees}"
+						<b:selectOneMenu value="#{paquetController.expediteurId}"
 							id="expediteurId">
 							<f:selectItem itemLabel="Choisir expéditeur" itemValue="" disabled="" />
 							<f:selectItems value="#{coordonneeController.coordonnees}"
@@ -31,7 +31,7 @@
 								itemLabel="#{coordE.firstname} #{coordE.lastname}" />
 						</b:selectOneMenu>
 						<h:outputLabel value="Destinataire" for="destinataireId" />
-						<b:selectOneMenu value="#{coordonneeController.coordonnees}"
+						<b:selectOneMenu value="#{paquetController.destinataireId}"
 							id="destinataireId">
 							<f:selectItem itemLabel="Choisir destinataire" itemValue="" disabled="" />
 							<f:selectItems value="#{coordonneeController.coordonnees}"
