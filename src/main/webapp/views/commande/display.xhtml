@@ -16,8 +16,7 @@
 			<b:dataTable value="#{commandeController.commandes}" var="commande">
 				<b:dataTableColumn>
 					<f:facet name="header">ID Paquet</f:facet>
-<!-- 					<h:outputText value="#{paquetBean.id}" /> -->
-					<h:outputText value="0" />
+					<h:outputText value="#{commande.paquetBean.id}" />
 				</b:dataTableColumn>
 				<b:dataTableColumn>
 					<f:facet name="header">Date commande</f:facet>
@@ -34,11 +33,10 @@
 				<b:dataTableColumn>
 					<f:facet name="header">Etat</f:facet>
 					<p:selectOneMenu value="#{commande.etatBean.id}">>
-						<c:forEach var="etat" items="#{commandeController.etats}">
-			            	<f:selectItem itemLabel="#{etat.nom}" itemValue="#{etat.id}" />
-			            	<f:ajax execute="@form" render="@none"
+		            	<f:selectItems value="#{commandeController.etats}" var="etat"
+							itemLabel="#{etat.nom}" itemValue="#{etat.id}" />
+		            	<f:ajax execute="@form" render="@none"
 							listener="#{commandeController.update(commande)}" />
-						</c:forEach>
 			        </p:selectOneMenu>
 				</b:dataTableColumn>
 				<b:dataTableColumn>
