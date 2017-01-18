@@ -9,7 +9,11 @@ import java.util.Date;
 @ViewScoped
 public class CommandeBean implements Serializable {
 
-    private Integer id;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private Integer id;
     private Integer paquet;
     private Date dateCommande;
     private Date dateEnvoi;
@@ -48,15 +52,6 @@ public class CommandeBean implements Serializable {
     public void setDateEnvoi(Date dateEnvoi) {
         this.dateEnvoi = dateEnvoi;
     }
-
-    public Integer getEtat() {
-        return etat;
-    }
-
-    public void setEtat(Integer etat) {
-        this.etat = etat;
-    }
-
     public Date getAckSent() {
         return ackSent;
     }
@@ -72,4 +67,19 @@ public class CommandeBean implements Serializable {
     public void setAckReceived(Date ackReceived) {
         this.ackReceived = ackReceived;
     }
+
+	/**
+	 * @return the etat
+	 */
+	public Integer getEtat() {
+		return etat;
+	}
+
+	/**
+	 * @param etat the etat to set
+	 */
+	public void setEtat(Integer etat) {
+		this.etat = etat;
+	}
+
 }

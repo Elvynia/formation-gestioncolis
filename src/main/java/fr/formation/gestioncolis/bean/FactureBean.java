@@ -5,6 +5,8 @@ import java.io.Serializable;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
+import fr.formation.gestioncolis.entity.Commande;
+
 @ManagedBean
 @ViewScoped
 public class FactureBean implements Serializable {
@@ -16,7 +18,7 @@ public class FactureBean implements Serializable {
 	private String dateFacture;
 	private double montant;
 	private String reference;
-	private Integer commande;
+	private Commande commandeBean;
 	/**
 	 * @return the dateFacture
 	 */
@@ -53,18 +55,20 @@ public class FactureBean implements Serializable {
 	public void setReference(String reference) {
 		this.reference = reference;
 	}
+
 	/**
 	 * @return the commandeBean
 	 */
-	public Integer getCommande() {
-		return commande;
+	public Commande getCommandeBean() {
+		return commandeBean;
 	}
 	/**
 	 * @param commandeBean the commandeBean to set
 	 */
-	public void setCommande(Integer commande) {
-		this.commande = commande;
+	public void setCommandeBean(Commande commandeBean) {
+		this.commandeBean = commandeBean;
 	}
+
 	
 
 }
