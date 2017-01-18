@@ -1,7 +1,7 @@
 package fr.formation.gestioncolis.bean;
 
 import java.io.Serializable;
-import java.util.Calendar;
+import java.util.Date;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
@@ -19,9 +19,9 @@ public class PaquetBean implements Serializable {
 	private Product produit;
 	private Coordonnee expediteur;
 	private Coordonnee destinataire;
-	private Calendar dateRecepice;
+	private Date dateRecepice;
 
-	public Calendar getDateRecepice() {
+	public Date getDateRecepice() {
 		return this.dateRecepice;
 	}
 
@@ -41,7 +41,7 @@ public class PaquetBean implements Serializable {
 		return this.produit;
 	}
 
-	public void setDateRecepice(final Calendar dateRecepice) {
+	public void setDateRecepice(final Date dateRecepice) {
 		this.dateRecepice = dateRecepice;
 	}
 
