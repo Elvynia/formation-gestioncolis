@@ -54,7 +54,7 @@ public class Commande implements Serializable {
 	private Etat etatBean;
 
 	// bi-directional many-to-one association to Facture
-	@OneToMany(mappedBy = "commandeBean")
+	@OneToMany(mappedBy = "commande")
 	private List<Facture> factures;
 
 	@Id
@@ -82,7 +82,7 @@ public class Commande implements Serializable {
 
 	public Facture addFacture(final Facture facture) {
 		this.getFactures().add(facture);
-		facture.setCommandeBean(this);
+		facture.setCommande(this);
 
 		return facture;
 	}
@@ -143,7 +143,7 @@ public class Commande implements Serializable {
 
 	public Facture removeFacture(final Facture facture) {
 		this.getFactures().remove(facture);
-		facture.setCommandeBean(null);
+		facture.setCommande(null);
 
 		return facture;
 	}

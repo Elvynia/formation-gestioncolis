@@ -28,7 +28,7 @@
 						</b:dataTableColumn>
 						<b:dataTableColumn>
 							<f:facet name="header">N° Commande</f:facet>
-							<h:outputText value="#{facture.commandeBean.id}" />
+							<h:outputText value="#{facture.commande.id}" />
 						</b:dataTableColumn>
 						<b:dataTableColumn>
 							<f:facet name="header">&nbsp;</f:facet>
@@ -36,7 +36,7 @@
 							
 							<b:commandButton look="btn btn-info" value="Détails">
 								<f:ajax execute="@form" render="@form factureInfosForm messages"
-									listener="#{factureController.readCommand(facture.commandeBean.id)}" />
+									listener="#{factureController.readCommand(facture.commande.id)}" />
 							</b:commandButton>
 						</b:dataTableColumn>
 					</b:dataTable>

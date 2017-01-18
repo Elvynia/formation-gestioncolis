@@ -61,15 +61,45 @@ public class FactureController implements Serializable {
 	}
 
 	// Recuperer la commande via l'id commande
-	public void readCommand(Integer idcommande) {
-		 Commande commande = commandeDao.read(idcommande);
+	public void readCommand(Integer idCommande) {
+		 Commande commande = commandeDao.read(idCommande);
 		 commandeBean.setId(commande.getId());
 		 commandeBean.setDateCommande(commande.getDateCommande());
 		 commandeBean.setDateEnvoi(commande.getDateEnvoi());
 		 commandeBean.setAckSent(commande.getAckSent());
 		 commandeBean.setAckReceived(commande.getAckReceived());
-//		 Etat etat = etatDao.read(commande.getEtatBean().getId());
-//		 etatBean.setNom(etat.getNom());
+		 Facture facture = factureDao.read(idCommande);
+		 factureBean.setReference(facture.getReference());
+		 Etat etat = etatDao.read(commande.getEtatBean().getId());
+		 etatBean.setNom(etat.getNom());
+	}
+
+	/**
+	 * @return the etatBean
+	 */
+	public EtatBean getEtatBean() {
+		return etatBean;
+	}
+
+	/**
+	 * @param etatBean the etatBean to set
+	 */
+	public void setEtatBean(EtatBean etatBean) {
+		this.etatBean = etatBean;
+	}
+
+	/**
+	 * @return the etatDao
+	 */
+	public EtatDao getEtatDao() {
+		return etatDao;
+	}
+
+	/**
+	 * @param etatDao the etatDao to set
+	 */
+	public void setEtatDao(EtatDao etatDao) {
+		this.etatDao = etatDao;
 	}
 
 	/**

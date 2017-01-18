@@ -18,7 +18,7 @@ public class FactureBean implements Serializable {
 	private String dateFacture;
 	private double montant;
 	private String reference;
-	private Commande commandeBean;
+	private Commande commande;
 	/**
 	 * @return the dateFacture
 	 */
@@ -60,13 +60,13 @@ public class FactureBean implements Serializable {
 	 * @return the commandeBean
 	 */
 	public Commande getCommandeBean() {
-		return commandeBean;
+		return commande;
 	}
 	/**
 	 * @param commandeBean the commandeBean to set
 	 */
 	public void setCommandeBean(Commande commandeBean) {
-		this.commandeBean = commandeBean;
+		this.commande = commandeBean;
 	}
 
 	
