@@ -15,6 +15,8 @@
 
 <h:body>
 	<h:form>
+		<input type="hidden" name="${_csrf.parameterName}"
+			value="${_csrf.token}" />
 		<b:navBar brand="GestionColis" brandHref="#{request.contextPath}/views/dashboard.html">
 			<b:navbarLinks>
 				<b:dropMenu value="Coordonnées">
@@ -55,7 +57,7 @@
 				</b:dropMenu>
 			</b:navbarLinks>
 			<b:navbarLinks pull="right">
-				<h:outputLabel value="#{loginBean.name}" />
+				<h:outputLink value="#{request.getContextPath()}/j_spring_security_logout">{request.getUserPrincipal()}</h:outputLink>
 			</b:navbarLinks>
 		</b:navBar>
 	</h:form>
