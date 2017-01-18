@@ -2,7 +2,6 @@ package fr.formation.gestioncolis.controller;
 
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -76,7 +75,7 @@ public class CommandeController implements Serializable {
 		try {
 			this.commandeDao.delete(commande.getId());
 			this.commandes.remove(commande);
-			FacesMessages.info("La commande a été supprimée avec succés.");
+			FacesMessages.info("La commande a été supprimée avec succès.");
 		} catch (final DeleteEntityException e) {
 			CommandeController.LOGGER
 					.error("Erreur lors de la suppression de la commande d'id="
@@ -98,6 +97,25 @@ public class CommandeController implements Serializable {
 		return this.etats;
 	}
 
+	private Commande majDatesCommande(final Commande commande) {
+		final Date date = new Date();
+		SimpleDateFormat formater = null;
+		formater = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		formater.format(date);
+
+		if (commande.getEtatBean().getId() == 1) {
+			commande.setDateCommande(date);
+		} else if (commande.getEtatBean().getId() == 2) {
+			commande.setDateEnvoi(date);
+		} else if (commande.getEtatBean().getId() == 3) {
+			commande.setAckSent(date);
+		} else if (commande.getEtatBean().getId() == 4) {
+			commande.setAckReceived(date);
+		}
+
+		return commande;
+	}
+
 	public String save() {
 		final Commande commande = new Commande();
 		commande.setDateCommande(this.commandeBean.getDateCommande());
@@ -110,14 +128,14 @@ public class CommandeController implements Serializable {
 				CommandeController.LOGGER
 						.debug("Création d'une nouvelle commande {}", commande);
 				this.commandeDao.create(commande);
-				FacesMessages.info("La commande a été créée avec succés.");
+				FacesMessages.info("La commande a été créée avec succès.");
 			} else {
 				commande.setId(this.getCommandeId());
 				CommandeController.LOGGER.debug("Mise à jour de la commande {}",
 						commande);
 				this.commandeDao.update(commande);
 				FacesMessages
-						.info("La commande a été mise à jour avec succés.");
+						.info("La commande a été mise à jour avec succès.");
 			}
 		} catch (final CreateEntityException e) {
 			CommandeController.LOGGER.error(
@@ -172,7 +190,7 @@ public class CommandeController implements Serializable {
 		this.etats = etats;
 	}
 
-	public String update(final Commande commande) {
+	public void update(final Commande commande) {
 		try {
 			this.commandeDao.update(this.majDatesCommande(commande));
 			CommandeController.LOGGER
@@ -180,29 +198,9 @@ public class CommandeController implements Serializable {
 			FacesMessages.info("Mise à jour de la commande.");
 		} catch (final UpdateEntityException e) {
 			CommandeController.LOGGER
-			.error("Erreur pendant la mise à jour de la commande d'id="
-					+ this.commandeId, e);
+					.error("Erreur pendant la mise à jour de la commande d'id="
+							+ this.commandeId, e);
 			FacesMessages.error("Impossible de mettre à jour cette commande.");
 		}
-		return "/views/commande/display";
-	}
-	
-	private Commande majDatesCommande(final Commande commande) {
-		Date date = new Date();
-		SimpleDateFormat formater = null;
-		formater = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		formater.format(date);
-		
-		if (commande.getEtatBean().getId() == 1) {
-			commande.setDateCommande(date);
-		} else if (commande.getEtatBean().getId() == 2) {
-			commande.setDateEnvoi(date);
-		} else if (commande.getEtatBean().getId() == 3) {
-			commande.setAckSent(date);
-		} else if (commande.getEtatBean().getId() == 4) {
-			commande.setAckReceived(date);
-		}
-		
-		return commande;
 	}
 }

@@ -44,18 +44,13 @@
                     <div>
                         <h4>Bordereau n° #{bordereauBean.id}</h4>
                         <b:inputTextarea readonly="true" label="Détail" value="#{bordereauBean.detail}"/>
-                        <b:inputText readonly="true" label="Date signature" value="#{bordereauBean.dateSignature}"/>
+                        <b:inputText readonly="true" label="Date signature" value="#{bordereauBean.dateSignature}">
+                            <f:convertDateTime pattern="EEE d MMM yyyy 'à' hh'h'"/>
+                        </b:inputText>
                     </div>
 
                     <div>
-                        <h4>Commande n° #{bordereauBean.commande}</h4>
-                        <b:inputText readonly="true" label="Paquet" value="#{productBean.reference}"/>
-                        <b:inputText readonly="true" label="Date Commande" value="#{commandeBean.dateCommande}"/>
-                        <b:inputText readonly="true" label="Date Envoi" value="#{commandeBean.dateEnvoi}"/>
-                        <b:inputText readonly="true" label="Etat" value="#{commandeBean.etat.nom}"/>
-                        <b:inputText readonly="true" label="Date expédition" value="#{commandeBean.ackSent}"/>
-                        <b:inputText readonly="true" label="Date réception" value="#{commandeBean.ackReceived}"/>
-
+                        <ui:include src="../commande/commande_display_fragment.xhtml" />
                     </div>
                 </h:form>
             </div>

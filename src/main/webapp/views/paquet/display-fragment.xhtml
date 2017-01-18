@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:b="http://bootsfaces.net/ui">
+
+	<h:body>
+		<b:container>
+			<h2>Liste des paquets :</h2>
+			<b:well>
+				<h:form>
+					<b:dataTable value="#{paquetController.paquets}" var="paquet">
+						<b:dataTableColumn>
+							<f:facet name="header">Id</f:facet>
+							<h:outputText value="#{paquet.id}" />
+						</b:dataTableColumn>
+						<b:dataTableColumn>
+							<f:facet name="header">Date</f:facet>
+							<h:outputText value="#{paquet.dateRecipisse }" />
+						</b:dataTableColumn>
+						<b:dataTableColumn>
+							<f:facet name="header">NomExp</f:facet>
+							<h:outputText value="#{paquet.coordonnee1.firstname}" />
+						</b:dataTableColumn>
+
+						<b:dataTableColumn>
+							<f:facet name="header">PrénomExp</f:facet>
+							<h:outputText value="#{paquet.coordonnee1.lastname}" />
+						</b:dataTableColumn>
+
+						<b:dataTableColumn>
+							<f:facet name="header">NomDest</f:facet>
+							<h:outputText value="#{paquet.coordonnee2.firstname}" />
+						</b:dataTableColumn>
+
+						<b:dataTableColumn>
+							<f:facet name="header">PrénomDest</f:facet>
+							<h:outputText value="#{paquet.coordonnee2.lastname}" />
+						</b:dataTableColumn>
+
+						<b:dataTableColumn>
+							<f:facet name="header">Supprimer</f:facet>
+							<b:commandButton value="Supprimer"
+								action="#{paquetController.delete(paquet)}" />
+						</b:dataTableColumn>
+					</b:dataTable>
+				</h:form>
+			</b:well>
+		</b:container>
+	</h:body>
+</html>
