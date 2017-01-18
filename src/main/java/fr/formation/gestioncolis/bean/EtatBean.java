@@ -15,30 +15,22 @@ public class EtatBean implements Serializable {
 
 	private String nom;
 
-	/**
-	 * @return the id
-	 */
+	/** 	 * @return the id	 */
 	public Integer getId() {
 		return this.id;
 	}
 
-	/**
-	 * @return the nom
-	 */
+	/**	 * @return the nom	 */
 	public String getNom() {
 		return this.nom;
 	}
 
-	/**
-	 * @param id the id to set
-	 */
+	/**	 * @param id the id to set	 */
 	public void setId(final Integer id) {
 		this.id = id;
 	}
 
-	/**
-	 * @param nom the nom to set
-	 */
+	/**	 * @param nom the nom to set	 */
 	public void setNom(final String nom) {
 		this.nom = nom;
 	}
