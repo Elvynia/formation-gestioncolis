@@ -18,6 +18,7 @@ import fr.formation.gestioncolis.dao.CoordonneeDao;
 import fr.formation.gestioncolis.dao.PaquetDao;
 import fr.formation.gestioncolis.dao.ProductDao;
 import fr.formation.gestioncolis.entity.Paquet;
+import fr.formation.gestioncolis.exception.CreateEntityException;
 import fr.formation.gestioncolis.exception.DeleteEntityException;
 import net.bootsfaces.utils.FacesMessages;
 
@@ -117,12 +118,18 @@ public class PaquetController implements Serializable {
 	}
 
 	public String save() {
-		PaquetController.LOGGER.debug("Save!");
 		final Paquet paquet = new Paquet();
 		paquet.setColi(this.productDao.read(this.productId));
 		paquet.setCoordonnee1(this.coordonneeDao.read(this.expediteurId));
 		paquet.setCoordonnee2(this.coordonneeDao.read(this.destinataireId));
-
+		try {
+			this.paquetDao.create(paquet);
+			PaquetController.LOGGER.debug("Création du nouveau paquet {}", paquet);
+		} catch (final CreateEntityException e) {
+			PaquetController.LOGGER
+					.error("Erreur lors de la création d'un nouveau paquet", e);
+			FacesMessages.error("Erreur lors de la création d'un nouveau paquet");
+		}
 		return "/views/dashboard";
 	}
 
