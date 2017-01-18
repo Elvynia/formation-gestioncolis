@@ -36,13 +36,13 @@ public class Facture implements Serializable {
 	// bi-directional many-to-one association to Commande
 	@ManyToOne
 	@JoinColumn(name = "COMMANDE")
-	private Commande commandeBean;
+	private Commande commande;
 
 	public Facture() {
 	}
 
-	public Commande getCommandeBean() {
-		return this.commandeBean;
+	public Commande getCommande() {
+		return this.commande;
 	}
 
 	public String getDateFacture() {
@@ -61,8 +61,8 @@ public class Facture implements Serializable {
 		return this.reference;
 	}
 
-	public void setCommandeBean(final Commande commandeBean) {
-		this.commandeBean = commandeBean;
+	public void setCommande(final Commande commande) {
+		this.commande = commande;
 	}
 
 	public void setDateFacture(final String dateFacture) {

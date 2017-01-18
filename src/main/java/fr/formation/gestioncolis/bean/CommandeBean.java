@@ -89,4 +89,19 @@ public class CommandeBean implements Serializable {
 	public void setId(Integer id) {
 		this.id = id;
 	}
+
+	/**
+	 * @return the etat
+	 */
+	public Integer getEtat() {
+		return etat;
+	}
+
+	/**
+	 * @param etat the etat to set
+	 */
+	public void setEtat(Integer etat) {
+		this.etat = etat;
+	}
+
 }

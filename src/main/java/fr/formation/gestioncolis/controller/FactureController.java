@@ -11,8 +11,14 @@ import javax.faces.bean.ViewScoped;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import fr.formation.gestioncolis.bean.CommandeBean;
+import fr.formation.gestioncolis.bean.EtatBean;
 import fr.formation.gestioncolis.bean.FactureBean;
+import fr.formation.gestioncolis.dao.CommandeDao;
+import fr.formation.gestioncolis.dao.EtatDao;
 import fr.formation.gestioncolis.dao.FactureDao;
+import fr.formation.gestioncolis.entity.Commande;
+import fr.formation.gestioncolis.entity.Etat;
 import fr.formation.gestioncolis.entity.Facture;
 
 @ManagedBean
@@ -27,10 +33,24 @@ public class FactureController implements Serializable {
 	 * Mémorisation de l'id da la facture pour l'édition.
 	 */
 	private Integer factureId;
-	@ManagedProperty("#{factureDao}")
-	private FactureDao factureDao;
+
 	@ManagedProperty("#{factureBean}")
 	private FactureBean factureBean;
+
+	@ManagedProperty("#{commandeBean}")
+	private CommandeBean commandeBean;
+
+	@ManagedProperty("#{factureDao}")
+	private FactureDao factureDao;
+	
+	@ManagedProperty("#{etatBean}")
+	private EtatBean etatBean;
+	
+	@ManagedProperty("#{etatDao}")
+	private EtatDao etatDao;
+
+	@ManagedProperty("#{commandeDao}")
+	private CommandeDao commandeDao;
 
 	private List<Facture> factures;
 
@@ -38,6 +58,18 @@ public class FactureController implements Serializable {
 	public void _init() {
 		FactureController.LOGGER.debug("Chargement de la liste des factures.");
 		this.factures = this.factureDao.readAll();
+	}
+
+	// Recuperer la commande via l'id commande
+	public void readCommand(Integer idcommande) {
+		 Commande commande = commandeDao.read(idcommande);
+		 commandeBean.setId(commande.getId());
+		 commandeBean.setDateCommande(commande.getDateCommande());
+		 commandeBean.setDateEnvoi(commande.getDateEnvoi());
+		 commandeBean.setAckSent(commande.getAckSent());
+		 commandeBean.setAckReceived(commande.getAckReceived());
+//		 Etat etat = etatDao.read(commande.getEtatBean().getId());
+//		 etatBean.setNom(etat.getNom());
 	}
 
 	/**
@@ -71,7 +103,36 @@ public class FactureController implements Serializable {
 		this.factureDao = factureDao;
 	}
 
+	/**
+	 * @return the commandeDao
+	 */
+	public CommandeDao getCommandeDao() {
+		return commandeDao;
+	}
+
+	/**
+	 * @param commandeDao
+	 *            the commandeDao to set
+	 */
+	public void setCommandeDao(CommandeDao commandeDao) {
+		this.commandeDao = commandeDao;
+	}
+
 	public List<Facture> getFactures() {
 		return this.factures;
+	}
+
+	/**
+	 * @return the commandeBean
+	 */
+	public CommandeBean getCommandeBean() {
+		return commandeBean;
+	}
+
+	/**
+	 * @param commandeBean the commandeBean to set
+	 */
+	public void setCommandeBean(CommandeBean commandeBean) {
+		this.commandeBean = commandeBean;
 	}
 }
