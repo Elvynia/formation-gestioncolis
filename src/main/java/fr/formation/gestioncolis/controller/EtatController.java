@@ -5,7 +5,7 @@ import java.io.Serializable;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.view.ViewScoped;
+import javax.faces.bean.ViewScoped;
 
 import org.primefaces.event.SelectEvent;
 import org.primefaces.event.UnselectEvent;
@@ -92,6 +92,7 @@ public class EtatController implements Serializable {
 		} else {
 			// TODO: Modification.
 		}
+		this.etatId = -1;
 		this.etatOrderBean.refresh();
 	}
 

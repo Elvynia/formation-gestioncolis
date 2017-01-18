@@ -12,13 +12,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import fr.formation.gestioncolis.bean.CoordonneeBean;
+import fr.formation.gestioncolis.bean.PaquetBean;
 import fr.formation.gestioncolis.bean.ProductBean;
 import fr.formation.gestioncolis.dao.CoordonneeDao;
 import fr.formation.gestioncolis.dao.PaquetDao;
 import fr.formation.gestioncolis.dao.ProductDao;
-import fr.formation.gestioncolis.entity.Coordonnee;
 import fr.formation.gestioncolis.entity.Paquet;
-import fr.formation.gestioncolis.entity.Product;
+import fr.formation.gestioncolis.exception.CreateEntityException;
+import fr.formation.gestioncolis.exception.DeleteEntityException;
+import net.bootsfaces.utils.FacesMessages;
 
 @ManagedBean
 @ViewScoped
@@ -44,19 +46,37 @@ public class PaquetController implements Serializable {
 	@ManagedProperty("#{paquetDao}")
 	private PaquetDao paquetDao;
 
+	@ManagedProperty("#{paquetBean}")
+	private PaquetBean paquetBean;
+
 	List<Paquet> paquets;
 
-	List<Product> products;
+	private Integer productId;
 
-	List<Coordonnee> coordonnees;
+	private Integer expediteurId;
+
+	private Integer destinataireId;
+
+	private String dateRcp;
 
 	@PostConstruct
 	public void _init() {
 		PaquetController.LOGGER.debug(
 				"Chargement de la liste des paquets, des produits et des coordonnées…");
 		this.paquets = this.paquetDao.readAll();
-		this.products = this.productDao.readAll();
-		this.coordonnees = this.coordonneeDao.readAll();
+	}
+
+	public String delete(final Paquet paquet) {
+		try {
+			this.paquetDao.delete(paquet.getId());
+			this.paquets.remove(paquet);
+			FacesMessages.info("Le paquet a été supprimé avec succès.");
+		} catch (final DeleteEntityException e) {
+			PaquetController.LOGGER.error(
+					"Erreur lors de la suppression du paquet d'id=" + paquet.getId(), e);
+			FacesMessages.error("Impossible de supprimer le paquet");
+		}
+		return "/views/paquet/display";
 	}
 
 	public CoordonneeBean getCoordonneeBean() {
@@ -65,6 +85,22 @@ public class PaquetController implements Serializable {
 
 	public CoordonneeDao getCoordonneeDao() {
 		return this.coordonneeDao;
+	}
+
+	public String getDateRcp() {
+		return this.dateRcp;
+	}
+
+	public Integer getDestinataireId() {
+		return this.destinataireId;
+	}
+
+	public Integer getExpediteurId() {
+		return this.expediteurId;
+	}
+
+	public PaquetBean getPaquetBean() {
+		return this.paquetBean;
 	}
 
 	public PaquetDao getPaquetDao() {
@@ -83,12 +119,50 @@ public class PaquetController implements Serializable {
 		return this.productDao;
 	}
 
+	public Integer getProductId() {
+		return this.productId;
+	}
+
+	public String save() {
+		final Paquet paquet = new Paquet();
+		paquet.setColi(this.productDao.read(this.productId));
+		paquet.setCoordonnee1(this.coordonneeDao.read(this.expediteurId));
+		paquet.setCoordonnee2(this.coordonneeDao.read(this.destinataireId));
+		PaquetController.LOGGER.debug(this.dateRcp);
+		paquet.setDateRecipisse(null);
+		try {
+			this.paquetDao.create(paquet);
+			PaquetController.LOGGER.debug("Création du nouveau paquet {}", paquet);
+		} catch (final CreateEntityException e) {
+			PaquetController.LOGGER
+					.error("Erreur lors de la création d'un nouveau paquet", e);
+			FacesMessages.error("Erreur lors de la création d'un nouveau paquet");
+		}
+		return "/views/dashboard";
+	}
+
 	public void setCoordonneeBean(final CoordonneeBean coordonneeBean) {
 		this.coordonneeBean = coordonneeBean;
 	}
 
 	public void setCoordonneeDao(final CoordonneeDao coordonneeDao) {
 		this.coordonneeDao = coordonneeDao;
+	}
+
+	public void setDateRcp(final String dateRcp) {
+		this.dateRcp = dateRcp;
+	}
+
+	public void setDestinataireId(final Integer destinataireId) {
+		this.destinataireId = destinataireId;
+	}
+
+	public void setExpediteurId(final Integer expediteurId) {
+		this.expediteurId = expediteurId;
+	}
+
+	public void setPaquetBean(final PaquetBean paquetBean) {
+		this.paquetBean = paquetBean;
 	}
 
 	public void setPaquetDao(final PaquetDao paquetDao) {
@@ -105,6 +179,10 @@ public class PaquetController implements Serializable {
 
 	public void setProductDao(final ProductDao productDao) {
 		this.productDao = productDao;
+	}
+
+	public void setProductId(final Integer productId) {
+		this.productId = productId;
 	}
 
 }

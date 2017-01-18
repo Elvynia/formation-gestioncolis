@@ -1,72 +1,94 @@
 package fr.formation.gestioncolis.bean;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
 import java.io.Serializable;
 import java.util.Date;
+
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
+
+import fr.formation.gestioncolis.entity.Etat;
 
 @ManagedBean
 @ViewScoped
 public class CommandeBean implements Serializable {
 
-    /**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
+
+	private Date ackReceived;
+
+	private Date ackSent;
+
+	private Date dateCommande;
+
+	private Date dateEnvoi;
+
+	private Etat etat;
+
 	private Integer id;
-    private Integer paquet;
-    private Date dateCommande;
-    private Date dateEnvoi;
-    private Integer etat;
-    private Date ackSent;
-    private Date ackReceived;
 
-    public Integer getId() {
-        return id;
-    }
+	private Integer idPaquet;
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+	public Date getAckReceived() {
+		return this.ackReceived;
+	}
 
-    public Integer getPaquet() {
-        return paquet;
-    }
+	public Date getAckSent() {
+		return this.ackSent;
+	}
 
-    public void setPaquet(Integer paquet) {
-        this.paquet = paquet;
-    }
+	public Date getDateCommande() {
+		return this.dateCommande;
+	}
 
-    public Date getDateCommande() {
-        return dateCommande;
-    }
+	public Date getDateEnvoi() {
+		return this.dateEnvoi;
+	}
 
-    public void setDateCommande(Date dateCommande) {
-        this.dateCommande = dateCommande;
-    }
+	public Etat getEtat() {
+		return this.etat;
+	}
 
-    public Date getDateEnvoi() {
-        return dateEnvoi;
-    }
+	public Integer getIdPaquet() {
+		return this.idPaquet;
+	}
 
-    public void setDateEnvoi(Date dateEnvoi) {
-        this.dateEnvoi = dateEnvoi;
-    }
-    public Date getAckSent() {
-        return ackSent;
-    }
+	public void setAckReceived(final Date ackReceived) {
+		this.ackReceived = ackReceived;
+	}
 
-    public void setAckSent(Date ackSent) {
-        this.ackSent = ackSent;
-    }
+	public void setAckSent(final Date ackSent) {
+		this.ackSent = ackSent;
+	}
 
-    public Date getAckReceived() {
-        return ackReceived;
-    }
+	public void setDateCommande(final Date dateCommande) {
+		this.dateCommande = dateCommande;
+	}
 
-    public void setAckReceived(Date ackReceived) {
-        this.ackReceived = ackReceived;
-    }
+	public void setDateEnvoi(final Date dateEnvoi) {
+		this.dateEnvoi = dateEnvoi;
+	}
+
+	public void setEtat(final Etat etat) {
+		this.etat = etat;
+	}
+
+	public void setIdPaquet(final Integer idPaquet) {
+		this.idPaquet = idPaquet;
+	}
+
+	/**
+	 * @return the id
+	 */
+	public Integer getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
 	/**
 	 * @return the etat

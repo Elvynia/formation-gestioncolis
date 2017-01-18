@@ -1,8 +1,12 @@
 package fr.formation.gestioncolis.bean;
 
+import fr.formation.gestioncolis.entity.Commande;
+
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import java.io.Serializable;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @ManagedBean
@@ -10,7 +14,7 @@ import java.util.Date;
 public class BordereauBean implements Serializable{
 
     private Integer id;
-    private Integer commande;
+    private Commande commande;
     private String detail;
     private Date dateSignature;
 
@@ -22,11 +26,11 @@ public class BordereauBean implements Serializable{
         this.id = id;
     }
 
-    public Integer getCommande() {
+    public Commande getCommande() {
         return commande;
     }
 
-    public void setCommande(Integer commande) {
+    public void setCommande(Commande commande) {
         this.commande = commande;
     }
 
@@ -39,7 +43,9 @@ public class BordereauBean implements Serializable{
     }
 
     public Date getDateSignature() {
-        return dateSignature;
+        //String date = new SimpleDateFormat("EEE d MMM yyyy 'à' hh'h'").format(dateSignature);
+
+        return this.dateSignature;
     }
 
     public void setDateSignature(Date dateSignature) {

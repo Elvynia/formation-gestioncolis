@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:b="http://bootsfaces.net/ui">
+<h:body>
+
+    <h4>Commande n° #{bordereauBean.commande.id}</h4>
+    <b:inputText readonly="true" label="Paquet" value="#{productBean.reference}"/>
+    <b:inputText readonly="true" label="Date Commande" value="#{bordereauBean.commande.dateCommande}">
+        <f:convertDateTime pattern="EEE d MMM yyyy 'à' hh'h'"/>
+    </b:inputText>
+    <b:inputText readonly="true" label="Date Envoi" value="#{bordereauBean.commande.dateEnvoi}">
+        <f:convertDateTime pattern="EEE d MMM yyyy 'à' hh'h'"/>
+    </b:inputText>
+    <b:inputText readonly="true" label="Etat" value="#{bordereauBean.commande.etatBean.nom}"/>
+    <b:inputText readonly="true" label="Date expédition" value="#{bordereauBean.commande.ackSent}">
+        <f:convertDateTime pattern="EEE d MMM yyyy 'à' hh'h'"/>
+    </b:inputText>
+    <b:inputText readonly="true" label="Date réception" value="#{bordereauBean.commande.ackReceived}">
+        <f:convertDateTime pattern="EEE d MMM yyyy 'à' hh'h'"/>
+    </b:inputText>
+
+</h:body>
+
+
+</html>

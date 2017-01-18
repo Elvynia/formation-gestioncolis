@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.view.ViewScoped;
+import javax.faces.bean.ViewScoped;
 
 import fr.formation.gestioncolis.dao.EtatDao;
 import fr.formation.gestioncolis.entity.Etat;

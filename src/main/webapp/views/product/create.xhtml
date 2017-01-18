@@ -37,10 +37,20 @@
 			<b:inputText label="Id" value="#{productController.productId}"
 				rendered="#{!empty productController.productId}"
 				readonly="true" />
-			<b:inputText label="Intitulé" value="#{productBean.intitule}" />
-			<b:inputText type="number" label="Poids" value="#{productBean.poids}" />
+			<b:inputText label="Intitulé" value="#{productBean.intitule}">
+				<!-- Rend la saisie du champ obligatoire. -->
+				<f:validateRequired />
+			</b:inputText>
+			<b:inputText type="number" label="Poids" value="#{productBean.poids}">
+				<!-- La saisie doit pouvoir être transformée en float Java. -->
+				<f:validateRequired />
+				<f:validateDoubleRange />
+			</b:inputText>
 			<b:inputText label="Référence (unique)"
-				value="#{productBean.reference}" />
+				value="#{productBean.reference}">
+				<f:validateRequired />
+				<f:validateLength minimum="3" maximum="32" />	
+			</b:inputText>
 			<b:commandButton value="Valider" action="#{productController.save}" />
 		</b:form>
 	</ui:define>
