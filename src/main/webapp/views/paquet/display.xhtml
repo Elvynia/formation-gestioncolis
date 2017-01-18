@@ -9,45 +9,7 @@
 
 <ui:composition template="../template.xhtml">
 	<ui:define name="content">
-		<h2>Liste des paquets :</h2>
-		<h:form>
-			<b:dataTable value="#{paquetController.paquets}" var="paquet">
-				<b:dataTableColumn>
-					<f:facet name="header">Id</f:facet>
-					<h:outputText value="#{paquet.id}" />
-				</b:dataTableColumn>
-				<b:dataTableColumn>
-					<f:facet name="header">Date</f:facet>
-					<h:outputText value="#{paquet.dateRecipisse }" />
-				</b:dataTableColumn>
-				<b:dataTableColumn>
-					<f:facet name="header">NomExp</f:facet>
-					<h:outputText value="#{paquet.coordonnee1.firstname}" />
-				</b:dataTableColumn>
-				
-				<b:dataTableColumn>
-					<f:facet name="header">PrénomExp</f:facet>
-					<h:outputText value="#{paquet.coordonnee1.lastname}" />
-				</b:dataTableColumn>
-				
-				<b:dataTableColumn>
-					<f:facet name="header">NomDest</f:facet>
-					<h:outputText value="#{paquet.coordonnee2.firstname}" />
-				</b:dataTableColumn>
-				
-				<b:dataTableColumn>
-					<f:facet name="header">PrénomDest</f:facet>
-					<h:outputText value="#{paquet.coordonnee2.lastname}" />
-				</b:dataTableColumn>
-				
-				
-				<b:dataTableColumn>
-					<f:facet name="header">Supprimer</f:facet>
-					<b:commandButton value="Supprimer"
-						action="#{paquetController.delete(paquet)}" />
-				</b:dataTableColumn>
-			</b:dataTable>
-		</h:form>
+		<ui:include src="display-fragment.xhtml"/>
 	</ui:define>
 </ui:composition>
 </html>
