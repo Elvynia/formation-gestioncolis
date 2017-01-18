@@ -1,56 +1,59 @@
 package fr.formation.gestioncolis.controller;
 
-import fr.formation.gestioncolis.bean.BordereauBean;
-import fr.formation.gestioncolis.dao.BordereauDao;
-import fr.formation.gestioncolis.entity.Bordereau;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.io.Serializable;
+import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
-import java.io.Serializable;
-import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import fr.formation.gestioncolis.bean.BordereauBean;
+import fr.formation.gestioncolis.dao.BordereauDao;
+import fr.formation.gestioncolis.entity.Bordereau;
 
 @ManagedBean
 @ViewScoped
 public class BordereauController implements Serializable {
 
-    private static final Logger LOGGER = LoggerFactory
-            .getLogger(BordereauController.class);
+	private static final Logger LOGGER = LoggerFactory
+			.getLogger(BordereauController.class);
 
-    @ManagedProperty("#{bordereauBean}")
-    private BordereauBean bordereauBean;
+	@ManagedProperty("#{bordereauBean}")
+	private BordereauBean bordereauBean;
 
-    @ManagedProperty("#{bordereauDao}")
-    private BordereauDao bordereauDao;
+	@ManagedProperty("#{bordereauDao}")
+	private BordereauDao bordereauDao;
 
-    private List<Bordereau> bordereaux;
+	private List<Bordereau> bordereaux;
 
-    @PostConstruct
-    public void _init(){
-        BordereauController.LOGGER.debug("Chargement de la liste des bordereaux.");
-        this.bordereaux = bordereauDao.readAll();
-    }
+	@PostConstruct
+	public void _init() {
+		BordereauController.LOGGER
+				.debug("Chargement de la liste des bordereaux.");
+		this.bordereaux = this.bordereauDao.readAll();
+	}
 
-    public void detail(Integer id){
+	public void detail(final Integer id) {
 
-    }
+	}
 
-    public List<Bordereau> getBordereaux() {
-        return bordereaux;
-    }
+	public List<Bordereau> getBordereaux() {
+		return this.bordereaux;
+	}
 
-    public void setBordereauBean(BordereauBean bordereauBean) {
-        this.bordereauBean = bordereauBean;
-    }
+	public void setBordereauBean(final BordereauBean bordereauBean) {
+		this.bordereauBean = bordereauBean;
+	}
 
-    public void setBordereauDao(BordereauDao bordereauDao) {
-        this.bordereauDao = bordereauDao;
-    }
+	public void setBordereauDao(final BordereauDao bordereauDao) {
+		this.bordereauDao = bordereauDao;
+	}
 
-    public void setBordereaux(List<Bordereau> bordereaux) {
-        this.bordereaux = bordereaux;
-    }
+	public void setBordereaux(final List<Bordereau> bordereaux) {
+		this.bordereaux = bordereaux;
+	}
 }
