@@ -2,7 +2,6 @@ package fr.formation.gestioncolis.controller;
 
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -76,7 +75,7 @@ public class CommandeController implements Serializable {
 		try {
 			this.commandeDao.delete(commande.getId());
 			this.commandes.remove(commande);
-			FacesMessages.info("La commande a été supprimée avec succés.");
+			FacesMessages.info("La commande a été supprimée avec succès.");
 		} catch (final DeleteEntityException e) {
 			CommandeController.LOGGER
 					.error("Erreur lors de la suppression de la commande d'id="
@@ -110,14 +109,14 @@ public class CommandeController implements Serializable {
 				CommandeController.LOGGER
 						.debug("Création d'une nouvelle commande {}", commande);
 				this.commandeDao.create(commande);
-				FacesMessages.info("La commande a été créée avec succés.");
+				FacesMessages.info("La commande a été créée avec succès.");
 			} else {
 				commande.setId(this.getCommandeId());
 				CommandeController.LOGGER.debug("Mise à jour de la commande {}",
 						commande);
 				this.commandeDao.update(commande);
 				FacesMessages
-						.info("La commande a été mise à jour avec succés.");
+						.info("La commande a été mise à jour avec succès.");
 			}
 		} catch (final CreateEntityException e) {
 			CommandeController.LOGGER.error(
@@ -172,7 +171,7 @@ public class CommandeController implements Serializable {
 		this.etats = etats;
 	}
 
-	public String update(final Commande commande) {
+	public void update(final Commande commande) {
 		try {
 			this.commandeDao.update(this.majDatesCommande(commande));
 			CommandeController.LOGGER
@@ -184,9 +183,9 @@ public class CommandeController implements Serializable {
 					+ this.commandeId, e);
 			FacesMessages.error("Impossible de mettre à jour cette commande.");
 		}
-		return "/views/commande/display";
 	}
 	
+	// Insertion des dates dans les champs correspondant selon l'état
 	private Commande majDatesCommande(final Commande commande) {
 		Date date = new Date();
 		SimpleDateFormat formater = null;
