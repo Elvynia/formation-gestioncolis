@@ -33,10 +33,9 @@
 				<b:dataTableColumn>
 					<f:facet name="header">Etat</f:facet>
 					<p:selectOneMenu value="#{commande.etatBean.id}">>
-		            	<f:selectItems value="#{commandeController.etats}" var="etat"
-							itemLabel="#{etat.nom}" itemValue="#{etat.id}" />
-		            	<f:ajax execute="@form" render="@none"
-							listener="#{commandeController.update(commande)}" />
+		            	<f:selectItems value="#{commandeController.etats}" var="etat" itemLabel="#{etat.nom}" itemValue="#{etat.id}" />
+		            	<f:ajax execute="@form" render="@form messages"
+						listener="#{commandeController.update(commande)}" />
 			        </p:selectOneMenu>
 				</b:dataTableColumn>
 				<b:dataTableColumn>
