@@ -15,43 +15,51 @@
                 <b:dataTable value="#{bordereauController.bordereaux}" var="bordereau">
                     <b:dataTableColumn>
                         <f:facet name="header">Id</f:facet>
-                        <h:outputText value="#{bordereau.id}" />
+                        <h:outputText value="#{bordereau.id}"/>
                     </b:dataTableColumn>
                     <b:dataTableColumn>
                         <f:facet name="header">Commande</f:facet>
-                    <h:outputText value="#{bordereau.commandeBean.getId()}" />
+                        <h:outputText value="#{bordereau.commandeBean.getId()}"/>
                     </b:dataTableColumn>
                     <b:dataTableColumn>
                         <f:facet name="header">Date</f:facet>
-                        <h:outputText value="#{bordereau.dateSignature}" />
+                        <h:outputText value="#{bordereau.dateSignature}"/>
                     </b:dataTableColumn>
 
                     <b:dataTableColumn>
                         <f:facet name="header">Detail</f:facet>
                         <b:commandButton value=">"
-                                         action="#{bordereauController.detail(bordereau.id)}" />
+                                         action="#{bordereauController.detail(bordereau.id)}">
+
+                        </b:commandButton>
+
                     </b:dataTableColumn>
                 </b:dataTable>
             </h:form>
         </div>
-        <div class="col-md-7">
-            <h3>Detail du bordereau :</h3>
-            <h:form>
-                <div>
-                    <h4>Bordereau n° #{bordereau.id}</h4>
-                    <b:inputTextarea label="Détail" value="#{bordereau.detail}"/>
-                    <b:inputText label="Date signature" value="#{bordereau.dateSignature}"/>
-                </div>
-                <div>
-                    <h4>Commande n° #{commandeBean.id}</h4>
-                    <b:inputText label="Date Commande" value="#{commandeBean.dateCommande}"/>
-                    <b:inputText label="Date Envoi" value="#{commandeBean.dateEnvoi}"/>
-                    <b:inputText label="Etat" value="#{commandeBean.etat}"/>
-                    <b:inputText label="Date expédition" value="#{commandeBean.ackSent}"/>
-                    <b:inputText label="Date réception" value="#{commandeBean.ackReceived}"/>
-                </div>
-            </h:form>
-        </div>
+        <h:panelGroup rendered="#{bordereauBean.id != null}">
+            <div class="col-md-7">
+                <h3>Detail du bordereau :</h3>
+                <h:form>
+                    <div>
+                        <h4>Bordereau n° #{bordereauBean.id}</h4>
+                        <b:inputTextarea readonly="true" label="Détail" value="#{bordereauBean.detail}"/>
+                        <b:inputText readonly="true" label="Date signature" value="#{bordereauBean.dateSignature}"/>
+                    </div>
+
+                    <div>
+                        <h4>Commande n° #{bordereauBean.commande}</h4>
+                        <b:inputText readonly="true" label="Paquet" value="#{productBean.reference}"/>
+                        <b:inputText readonly="true" label="Date Commande" value="#{commandeBean.dateCommande}"/>
+                        <b:inputText readonly="true" label="Date Envoi" value="#{commandeBean.dateEnvoi}"/>
+                        <b:inputText readonly="true" label="Etat" value="#{commandeBean.etat.nom}"/>
+                        <b:inputText readonly="true" label="Date expédition" value="#{commandeBean.ackSent}"/>
+                        <b:inputText readonly="true" label="Date réception" value="#{commandeBean.ackReceived}"/>
+
+                    </div>
+                </h:form>
+            </div>
+        </h:panelGroup>
     </ui:define>
 </ui:composition>
 </html>
