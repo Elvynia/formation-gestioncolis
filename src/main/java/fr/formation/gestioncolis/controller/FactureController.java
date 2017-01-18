@@ -20,6 +20,9 @@ import fr.formation.gestioncolis.dao.FactureDao;
 import fr.formation.gestioncolis.entity.Commande;
 import fr.formation.gestioncolis.entity.Etat;
 import fr.formation.gestioncolis.entity.Facture;
+import fr.formation.gestioncolis.exception.CreateEntityException;
+import fr.formation.gestioncolis.exception.UpdateEntityException;
+import net.bootsfaces.utils.FacesMessages;
 
 @ManagedBean
 @ViewScoped
@@ -73,6 +76,39 @@ public class FactureController implements Serializable {
 		 Etat etat = etatDao.read(commande.getEtatBean().getId());
 		 etatBean.setNom(etat.getNom());
 	}
+	public String save() {
+		final Facture facture = new Facture();
+		facture.setReference(this.factureBean.getReference());
+		facture.setCommande(this.factureBean.getCommandeBean());
+		facture.setMontant(this.factureBean.getMontant());
+		facture.setDateFacture(this.factureBean.getDateFacture());
+
+		try {
+			if (this.factureId == null) {
+				FactureController.LOGGER.debug("Création de la nouvelle facture",
+						facture);
+				this.factureDao.create(facture);
+				FacesMessages.info("La facture a été créé avec succès.");
+			} else {
+				facture.setId(this.getFactureId());
+				FactureController.LOGGER.debug("Mise à jour de la facture",
+						facture);
+				this.factureDao.update(facture);
+				FacesMessages.info("La facture a été mis à jour avec succès.");
+			}
+		} catch (final CreateEntityException e) {
+			FactureController.LOGGER.error(
+					"Erreur pendant la création de la nouvelle facture.", e);
+			FacesMessages.error("Impossible de créer la facture.");
+		} catch (final UpdateEntityException e) {
+			FactureController.LOGGER
+					.error("Erreur pendant la mise à jour de la facture d'id="
+							+ this.factureId, e);
+			FacesMessages.error("Impossible de mettre à jour cette facture.");
+		}
+		return "/views/dashboard";
+	}
+
 
 	/**
 	 * @return the etatBean
