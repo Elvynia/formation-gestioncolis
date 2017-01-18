@@ -14,7 +14,9 @@ import org.slf4j.LoggerFactory;
 import fr.formation.gestioncolis.bean.CoordonneeBean;
 import fr.formation.gestioncolis.bean.PaquetBean;
 import fr.formation.gestioncolis.bean.ProductBean;
+import fr.formation.gestioncolis.dao.CoordonneeDao;
 import fr.formation.gestioncolis.dao.PaquetDao;
+import fr.formation.gestioncolis.dao.ProductDao;
 import fr.formation.gestioncolis.entity.Paquet;
 import fr.formation.gestioncolis.exception.DeleteEntityException;
 import net.bootsfaces.utils.FacesMessages;
@@ -34,6 +36,12 @@ public class PaquetController implements Serializable {
 	@ManagedProperty("#{productBean}")
 	private ProductBean productBean;
 
+	@ManagedProperty("#{coordonneeDao}")
+	private CoordonneeDao coordonneeDao;
+
+	@ManagedProperty("#{productDao}")
+	private ProductDao productDao;
+
 	@ManagedProperty("#{paquetDao}")
 	private PaquetDao paquetDao;
 
@@ -42,6 +50,12 @@ public class PaquetController implements Serializable {
 
 	List<Paquet> paquets;
 
+	private Integer productId;
+
+	private Integer expediteurId;
+
+	private Integer destinataireId;
+
 	@PostConstruct
 	public void _init() {
 		PaquetController.LOGGER.debug(
@@ -49,7 +63,6 @@ public class PaquetController implements Serializable {
 		this.paquets = this.paquetDao.readAll();
 	}
 
-	// test com
 	public String delete(final Paquet paquet) {
 		try {
 			this.paquetDao.delete(paquet.getId());
@@ -65,6 +78,18 @@ public class PaquetController implements Serializable {
 
 	public CoordonneeBean getCoordonneeBean() {
 		return this.coordonneeBean;
+	}
+
+	public CoordonneeDao getCoordonneeDao() {
+		return this.coordonneeDao;
+	}
+
+	public Integer getDestinataireId() {
+		return this.destinataireId;
+	}
+
+	public Integer getExpediteurId() {
+		return this.expediteurId;
 	}
 
 	public PaquetBean getPaquetBean() {
@@ -83,16 +108,38 @@ public class PaquetController implements Serializable {
 		return this.productBean;
 	}
 
+	public ProductDao getProductDao() {
+		return this.productDao;
+	}
+
+	public Integer getProductId() {
+		return this.productId;
+	}
+
 	public String save() {
+		PaquetController.LOGGER.debug("Save!");
 		final Paquet paquet = new Paquet();
-		paquet.setColi(this.paquetBean.getProduit());
-		paquet.setCoordonnee1(this.paquetBean.getExpediteur());
-		paquet.setCoordonnee2(this.paquetBean.getDestinataire());
+		paquet.setColi(this.productDao.read(this.productId));
+		paquet.setCoordonnee1(this.coordonneeDao.read(this.expediteurId));
+		paquet.setCoordonnee2(this.coordonneeDao.read(this.destinataireId));
+
 		return "/views/dashboard";
 	}
 
 	public void setCoordonneeBean(final CoordonneeBean coordonneeBean) {
 		this.coordonneeBean = coordonneeBean;
+	}
+
+	public void setCoordonneeDao(final CoordonneeDao coordonneeDao) {
+		this.coordonneeDao = coordonneeDao;
+	}
+
+	public void setDestinataireId(final Integer destinataireId) {
+		this.destinataireId = destinataireId;
+	}
+
+	public void setExpediteurId(final Integer expediteurId) {
+		this.expediteurId = expediteurId;
 	}
 
 	public void setPaquetBean(final PaquetBean paquetBean) {
@@ -109,6 +156,14 @@ public class PaquetController implements Serializable {
 
 	public void setProductBean(final ProductBean productBean) {
 		this.productBean = productBean;
+	}
+
+	public void setProductDao(final ProductDao productDao) {
+		this.productDao = productDao;
+	}
+
+	public void setProductId(final Integer productId) {
+		this.productId = productId;
 	}
 
 }
