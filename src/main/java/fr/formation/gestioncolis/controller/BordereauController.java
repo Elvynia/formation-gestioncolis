@@ -3,6 +3,7 @@ package fr.formation.gestioncolis.controller;
 import fr.formation.gestioncolis.bean.*;
 import fr.formation.gestioncolis.dao.*;
 import fr.formation.gestioncolis.entity.*;
+import fr.formation.gestioncolis.exception.CreateEntityException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -64,6 +65,21 @@ public class BordereauController implements Serializable {
         product.setId(paquet.getColi().getId());
         product.setReference(this.productDao.read(product.getId()).getReference());
         this.productBean.setReference(product.getReference());
+    }
+
+    public String create(){
+        Bordereau bordereau = new Bordereau();
+        Commande commande = new Commande();
+        commande.setId(this.bordereauBean.getCommande().getId());
+        bordereau.setCommandeBean(commande);
+        bordereau.setDetail(this.bordereauBean.getDetail());
+        bordereau.setDateSignature(this.bordereauBean.getDateSignature());
+        try {
+            this.bordereauDao.create(bordereau);
+        } catch (CreateEntityException e) {
+            LOGGER.error("Impossible de créer le bordereau");
+        }
+        return "/views/bordereau/display";
     }
 
 	public List<Bordereau> getBordereaux() {

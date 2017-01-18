@@ -43,8 +43,6 @@ public class BordereauBean implements Serializable{
     }
 
     public Date getDateSignature() {
-        //String date = new SimpleDateFormat("EEE d MMM yyyy 'à' hh'h'").format(dateSignature);
-
         return this.dateSignature;
     }
 
