@@ -94,7 +94,7 @@ public class BordereauController implements Serializable {
 		this.productBean = productBean;
 	}
 
-
-
-
+    public void setProductDao(final ProductDao productDao) {
+        this.productDao = productDao;
+    }
 }
