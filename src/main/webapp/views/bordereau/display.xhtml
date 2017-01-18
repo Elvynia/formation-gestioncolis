@@ -44,18 +44,27 @@
                     <div>
                         <h4>Bordereau n° #{bordereauBean.id}</h4>
                         <b:inputTextarea readonly="true" label="Détail" value="#{bordereauBean.detail}"/>
-                        <b:inputText readonly="true" label="Date signature" value="#{bordereauBean.dateSignature}"/>
+                        <b:inputText readonly="true" label="Date signature" value="#{bordereauBean.dateSignature}">
+                            <f:convertDateTime pattern="EEE d MMM yyyy 'à' hh'h'"/>
+                        </b:inputText>
                     </div>
 
                     <div>
-                        <h4>Commande n° #{bordereauBean.commande}</h4>
+                        <h4>Commande n° #{bordereauBean.commande.id}</h4>
                         <b:inputText readonly="true" label="Paquet" value="#{productBean.reference}"/>
-                        <b:inputText readonly="true" label="Date Commande" value="#{commandeBean.dateCommande}"/>
-                        <b:inputText readonly="true" label="Date Envoi" value="#{commandeBean.dateEnvoi}"/>
-                        <b:inputText readonly="true" label="Etat" value="#{commandeBean.etat.nom}"/>
-                        <b:inputText readonly="true" label="Date expédition" value="#{commandeBean.ackSent}"/>
-                        <b:inputText readonly="true" label="Date réception" value="#{commandeBean.ackReceived}"/>
-
+                        <b:inputText readonly="true" label="Date Commande" value="#{bordereauBean.commande.dateCommande}">
+                            <f:convertDateTime pattern="EEE d MMM yyyy 'à' hh'h'"/>
+                        </b:inputText>
+                        <b:inputText readonly="true" label="Date Envoi" value="#{bordereauBean.commande.dateEnvoi}">
+                            <f:convertDateTime pattern="EEE d MMM yyyy 'à' hh'h'"/>
+                        </b:inputText>
+                        <b:inputText readonly="true" label="Etat" value="#{bordereauBean.commande.etatBean.nom}"/>
+                        <b:inputText readonly="true" label="Date expédition" value="#{bordereauBean.commande.ackSent}">
+                            <f:convertDateTime pattern="EEE d MMM yyyy 'à' hh'h'"/>
+                        </b:inputText>
+                        <b:inputText readonly="true" label="Date réception" value="#{bordereauBean.commande.ackReceived}">
+                            <f:convertDateTime pattern="EEE d MMM yyyy 'à' hh'h'"/>
+                        </b:inputText>
                     </div>
                 </h:form>
             </div>
