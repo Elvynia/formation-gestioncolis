@@ -15,7 +15,7 @@
 
 <h:body>
 	<h:form>
-		<b:navBar brand="GestionColis" brandHref="#{request.contextPath}/">
+		<b:navBar brand="GestionColis" brandHref="#{request.contextPath}/views/dashboard.html">
 			<b:navbarLinks>
 				<b:dropMenu value="Coordonnées">
 					<b:navCommandLink value="Créer une coordonnée"
@@ -24,7 +24,10 @@
 						action="/views/coordonnee/display" />
 				</b:dropMenu>
 				<b:dropMenu value="Commandes" href="#">
-					<b:navCommandLink value="Gérer les états" action="/views/etat/manage" />
+					<b:navCommandLink value="Gérer les commandes"
+						action="/views/commande/display" />
+					<b:navCommandLink value="Gérer les états"
+						action="/views/etat/manage" />
 					<b:navCommandLink value="Liste des liasses" action="/views/liasse/display" />
 					<b:navCommandLink value="Créer une liasse" action="/views/etat/create" />
 				</b:dropMenu>

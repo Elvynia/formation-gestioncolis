@@ -5,7 +5,19 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
-	
-	<ui:composition template="template.xhtml">
-	</ui:composition>
+
+<ui:composition template="template.xhtml">
+	<ui:define name="content">
+		<h:panelGroup>
+			<ui:insert name="commandes">
+				<ui:include src="/views/commande/display-fragment.xhtml" />
+			</ui:insert>
+		</h:panelGroup>
+		<h:panelGroup>
+			<ui:insert name="actions">
+				<ui:include src="/views/commande/create-fragment.xhtml" />
+			</ui:insert>
+		</h:panelGroup>
+	</ui:define>
+</ui:composition>
 </html>

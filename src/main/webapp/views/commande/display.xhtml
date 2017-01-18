@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:b="http://bootsfaces.net/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="../template.xhtml">
+	<ui:define name="content">
+		<h2>Gestion des commandes</h2>
+		<h:form>
+			<b:dataTable value="#{commandeController.commandes}" var="commande">
+				<b:dataTableColumn>
+					<f:facet name="header">ID Paquet</f:facet>
+					<h:outputText value="#{commande.paquetBean.id}" />
+				</b:dataTableColumn>
+				<b:dataTableColumn>
+					<f:facet name="header">Date commande</f:facet>
+					<h:outputText value="#{commande.dateCommande}" />
+				</b:dataTableColumn>
+				<b:dataTableColumn>
+					<f:facet name="header">Date envoi (fournisseur)</f:facet>
+					<h:outputText value="#{commande.dateEnvoi}" />
+				</b:dataTableColumn>
+				<b:dataTableColumn>
+					<f:facet name="header">Date envoi (client)</f:facet>
+					<h:outputText value="#{commande.ackSent}" />
+				</b:dataTableColumn>
+				<b:dataTableColumn>
+					<f:facet name="header">Etat</f:facet>
+					<p:selectOneMenu value="#{commande.etatBean.id}">>
+		            	<f:selectItems value="#{commandeController.etats}" var="etat" itemLabel="#{etat.nom}" itemValue="#{etat.id}" />
+		            	<f:ajax execute="@form" render="@form messages"
+						listener="#{commandeController.update(commande)}" />
+			        </p:selectOneMenu>
+				</b:dataTableColumn>
+				<b:dataTableColumn>
+					<f:facet name="header">Date Réception</f:facet>
+					<h:outputText value="#{commande.ackReceived}" />
+				</b:dataTableColumn>
+				<b:dataTableColumn>
+					<f:facet name="header">&nbsp;</f:facet>
+					<b:commandButton value="Supprimer"
+						action="#{commandeController.delete(commande)}" />
+				</b:dataTableColumn>
+			</b:dataTable>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>
