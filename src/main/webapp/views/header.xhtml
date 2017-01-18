@@ -57,7 +57,10 @@
 				</b:dropMenu>
 			</b:navbarLinks>
 			<b:navbarLinks pull="right">
-				<h:outputLink value="#{request.getContextPath()}/j_spring_security_logout">{request.getUserPrincipal()}</h:outputLink>
+				<form method="post" action="#{request.getContextPath()}/logout">
+					<h:outputText value="#{request.getUserPrincipal().getPrincipal().getUsername()}" />
+					<button>Se déconnecter</button>
+				</form>
 			</b:navbarLinks>
 		</b:navBar>
 	</h:form>
