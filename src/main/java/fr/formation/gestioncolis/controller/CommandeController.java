@@ -1,6 +1,9 @@
 package fr.formation.gestioncolis.controller;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -171,16 +174,35 @@ public class CommandeController implements Serializable {
 
 	public String update(final Commande commande) {
 		try {
-			this.commandeDao.update(commande);
-			if (commande.getEtatBean().getId() == 1) {
-
-			}
+			this.commandeDao.update(this.majDatesCommande(commande));
 			CommandeController.LOGGER
 					.debug("Mise à jour de la commande d'id={}", commande);
-			FacesMessages.info("Impossible de mettre à jour cette commande.");
+			FacesMessages.info("Mise à jour de la commande.");
 		} catch (final UpdateEntityException e) {
-			e.printStackTrace();
+			CommandeController.LOGGER
+			.error("Erreur pendant la mise à jour de la commande d'id="
+					+ this.commandeId, e);
+			FacesMessages.error("Impossible de mettre à jour cette commande.");
 		}
 		return "/views/commande/display";
+	}
+	
+	private Commande majDatesCommande(final Commande commande) {
+		Date date = new Date();
+		SimpleDateFormat formater = null;
+		formater = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		formater.format(date);
+		
+		if (commande.getEtatBean().getId() == 1) {
+			commande.setDateCommande(date);
+		} else if (commande.getEtatBean().getId() == 2) {
+			commande.setDateEnvoi(date);
+		} else if (commande.getEtatBean().getId() == 3) {
+			commande.setAckSent(date);
+		} else if (commande.getEtatBean().getId() == 4) {
+			commande.setAckReceived(date);
+		}
+		
+		return commande;
 	}
 }
