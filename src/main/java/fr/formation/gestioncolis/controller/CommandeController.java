@@ -97,6 +97,25 @@ public class CommandeController implements Serializable {
 		return this.etats;
 	}
 
+	private Commande majDatesCommande(final Commande commande) {
+		final Date date = new Date();
+		SimpleDateFormat formater = null;
+		formater = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		formater.format(date);
+
+		if (commande.getEtatBean().getId() == 1) {
+			commande.setDateCommande(date);
+		} else if (commande.getEtatBean().getId() == 2) {
+			commande.setDateEnvoi(date);
+		} else if (commande.getEtatBean().getId() == 3) {
+			commande.setAckSent(date);
+		} else if (commande.getEtatBean().getId() == 4) {
+			commande.setAckReceived(date);
+		}
+
+		return commande;
+	}
+
 	public String save() {
 		final Commande commande = new Commande();
 		commande.setDateCommande(this.commandeBean.getDateCommande());
@@ -179,29 +198,9 @@ public class CommandeController implements Serializable {
 			FacesMessages.info("Mise à jour de la commande.");
 		} catch (final UpdateEntityException e) {
 			CommandeController.LOGGER
-			.error("Erreur pendant la mise à jour de la commande d'id="
-					+ this.commandeId, e);
+					.error("Erreur pendant la mise à jour de la commande d'id="
+							+ this.commandeId, e);
 			FacesMessages.error("Impossible de mettre à jour cette commande.");
 		}
-	}
-	
-	// Insertion des dates dans les champs correspondant selon l'état
-	private Commande majDatesCommande(final Commande commande) {
-		Date date = new Date();
-		SimpleDateFormat formater = null;
-		formater = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		formater.format(date);
-		
-		if (commande.getEtatBean().getId() == 1) {
-			commande.setDateCommande(date);
-		} else if (commande.getEtatBean().getId() == 2) {
-			commande.setDateEnvoi(date);
-		} else if (commande.getEtatBean().getId() == 3) {
-			commande.setAckSent(date);
-		} else if (commande.getEtatBean().getId() == 4) {
-			commande.setAckReceived(date);
-		}
-		
-		return commande;
 	}
 }
