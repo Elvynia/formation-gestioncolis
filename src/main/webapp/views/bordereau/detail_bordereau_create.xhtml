@@ -1,0 +1,15 @@
+<jsp:root version="2.0" xmlns:="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns="http://java.sun.com/JSP/Page">
+    <h2>Effectuer un nouveau bordereau :</h2>
+    <h:form>
+        <b:selectOneMenu label="Sélectionner une commande" value="#{bordereauBean.commande}" required="true">
+            <f:selectItem noSelectionOption="true" itemLabel="Sélectionner..." itemValue=""/>
+            <f:selectItems value="#{commandeController.commandes}"
+                           var="commande" itemValue="#{commande}"
+                           itemLabel="Commande n°#{commande.id}" />
+        </b:selectOneMenu>
+        <b:inputTextarea label="Détails" value="#{bordereauBean.detail}"/>
+        <b:datepicker id="dateSignature" mode="toggle-icon" showWeek="true" firstDay="1" value="#{bordereauBean.dateSignature}"
+                      required="true" label="Date Signature" render-label="true"/>
+        <b:commandButton value="Valider" action="#{bordereauController.create}"/>
+    </h:form>
+</jsp:root>

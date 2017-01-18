@@ -10,19 +10,7 @@
 <ui:composition template="../template.xhtml">
     <ui:define name="content">
         <div class="col-md-5">
-            <h2>Effectuer un nouveau bordereau :</h2>
-            <h:form>
-                <b:selectOneMenu label="Sélectionner une commande" value="#{bordereauBean.commande}" required="true">
-                    <f:selectItem noSelectionOption="true" itemLabel="Sélectionner..." itemValue=""/>
-                    <f:selectItems value="#{commandeController.commandes}"
-                                   var="commande" itemValue="#{commande}"
-                                   itemLabel="Commande n°#{commande.id}" />
-                </b:selectOneMenu>
-                <b:inputTextarea label="Détails" value="#{bordereauBean.detail}"/>
-                <b:datepicker id="dateSignature" mode="toggle-icon" showWeek="true" firstDay="1" value="#{bordereauBean.dateSignature}"
-                required="true" label="Date Signature" render-label="true"/>
-                <b:commandButton value="Valider" action="#{bordereauController.create}"/>
-            </h:form>
+            <ui:include src="detail_bordereau_create.xhtml"/>
         </div>
     </ui:define>
 </ui:composition>
