@@ -22,6 +22,8 @@ public class BordereauController implements Serializable {
 	private static final Logger LOGGER = LoggerFactory
 			.getLogger(BordereauController.class);
 
+	private static final long serialVersionUID = 1L;
+
 	@ManagedProperty("#{bordereauBean}")
 	private BordereauBean bordereauBean;
 
