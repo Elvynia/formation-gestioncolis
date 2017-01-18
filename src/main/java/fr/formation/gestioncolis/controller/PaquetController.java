@@ -57,6 +57,8 @@ public class PaquetController implements Serializable {
 
 	private Integer destinataireId;
 
+	private String dateRcp;
+
 	@PostConstruct
 	public void _init() {
 		PaquetController.LOGGER.debug(
@@ -83,6 +85,10 @@ public class PaquetController implements Serializable {
 
 	public CoordonneeDao getCoordonneeDao() {
 		return this.coordonneeDao;
+	}
+
+	public String getDateRcp() {
+		return this.dateRcp;
 	}
 
 	public Integer getDestinataireId() {
@@ -122,6 +128,8 @@ public class PaquetController implements Serializable {
 		paquet.setColi(this.productDao.read(this.productId));
 		paquet.setCoordonnee1(this.coordonneeDao.read(this.expediteurId));
 		paquet.setCoordonnee2(this.coordonneeDao.read(this.destinataireId));
+		PaquetController.LOGGER.debug(this.dateRcp);
+		paquet.setDateRecipisse(null);
 		try {
 			this.paquetDao.create(paquet);
 			PaquetController.LOGGER.debug("Création du nouveau paquet {}", paquet);
@@ -139,6 +147,10 @@ public class PaquetController implements Serializable {
 
 	public void setCoordonneeDao(final CoordonneeDao coordonneeDao) {
 		this.coordonneeDao = coordonneeDao;
+	}
+
+	public void setDateRcp(final String dateRcp) {
+		this.dateRcp = dateRcp;
 	}
 
 	public void setDestinataireId(final Integer destinataireId) {
