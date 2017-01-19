@@ -79,7 +79,7 @@ public class FactureController implements Serializable {
 	public String save() {
 		final Facture facture = new Facture();
 		facture.setReference(this.factureBean.getReference());
-		facture.setCommande(this.factureBean.getCommandeBean());
+		//facture.setCommande(this.factureBean.getCommandeBean());
 		facture.setMontant(this.factureBean.getMontant());
 		facture.setDateFacture(this.factureBean.getDateFacture());
 

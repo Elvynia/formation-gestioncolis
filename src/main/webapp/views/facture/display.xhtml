@@ -32,12 +32,16 @@
 						</b:dataTableColumn>
 						<b:dataTableColumn>
 							<f:facet name="header">&nbsp;</f:facet>
-							
-							
 							<b:commandButton look="btn btn-info" value="Détails">
 								<f:ajax execute="@form" render="@form factureInfosForm messages"
 									listener="#{factureController.readCommand(facture.commande.id)}" />
 							</b:commandButton>
+							
+						</b:dataTableColumn>
+						<b:dataTableColumn>
+						<f:facet name="header">&nbsp;</f:facet>
+								<b:commandButton look="btn btn-info" value="Supprimer"
+									action="#{factureController.delete(facture)}" />
 						</b:dataTableColumn>
 					</b:dataTable>
 				</h:form>
