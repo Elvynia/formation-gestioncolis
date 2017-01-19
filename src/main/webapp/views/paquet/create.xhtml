@@ -15,31 +15,31 @@
 				<b:form>
 					<b:panelGrid colSpans="1,3,1,3,1,3">
 						<h:outputLabel value="Produit" for="productId" />
-						<b:selectOneMenu value="#{paquetController.productId}"
+						<b:selectOneMenu value="#{paquetBean.produit}"
 							id="productId">
 							<f:selectItem itemLabel="Choisir produit" itemValue="" disabled="" />
 							<f:selectItems value="#{productController.products}"
-								var="product" itemValue="#{product.id}"
+								var="product" itemValue="#{product}"
 								itemLabel="#{product.intitule}" />
 						</b:selectOneMenu>
 						<h:outputLabel value="Expéditeur" for="coordExp" />
-						<b:selectOneMenu value="#{paquetController.expediteurId}"
+						<b:selectOneMenu value="#{paquetBean.expediteur}"
 							id="coordExp">
 							<f:selectItem itemLabel="Choisir expéditeur" itemValue="" disabled="" />
 							<f:selectItems value="#{coordonneeController.coordonnees}"
-								var="coordE" itemValue="#{coordE.id}"
-								itemLabel="#{coordE.firstname} #{coordE.lastname} #{coordE.addressLine1} #{coordE.addressLine2}  #{coordE.city} #{coordE.postalCode}" />
+								var="expediteur" itemValue="#{expediteur}"
+								itemLabel="#{expediteur.firstname} #{expediteur.lastname} #{expediteur.addressLine1} #{expediteur.city}" />
 						</b:selectOneMenu>
 						<h:outputLabel value="Destinataire" for="coordDest" />
-						<b:selectOneMenu value="#{paquetController.destinataireId}"
+						<b:selectOneMenu value="#{paquetBean.destinataire}"
 							id="coordDest">
 							<f:selectItem itemLabel="Choisir destinataire" itemValue="" disabled="" />
 							<f:selectItems value="#{coordonneeController.coordonnees}"
-								var="coordD" itemValue="#{coordD.id}"
-								itemLabel="#{coordD.firstname} #{coordD.lastname} #{coordD.addressLine1} #{coordD.addressLine2} #{coordD.city} #{coordD.postalCode}" />
+								var="destinataire" itemValue="#{destinataire}"
+								itemLabel="#{destinataire.firstname} #{destinataire.lastname} #{destinataire.addressLine1} #{destinataire.city}" />
 						</b:selectOneMenu>
 						<h:outputLabel value="Date Récepissé" for="dateRcp"/>
-						<b:datepicker id="dateRcp" value="#{paquetController.dateRcp}"/>
+						<b:datepicker id="dateRcp" value="#{paquetBean.dateRecepice}"/>
 						<b:commandButton value="Valider" action="#{paquetController.save}" />
 					</b:panelGrid>
 				</b:form>

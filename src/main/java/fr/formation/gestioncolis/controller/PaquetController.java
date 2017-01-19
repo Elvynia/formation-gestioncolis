@@ -51,14 +51,6 @@ public class PaquetController implements Serializable {
 
 	List<Paquet> paquets;
 
-	private Integer productId;
-
-	private Integer expediteurId;
-
-	private Integer destinataireId;
-
-	private String dateRcp;
-
 	@PostConstruct
 	public void _init() {
 		PaquetController.LOGGER.debug(
@@ -87,18 +79,6 @@ public class PaquetController implements Serializable {
 		return this.coordonneeDao;
 	}
 
-	public String getDateRcp() {
-		return this.dateRcp;
-	}
-
-	public Integer getDestinataireId() {
-		return this.destinataireId;
-	}
-
-	public Integer getExpediteurId() {
-		return this.expediteurId;
-	}
-
 	public PaquetBean getPaquetBean() {
 		return this.paquetBean;
 	}
@@ -119,20 +99,19 @@ public class PaquetController implements Serializable {
 		return this.productDao;
 	}
 
-	public Integer getProductId() {
-		return this.productId;
-	}
-
 	public String save() {
 		final Paquet paquet = new Paquet();
-		paquet.setColi(this.productDao.read(this.productId));
-		paquet.setCoordonnee1(this.coordonneeDao.read(this.expediteurId));
-		paquet.setCoordonnee2(this.coordonneeDao.read(this.destinataireId));
-		PaquetController.LOGGER.debug(this.dateRcp);
-		paquet.setDateRecipisse(null);
+		paquet.setColi(this.paquetBean.getProduit());
+		paquet.setCoordonnee1(this.paquetBean.getExpediteur());
+		paquet.setCoordonnee2(this.paquetBean.getDestinataire());
+		paquet.setDateRecipisse(this.paquetBean.getDateRecepice());
 		try {
 			this.paquetDao.create(paquet);
-			PaquetController.LOGGER.debug("Création du nouveau paquet {}", paquet);
+			PaquetController.LOGGER.debug("Création du nouveau paquet {} {} {} {} ",
+					paquet.getColi().getIntitule(),
+					paquet.getCoordonnee1().getFirstname(),
+					paquet.getCoordonnee2().getFirstname(),
+					paquet.getDateRecipisse().toString());
 		} catch (final CreateEntityException e) {
 			PaquetController.LOGGER
 					.error("Erreur lors de la création d'un nouveau paquet", e);
@@ -147,18 +126,6 @@ public class PaquetController implements Serializable {
 
 	public void setCoordonneeDao(final CoordonneeDao coordonneeDao) {
 		this.coordonneeDao = coordonneeDao;
-	}
-
-	public void setDateRcp(final String dateRcp) {
-		this.dateRcp = dateRcp;
-	}
-
-	public void setDestinataireId(final Integer destinataireId) {
-		this.destinataireId = destinataireId;
-	}
-
-	public void setExpediteurId(final Integer expediteurId) {
-		this.expediteurId = expediteurId;
 	}
 
 	public void setPaquetBean(final PaquetBean paquetBean) {
@@ -179,10 +146,6 @@ public class PaquetController implements Serializable {
 
 	public void setProductDao(final ProductDao productDao) {
 		this.productDao = productDao;
-	}
-
-	public void setProductId(final Integer productId) {
-		this.productId = productId;
 	}
 
 }
