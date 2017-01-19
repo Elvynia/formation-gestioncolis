@@ -49,7 +49,7 @@ public class PaquetController implements Serializable {
 	@ManagedProperty("#{paquetBean}")
 	private PaquetBean paquetBean;
 
-	List<Paquet> paquets;
+	private List<Paquet> paquets;
 
 	@PostConstruct
 	public void _init() {
@@ -69,6 +69,16 @@ public class PaquetController implements Serializable {
 			FacesMessages.error("Impossible de supprimer le paquet");
 		}
 		return "/views/paquet/display";
+	}
+
+	public void details(final Integer paquetId) {
+		PaquetController.LOGGER.debug("DBG: paquetId={}", paquetId);
+		final Paquet paquet = this.paquetDao.read(paquetId);
+		this.paquetBean.setId(paquetId);
+		this.paquetBean.setProduit(paquet.getColi());
+		this.paquetBean.setDestinataire(paquet.getCoordonnee1());
+		this.paquetBean.setExpediteur(paquet.getCoordonnee2());
+		this.paquetBean.setDateRecepice(paquet.getDateRecipisse());
 	}
 
 	public CoordonneeBean getCoordonneeBean() {
