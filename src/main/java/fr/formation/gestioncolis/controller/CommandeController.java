@@ -18,7 +18,6 @@ import fr.formation.gestioncolis.bean.CreateCommandeBean;
 import fr.formation.gestioncolis.dao.CommandeDao;
 import fr.formation.gestioncolis.dao.EtatDao;
 import fr.formation.gestioncolis.entity.Commande;
-import fr.formation.gestioncolis.entity.Etat;
 import fr.formation.gestioncolis.exception.CreateEntityException;
 import fr.formation.gestioncolis.exception.DeleteEntityException;
 import fr.formation.gestioncolis.exception.UpdateEntityException;
