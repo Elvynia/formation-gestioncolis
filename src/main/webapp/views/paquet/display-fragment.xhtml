@@ -48,14 +48,14 @@
 	<h:panelGroup rendered="#{paquetBean.id != null}">
 		<b:container>
 			<h3>Détails</h3>
-			<div class="paquetProduit">
+			<div class="paquetDetails">
 				<b:well>
 					<h4>Produit</h4>
 					<p>#{paquetBean.produit.reference}</p>
 					<p>#{paquetBean.produit.intitule}</p>
 				</b:well>
 			</div>
-			<div class="paquetAdresses">
+			<div class="paquetDetails">
 				<b:well>
 					<h4>Destinataire</h4>
 					<p>#{paquetBean.destinataire.firstname}</p>
@@ -64,7 +64,7 @@
 					<p>#{paquetBean.destinataire.city}</p>
 				</b:well>
 			</div>
-			<div class="paquetAdresses">
+			<div class="paquetDetails">
 				<b:well>
 					<h4>Expéditeur</h4>
 					<p>#{paquetBean.expediteur.firstname}</p>

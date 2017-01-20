@@ -33,16 +33,9 @@ a {
 	
 }
 
-.paquetProduit {
+.paquetDetails {
 	float: left;
 	min-width: 30%;
 	margin-top: 10px;
 	margin-left: 20px;
-}
-
-.paquetAdresses {
-	float: left;
-	max-width: 70%;
-	margin-top: 10px;
-	margin-left: 20px;	
 }

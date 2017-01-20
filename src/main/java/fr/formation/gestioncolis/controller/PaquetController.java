@@ -14,9 +14,7 @@ import org.slf4j.LoggerFactory;
 import fr.formation.gestioncolis.bean.CoordonneeBean;
 import fr.formation.gestioncolis.bean.PaquetBean;
 import fr.formation.gestioncolis.bean.ProductBean;
-import fr.formation.gestioncolis.dao.CoordonneeDao;
 import fr.formation.gestioncolis.dao.PaquetDao;
-import fr.formation.gestioncolis.dao.ProductDao;
 import fr.formation.gestioncolis.entity.Paquet;
 import fr.formation.gestioncolis.exception.CreateEntityException;
 import fr.formation.gestioncolis.exception.DeleteEntityException;
@@ -36,12 +34,6 @@ public class PaquetController implements Serializable {
 
 	@ManagedProperty("#{productBean}")
 	private ProductBean productBean;
-
-	@ManagedProperty("#{coordonneeDao}")
-	private CoordonneeDao coordonneeDao;
-
-	@ManagedProperty("#{productDao}")
-	private ProductDao productDao;
 
 	@ManagedProperty("#{paquetDao}")
 	private PaquetDao paquetDao;
@@ -85,10 +77,6 @@ public class PaquetController implements Serializable {
 		return this.coordonneeBean;
 	}
 
-	public CoordonneeDao getCoordonneeDao() {
-		return this.coordonneeDao;
-	}
-
 	public PaquetBean getPaquetBean() {
 		return this.paquetBean;
 	}
@@ -103,10 +91,6 @@ public class PaquetController implements Serializable {
 
 	public ProductBean getProductBean() {
 		return this.productBean;
-	}
-
-	public ProductDao getProductDao() {
-		return this.productDao;
 	}
 
 	public String save() {
@@ -134,10 +118,6 @@ public class PaquetController implements Serializable {
 		this.coordonneeBean = coordonneeBean;
 	}
 
-	public void setCoordonneeDao(final CoordonneeDao coordonneeDao) {
-		this.coordonneeDao = coordonneeDao;
-	}
-
 	public void setPaquetBean(final PaquetBean paquetBean) {
 		this.paquetBean = paquetBean;
 	}
@@ -153,9 +133,4 @@ public class PaquetController implements Serializable {
 	public void setProductBean(final ProductBean productBean) {
 		this.productBean = productBean;
 	}
-
-	public void setProductDao(final ProductDao productDao) {
-		this.productDao = productDao;
-	}
-
 }
