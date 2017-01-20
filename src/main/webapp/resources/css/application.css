@@ -32,3 +32,10 @@ a {
 .factDetails {
 	
 }
+
+.paquetDetails {
+	float: left;
+	min-width: 30%;
+	margin-top: 10px;
+	margin-left: 20px;
+}
