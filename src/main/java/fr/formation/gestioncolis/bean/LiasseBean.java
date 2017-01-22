@@ -1,6 +1,7 @@
 package fr.formation.gestioncolis.bean;
 
 import java.io.Serializable;
+
 import java.util.Date;
 
 import javax.faces.bean.ManagedBean;

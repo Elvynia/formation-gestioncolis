@@ -51,35 +51,40 @@ public class CommandeService {
 	}
 
 	/**
-	 * @param commandeDao the commandeDao to set
+	 * @param commandeDao
+	 *            the commandeDao to set
 	 */
 	public void setCommandeDao(final CommandeDao commandeDao) {
 		this.commandeDao = commandeDao;
 	}
 
 	/**
-	 * @param coordonneeDao the coordonneeDao to set
+	 * @param coordonneeDao
+	 *            the coordonneeDao to set
 	 */
 	public void setCoordonneeDao(final CoordonneeDao coordonneeDao) {
 		this.coordonneeDao = coordonneeDao;
 	}
 
 	/**
-	 * @param etatService the etatService to set
+	 * @param etatService
+	 *            the etatService to set
 	 */
 	public void setEtatService(final EtatService etatService) {
 		this.etatService = etatService;
 	}
 
 	/**
-	 * @param paquetDao the paquetDao to set
+	 * @param paquetDao
+	 *            the paquetDao to set
 	 */
 	public void setPaquetDao(final PaquetDao paquetDao) {
 		this.paquetDao = paquetDao;
 	}
 
 	/**
-	 * @param productDao the productDao to set
+	 * @param productDao
+	 *            the productDao to set
 	 */
 	public void setProductDao(final ProductDao productDao) {
 		this.productDao = productDao;

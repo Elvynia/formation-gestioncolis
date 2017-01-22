@@ -3,6 +3,10 @@ package fr.formation.gestioncolis.controller;
 import fr.formation.gestioncolis.bean.*;
 import fr.formation.gestioncolis.dao.*;
 import fr.formation.gestioncolis.entity.*;
+import fr.formation.gestioncolis.exception.CreateEntityException;
+import fr.formation.gestioncolis.exception.DeleteEntityException;
+import net.bootsfaces.utils.FacesMessages;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -66,6 +70,35 @@ public class BordereauController implements Serializable {
         this.productBean.setReference(product.getReference());
     }
 
+    public String create(){
+        Bordereau bordereau = new Bordereau();
+        Commande commande = new Commande();
+        commande.setId(this.bordereauBean.getCommande().getId());
+        bordereau.setCommandeBean(commande);
+        bordereau.setDetail(this.bordereauBean.getDetail());
+        bordereau.setDateSignature(this.bordereauBean.getDateSignature());
+        try {
+            this.bordereauDao.create(bordereau);
+        } catch (CreateEntityException e) {
+            LOGGER.error("Impossible de créer le bordereau");
+        }
+        return "/views/bordereau/display";
+    }
+
+	public String delete(final String id) {
+		try {
+			this.bordereauDao.delete(Integer.parseInt(id));
+			this.bordereaux.remove(bordereauDao.read(Integer.parseInt(id)));
+			FacesMessages.info("Le bordereau a été supprimé avec succès.");
+		} catch (final DeleteEntityException e) {
+			BordereauController.LOGGER
+					.error("Erreur lors de la suppression du bordereau d'id="
+							+ id, e);
+			FacesMessages.error("Impossible de supprimer le bordereau.");
+		}
+		return "/views/bordereau/display";
+	}
+    
 	public List<Bordereau> getBordereaux() {
 		return this.bordereaux;
 	}

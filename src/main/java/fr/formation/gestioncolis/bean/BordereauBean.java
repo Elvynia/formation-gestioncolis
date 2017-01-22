@@ -1,54 +1,52 @@
 package fr.formation.gestioncolis.bean;
 
-import fr.formation.gestioncolis.entity.Commande;
+import java.io.Serializable;
+import java.util.Date;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import java.io.Serializable;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+
+import fr.formation.gestioncolis.entity.Commande;
 
 @ManagedBean
 @ViewScoped
-public class BordereauBean implements Serializable{
+public class BordereauBean implements Serializable {
 
-    private Integer id;
-    private Commande commande;
-    private String detail;
-    private Date dateSignature;
+	private static final long serialVersionUID = 1L;
+	private Commande commande;
+	private Date dateSignature;
+	private String detail;
+	private Integer id;
 
-    public Integer getId() {
-        return id;
-    }
+	public Commande getCommande() {
+		return this.commande;
+	}
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+	public Date getDateSignature() {
+		return this.dateSignature;
+	}
 
-    public Commande getCommande() {
-        return commande;
-    }
+	public String getDetail() {
+		return this.detail;
+	}
 
-    public void setCommande(Commande commande) {
-        this.commande = commande;
-    }
+	public Integer getId() {
+		return this.id;
+	}
 
-    public String getDetail() {
-        return detail;
-    }
+	public void setCommande(final Commande commande) {
+		this.commande = commande;
+	}
 
-    public void setDetail(String detail) {
-        this.detail = detail;
-    }
+	public void setDateSignature(final Date dateSignature) {
+		this.dateSignature = dateSignature;
+	}
 
-    public Date getDateSignature() {
-        //String date = new SimpleDateFormat("EEE d MMM yyyy 'à' hh'h'").format(dateSignature);
+	public void setDetail(final String detail) {
+		this.detail = detail;
+	}
 
-        return this.dateSignature;
-    }
-
-    public void setDateSignature(Date dateSignature) {
-        this.dateSignature = dateSignature;
-    }
+	public void setId(final Integer id) {
+		this.id = id;
+	}
 }

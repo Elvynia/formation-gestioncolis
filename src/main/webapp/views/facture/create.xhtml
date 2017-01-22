@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" xmlns:b="http://bootsfaces.net/ui">
+
+
+<ui:composition template="../template.xhtml">
+	<ui:define name="content">
+		<b:container>
+			<ui:fragment rendered="#{empty factureController.factureId}"></ui:fragment>
+			<h2>Creation d'une facture :</h2>
+			<div class="global">
+			<div class="etatList">
+					<h:form id="etatListForm">
+						<h3>Liste Commandes :</h3>
+						<p:orderList var ="commande" itemLabel="#{commande.id}"
+							value="#{listCommandesBean.list}" itemValue="#{commande.id}" >
+							<p:ajax event="select" 
+							listener="#{factureController.selectCommande}" />
+						</p:orderList>
+					</h:form>
+				</div>
+			
+				<div class="etat">
+					<b:form id="etatForm">
+						<h3>Créer Facture :</h3>
+						<b:inputText label="Id" value="#{factureController.factureId}"
+							rendered="#{!empty factureController.factureId}" readonly="true" />
+						<b:inputText label="Date Facture"
+							value="#{factureBean.dateFacture}" />
+						<b:inputText type="number" label="Montant"
+							value="#{factureBean.montant}" />
+						<b:inputText label="Référence" value="#{factureBean.reference}" />
+						<b:commandButton value="Valider"
+							action="#{factureController.save}" />
+					</b:form>
+				</div>
+			</div>
+		</b:container>
+	</ui:define>
+</ui:composition>
+</html>

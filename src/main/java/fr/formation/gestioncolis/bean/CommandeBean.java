@@ -89,4 +89,5 @@ public class CommandeBean implements Serializable {
 	public void setId(Integer id) {
 		this.id = id;
 	}
+
 }

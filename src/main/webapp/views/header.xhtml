@@ -14,11 +14,9 @@
 </h:head>
 
 <h:body>
-	<b:navBar brand="GestionColis"
-		brandHref="#{request.contextPath}/views/dashboard.html">
-		<h:form>
-			<input type="hidden" name="${_csrf.parameterName}"
-				value="${_csrf.token}" />
+	<h:form>
+		<b:navBar brand="GestionColis"
+			brandHref="#{request.contextPath}/views/dashboard.html">
 			<b:navbarLinks>
 				<b:dropMenu value="Coordonnées">
 					<b:navCommandLink value="Créer une coordonnée"
@@ -49,8 +47,11 @@
 						action="/views/bordereau/display" />
 				</b:dropMenu>
 				<b:dropMenu value="Factures">
+					<b:navCommandLink value="Créer une facture"
+						action="/views/facture/create" />
 					<b:navCommandLink value="Liste des factures"
 						action="/views/facture/display" />
+
 				</b:dropMenu>
 				<b:dropMenu value="Paquets">
 					<b:navCommandLink value="Créer un paquet"
@@ -59,16 +60,10 @@
 						action="/views/paquet/display" />
 				</b:dropMenu>
 			</b:navbarLinks>
-		</h:form>
-		<b:navbarLinks pull="right">
-			<form method="post" action="#{request.getContextPath()}/logout">
-				<input type="hidden" name="${_csrf.parameterName}"
-					value="${_csrf.token}" />
-				<h:outputText
-					value="#{request.getUserPrincipal().getPrincipal().getUsername()}" />
-				<button>Se déconnecter</button>
-			</form>
-		</b:navbarLinks>
-	</b:navBar>
+			<b:navbarLinks pull="right">
+				<h:outputLabel value="#{loginBean.name}" />
+			</b:navbarLinks>
+		</b:navBar>
+	</h:form>
 </h:body>
 </html>

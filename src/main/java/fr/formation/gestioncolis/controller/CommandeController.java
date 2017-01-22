@@ -18,7 +18,6 @@ import fr.formation.gestioncolis.bean.CreateCommandeBean;
 import fr.formation.gestioncolis.dao.CommandeDao;
 import fr.formation.gestioncolis.dao.EtatDao;
 import fr.formation.gestioncolis.entity.Commande;
-import fr.formation.gestioncolis.entity.Etat;
 import fr.formation.gestioncolis.exception.CreateEntityException;
 import fr.formation.gestioncolis.exception.DeleteEntityException;
 import fr.formation.gestioncolis.exception.UpdateEntityException;
@@ -50,14 +49,12 @@ public class CommandeController implements Serializable {
 
 	@ManagedProperty("#{etatDao}")
 	private EtatDao etatDao;
-	private List<Etat> etats;
 
 	@PostConstruct
 	public void _init() {
 		CommandeController.LOGGER
 				.debug("Chargement de la liste des commandes.");
 		this.commandes = this.commandeDao.readAll();
-		this.etats = this.etatDao.readAll();
 	}
 
 	public String create() {
@@ -84,6 +81,16 @@ public class CommandeController implements Serializable {
 		}
 		return "/views/commande/display";
 	}
+	
+	/*
+	 * Méthode appelée dans la page display pour le nom du bouton
+	 * gérant le passage à l'état suivant.
+	 */
+	public String nextState(Commande commande) {
+		String next = this.etatDao.read(commande.getEtatBean().getId()+1).getNom();
+		
+		return next;
+	}
 
 	public Integer getCommandeId() {
 		return this.commandeId;
@@ -93,24 +100,25 @@ public class CommandeController implements Serializable {
 		return this.commandes;
 	}
 
-	public List<Etat> getEtats() {
-		return this.etats;
-	}
-
+	/*
+	 * Méthode de mise de jour de l'état et des dates de la commande,
+	 * passée en paramètre de l'update.
+	 */
 	private Commande majDatesCommande(final Commande commande) {
 		final Date date = new Date();
 		SimpleDateFormat formater = null;
 		formater = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		formater.format(date);
 
-		if (commande.getEtatBean().getId() == 1) {
-			commande.setDateCommande(date);
-		} else if (commande.getEtatBean().getId() == 2) {
+		if (commande.getEtatBean().getOrdre() == 0) {
 			commande.setDateEnvoi(date);
-		} else if (commande.getEtatBean().getId() == 3) {
+			commande.setEtatBean(this.etatDao.read(commande.getEtatBean().getId()+1));
+		} else if (commande.getEtatBean().getOrdre() == 1) {
 			commande.setAckSent(date);
-		} else if (commande.getEtatBean().getId() == 4) {
+			commande.setEtatBean(this.etatDao.read(commande.getEtatBean().getId()+1));
+		} else if (commande.getEtatBean().getOrdre() == 2) {
 			commande.setAckReceived(date);
+			commande.setEtatBean(this.etatDao.read(commande.getEtatBean().getId()+1));
 		}
 
 		return commande;
@@ -186,15 +194,11 @@ public class CommandeController implements Serializable {
 		this.etatDao = etatDao;
 	}
 
-	public void setEtats(final List<Etat> etats) {
-		this.etats = etats;
-	}
-
 	public void update(final Commande commande) {
 		try {
 			this.commandeDao.update(this.majDatesCommande(commande));
 			CommandeController.LOGGER
-					.debug("Mise à jour de la commande d'id={}", commande);
+					.debug("Mise à jour de la commande d'id={}", commande.getId());
 			FacesMessages.info("Mise à jour de la commande.");
 		} catch (final UpdateEntityException e) {
 			CommandeController.LOGGER

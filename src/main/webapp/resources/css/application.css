@@ -15,3 +15,27 @@ a {
 	margin-top: 10px;
 	margin-left: 20px;
 }
+
+.factGlobal {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+	align-items: center;
+	height: 200px;
+	margin: 100px;
+}
+
+.factListe {
+	
+}
+
+.factDetails {
+	
+}
+
+.paquetDetails {
+	float: left;
+	min-width: 30%;
+	margin-top: 10px;
+	margin-left: 20px;
+}
