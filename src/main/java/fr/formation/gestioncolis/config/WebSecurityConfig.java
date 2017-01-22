@@ -13,6 +13,8 @@ import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @EnableWebSecurity
 @ComponentScans({ @ComponentScan("fr.formation.gestioncolis.service") })
@@ -23,6 +25,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			throws Exception {
 		auth.jdbcAuthentication().rolePrefix("ROLE_")
 				.dataSource(this.dataSource())
+				.passwordEncoder(this.passwordEncoder())
 				.usersByUsernameQuery(this.getUsers())
 				.authoritiesByUsernameQuery(this.getAuthoritiesQuery());
 	}
@@ -55,6 +58,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	private String getUsers() {
 		return "SELECT USERNAME as username, PASSWORD as password,"
 				+ " true FROM user WHERE username = ?";
+	}
+
+	@Bean
+	public PasswordEncoder passwordEncoder() {
+		return new BCryptPasswordEncoder();
 	}
 
 	@Bean
