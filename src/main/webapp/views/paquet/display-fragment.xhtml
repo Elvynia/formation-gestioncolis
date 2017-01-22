@@ -5,13 +5,15 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:b="http://bootsfaces.net/ui">
+	xmlns:b="http://bootsfaces.net/ui"
+	xmlns:gc="http://formation.org/facelets">
 
 <h:body>
 	<b:container>
 		<h2>Liste des paquets</h2>
 		<b:well>
 			<h:form>
+				<gc:csrf />
 				<b:dataTable value="#{paquetController.paquets}" var="paquet"
 					customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/French.json">
 					<b:dataTableColumn>

@@ -6,7 +6,9 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:p="http://primefaces.org/ui" xmlns:b="http://bootsfaces.net/ui">
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:b="http://bootsfaces.net/ui"
+	xmlns:gc="http://formation.org/facelets">
 
 
 <ui:composition template="../template.xhtml">
@@ -17,6 +19,7 @@
 			<div class="global">
 			<div class="etatList">
 					<h:form id="etatListForm">
+						<gc:csrf />
 						<h3>Liste Commandes :</h3>
 						<p:orderList var ="commande" itemLabel="#{commande.id}"
 							value="#{listCommandesBean.list}" itemValue="#{commande.id}" >
@@ -28,6 +31,7 @@
 			
 				<div class="etat">
 					<b:form id="etatForm">
+						<gc:csrf />
 						<h3>Créer Facture :</h3>
 						<b:inputText label="Id" value="#{factureController.factureId}"
 							rendered="#{!empty factureController.factureId}" readonly="true" />

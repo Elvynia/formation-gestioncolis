@@ -5,7 +5,8 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:b="http://bootsfaces.net/ui">
+	xmlns:b="http://bootsfaces.net/ui"
+	xmlns:gc="http://formation.org/facelets">
 
 <ui:composition template="../template.xhtml">
 	<ui:define name="content">
@@ -32,6 +33,7 @@
 			<h2>Modifier un produit :</h2>
 		</ui:fragment>
 		<b:form>
+			<gc:csrf />
 			<!-- Ce champ n'est visible qu'en édition est n'est pas modifiable (readonly).
 			Il existe en CSS un sélecteur ':read-only' qui permet de modifier facilement le style. -->
 			<b:inputText label="Id" value="#{productController.productId}"

@@ -5,12 +5,14 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:b="http://bootsfaces.net/ui">
+	xmlns:b="http://bootsfaces.net/ui"
+	xmlns:gc="http://formation.org/facelets">
 
 <ui:composition template="../template.xhtml">
 	<ui:define name="content">
 		<h2>Créer une nouvelle coordonnée :</h2>
 		<b:form>
+			<gc:csrf />
 			<b:inputText label="Prénom" value="#{coordonneeBean.firstname}" />
 			<b:inputText label="Nom" value="#{coordonneeBean.lastname}" />
 			<b:inputText label="Adresse" value="#{coordonneeBean.addressLine1}" />

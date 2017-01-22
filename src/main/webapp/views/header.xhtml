@@ -5,7 +5,8 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:b="http://bootsfaces.net/ui">
+	xmlns:b="http://bootsfaces.net/ui"
+	xmlns:gc="http://formation.org/facelets">
 
 <h:head>
 	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
@@ -14,9 +15,10 @@
 </h:head>
 
 <h:body>
-	<h:form>
-		<b:navBar brand="GestionColis"
-			brandHref="#{request.contextPath}/views/dashboard.html">
+	<b:navBar brand="GestionColis"
+		brandHref="#{request.contextPath}/views/dashboard.html">
+		<h:form>
+			<gc:csrf />
 			<b:navbarLinks>
 				<b:dropMenu value="Coordonnées">
 					<b:navCommandLink value="Créer une coordonnée"
@@ -51,7 +53,6 @@
 						action="/views/facture/create" />
 					<b:navCommandLink value="Liste des factures"
 						action="/views/facture/display" />
-
 				</b:dropMenu>
 				<b:dropMenu value="Paquets">
 					<b:navCommandLink value="Créer un paquet"
@@ -60,10 +61,16 @@
 						action="/views/paquet/display" />
 				</b:dropMenu>
 			</b:navbarLinks>
-			<b:navbarLinks pull="right">
-				<h:outputLabel value="#{loginBean.name}" />
-			</b:navbarLinks>
-		</b:navBar>
-	</h:form>
+		</h:form>
+		<b:navbarLinks pull="right">
+			<form method="post" action="#{request.getContextPath()}/logout">
+				<input type="hidden" name="${_csrf.parameterName}"
+					value="${_csrf.token}" />
+				<h:outputLabel
+					value="#{request.getUserPrincipal().getPrincipal().getUsername()}" />
+				<button>Se déconnecter</button>
+			</form>
+		</b:navbarLinks>
+	</b:navBar>
 </h:body>
 </html>

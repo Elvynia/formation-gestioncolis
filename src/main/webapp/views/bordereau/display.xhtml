@@ -5,13 +5,15 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:b="http://bootsfaces.net/ui">
+	xmlns:b="http://bootsfaces.net/ui"
+	xmlns:gc="http://formation.org/facelets">
 
 <ui:composition template="../template.xhtml">
 	<ui:define name="content">
 		<div class="col-md-5">
 			<h2>Liste des bordereaux :</h2>
 			<h:form>
+				<gc:csrf />
 				<b:dataTable value="#{bordereauController.bordereaux}"
 					var="bordereau">
 
@@ -49,6 +51,7 @@
 			<div class="col-md-7">
 				<h3>Detail du bordereau :</h3>
 				<h:form>
+					<gc:csrf />
 					<div>
 						<h4>Bordereau n° #{bordereauBean.id}</h4>
 						<b:inputTextarea readonly="true" label="Détail"
