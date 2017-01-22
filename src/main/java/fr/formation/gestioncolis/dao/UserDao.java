@@ -12,18 +12,6 @@ import fr.formation.gestioncolis.entity.User;
 @ApplicationScoped
 public class UserDao extends AbstractDao<User> {
 
-	// private static UserDao INSTANCE;
-	//
-	// public static UserDao getInstance() {
-	// return UserDao.INSTANCE;
-	// }
-	//
-	// @PostConstruct
-	// public void _init() {
-	// UserDao.INSTANCE = this;
-	// LoggerFactory.getLogger(this.getClass()).info("-----DAO INIT");
-	// }
-
 	@Override
 	public User read(final Integer id) {
 		return this.read(User.class, id);
