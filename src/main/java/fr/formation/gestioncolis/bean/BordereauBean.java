@@ -5,15 +5,17 @@ import fr.formation.gestioncolis.entity.Commande;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import java.io.Serializable;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @ManagedBean
 @ViewScoped
 public class BordereauBean implements Serializable{
 
-    private Integer id;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private Integer id;
     private Commande commande;
     private String detail;
     private Date dateSignature;
