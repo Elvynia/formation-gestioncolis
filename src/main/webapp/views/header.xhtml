@@ -14,56 +14,59 @@
 </h:head>
 
 <h:body>
-	<h:form>
-		<b:navBar brand="GestionColis"
-			brandHref="#{request.contextPath}/views/dashboard.html">
-			<b:navbarLinks>
-				<b:dropMenu value="Coordonnées">
-					<b:navCommandLink value="Créer une coordonnée"
-						action="/views/coordonnee/create" />
-					<b:navCommandLink value="Liste des coordonnées"
-						action="/views/coordonnee/display" />
-				</b:dropMenu>
-				<b:dropMenu value="Commandes" href="#">
-					<b:navCommandLink value="Gérer les commandes"
-						action="/views/commande/display" />
-					<b:navCommandLink value="Gérer les états"
-						action="/views/etat/manage" />
-					<b:navCommandLink value="Liste des liasses"
-						action="/views/liasse/display" />
-					<b:navCommandLink value="Créer une liasse"
-						action="/views/etat/create" />
-				</b:dropMenu>
-				<b:dropMenu value="Produits">
-					<b:navCommandLink value="Créer un produit"
-						action="/views/product/create" />
-					<b:navCommandLink value="Liste des produits"
-						action="/views/product/display" />
-				</b:dropMenu>
-				<b:dropMenu value="Bordereaux">
-					<b:navCommandLink value="Créer un Borderal"
-						action="/views/bordereau/create" />
-					<b:navCommandLink value="Liste des bordereaux"
-						action="/views/bordereau/display" />
-				</b:dropMenu>
-				<b:dropMenu value="Factures">
-					<b:navCommandLink value="Créer une facture"
-						action="/views/facture/create" />
-					<b:navCommandLink value="Liste des factures"
-						action="/views/facture/display" />
-
-				</b:dropMenu>
-				<b:dropMenu value="Paquets">
-					<b:navCommandLink value="Créer un paquet"
-						action="/views/paquet/create" />
-					<b:navCommandLink value="Liste des paquets"
-						action="/views/paquet/display" />
-				</b:dropMenu>
-			</b:navbarLinks>
-			<b:navbarLinks pull="right">
-				<h:outputLabel value="#{loginBean.name}" />
-			</b:navbarLinks>
-		</b:navBar>
-	</h:form>
+	<b:container>
+		<h:form>
+			<b:navBar brand="GestionColis"
+				brandHref="#{request.contextPath}/views/dashboard.html">
+				<b:navbarLinks>
+					<b:dropMenu value="Coordonnées">
+						<b:navCommandLink value="Créer une coordonnée"
+							action="/views/coordonnee/create" />
+						<b:navCommandLink value="Liste des coordonnées"
+							action="/views/coordonnee/display" />
+					</b:dropMenu>
+					<b:dropMenu value="Commandes" href="#">
+						<b:navCommandLink value="Gérer les commandes"
+							action="/views/commande/display" />
+						<b:navCommandLink value="Gérer les états"
+							action="/views/etat/manage" />
+							<b:navLink></b:navLink>
+						<b:navCommandLink value="Liste des liasses"
+							action="/views/liasse/display" />
+						<b:navCommandLink value="Créer une liasse"
+							action="/views/liasse/create" />
+					</b:dropMenu>
+					<b:dropMenu value="Produits">
+						<b:navCommandLink value="Créer un produit"
+							action="/views/product/create" />
+						<b:navCommandLink value="Liste des produits"
+							action="/views/product/display" />
+					</b:dropMenu>
+					<b:dropMenu value="Bordereaux">
+						<b:navCommandLink value="Créer un Borderal"
+							action="/views/bordereau/create" />
+						<b:navCommandLink value="Liste des bordereaux"
+							action="/views/bordereau/display" />
+					</b:dropMenu>
+					<b:dropMenu value="Factures">
+						<b:navCommandLink value="Créer une facture"
+							action="/views/facture/create" />
+						<b:navCommandLink value="Liste des factures"
+							action="/views/facture/display" />
+	
+					</b:dropMenu>
+					<b:dropMenu value="Paquets">
+						<b:navCommandLink value="Créer un paquet"
+							action="/views/paquet/create" />
+						<b:navCommandLink value="Liste des paquets"
+							action="/views/paquet/display" />
+					</b:dropMenu>
+				</b:navbarLinks>
+				<b:navbarLinks pull="right" >
+					<h:outputLabel value="#{loginBean.name}" />
+				</b:navbarLinks>
+			</b:navBar>
+		</h:form>
+	</b:container>
 </h:body>
 </html>

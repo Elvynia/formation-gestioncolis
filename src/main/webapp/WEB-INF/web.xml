@@ -14,7 +14,7 @@
 	</context-param>
 	<context-param>
 		<param-name>BootsFaces_THEME</param-name>
-		<param-value>slate</param-value>
+		<param-value>paper</param-value>
 	</context-param>
 	<context-param>
 		<param-name>primefaces.THEME</param-name>
