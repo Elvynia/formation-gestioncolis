@@ -23,7 +23,7 @@ public class FactureBean implements Serializable {
 
 	@ManagedProperty("#{factureDao}")
 	private FactureDao factureDao;
-
+	
 	private String dateFacture;
 	private double montant;
 	private String reference;

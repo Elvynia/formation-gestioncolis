@@ -64,7 +64,7 @@ public class FactureController implements Serializable {
 	 */
 	private int commandeId;
 
-	@ManagedProperty("#{listCommandBean}")
+	@ManagedProperty("#{listCommandesBean}")
 	private ListCommandesBean listCommandesBean;
 
 	@PostConstruct
@@ -74,14 +74,14 @@ public class FactureController implements Serializable {
 	}
 
 	// Recuperer la commande via l'id commande
-	public void readCommand(Integer idCommande) {
-		Commande commande = commandeDao.read(idCommande);
+	public void readCommand(Facture facture) {
+		Commande commande = commandeDao.read(facture.getCommande().getId());
 		commandeBean.setId(commande.getId());
 		commandeBean.setDateCommande(commande.getDateCommande());
 		commandeBean.setDateEnvoi(commande.getDateEnvoi());
 		commandeBean.setAckSent(commande.getAckSent());
 		commandeBean.setAckReceived(commande.getAckReceived());
-		Facture facture = factureDao.read(factureId);
+		facture = factureDao.read(facture.getId());
 		factureBean.setReference(facture.getReference());
 		Etat etat = etatDao.read(commande.getEtatBean().getId());
 		etatBean.setNom(etat.getNom());
@@ -133,7 +133,9 @@ public class FactureController implements Serializable {
 	public void selectCommande(final SelectEvent event) {
 		this.commandeId = Integer.parseInt(event.getObject().toString());
 	}
-
+	public void unselectCommande(final UnselectEvent event){
+		this.commandeId = -1;
+	}
 	/**
 	 * @return the commandeId
 	 */
