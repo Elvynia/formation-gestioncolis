@@ -7,48 +7,73 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:b="http://bootsfaces.net/ui">
 
-	<h:body>
+<h:body>
+	<b:container>
+		<h2>Liste des paquets</h2>
+		<b:well>
+			<h:form>
+				<b:dataTable value="#{paquetController.paquets}" var="paquet"
+					customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/French.json">
+					<b:dataTableColumn>
+						<f:facet name="header">Paquet</f:facet>
+						<h:outputText value="#{paquet.id}" />
+					</b:dataTableColumn>
+					<b:dataTableColumn>
+						<f:facet name="header">Date</f:facet>
+						<h:outputText value="#{paquet.dateRecipisse }" />
+					</b:dataTableColumn>
+					<b:dataTableColumn>
+						<f:facet name="header">Expéditeur</f:facet>
+						<h:outputText
+							value="#{paquet.coordonnee1.firstname} #{paquet.coordonnee1.lastname}" />
+					</b:dataTableColumn>
+					<b:dataTableColumn>
+						<f:facet name="header">Destinataire</f:facet>
+						<h:outputText
+							value="#{paquet.coordonnee2.firstname} #{paquet.coordonnee2.lastname}" />
+					</b:dataTableColumn>
+					<b:dataTableColumn>
+						<f:facet name="header">Action</f:facet>
+						<b:commandButton class="btn btn-sm btn-primary" look="danger"
+							tooltip="Supprimer" icon="remove"
+							action="#{paquetController.delete(paquet)}" />
+						<b:commandButton class="btn btn-sm btn-primary" look="info"
+							tooltip="Détails" icon="expand"
+							action="#{paquetController.details(paquet.id)}" />
+					</b:dataTableColumn>
+				</b:dataTable>
+			</h:form>
+		</b:well>
+	</b:container>
+	<h:panelGroup rendered="#{paquetBean.id != null}">
 		<b:container>
-			<h2>Liste des paquets :</h2>
-			<b:well>
-				<h:form>
-					<b:dataTable value="#{paquetController.paquets}" var="paquet">
-						<b:dataTableColumn>
-							<f:facet name="header">Id</f:facet>
-							<h:outputText value="#{paquet.id}" />
-						</b:dataTableColumn>
-						<b:dataTableColumn>
-							<f:facet name="header">Date</f:facet>
-							<h:outputText value="#{paquet.dateRecipisse }" />
-						</b:dataTableColumn>
-						<b:dataTableColumn>
-							<f:facet name="header">NomExp</f:facet>
-							<h:outputText value="#{paquet.coordonnee1.firstname}" />
-						</b:dataTableColumn>
-
-						<b:dataTableColumn>
-							<f:facet name="header">PrénomExp</f:facet>
-							<h:outputText value="#{paquet.coordonnee1.lastname}" />
-						</b:dataTableColumn>
-
-						<b:dataTableColumn>
-							<f:facet name="header">NomDest</f:facet>
-							<h:outputText value="#{paquet.coordonnee2.firstname}" />
-						</b:dataTableColumn>
-
-						<b:dataTableColumn>
-							<f:facet name="header">PrénomDest</f:facet>
-							<h:outputText value="#{paquet.coordonnee2.lastname}" />
-						</b:dataTableColumn>
-
-						<b:dataTableColumn>
-							<f:facet name="header">Supprimer</f:facet>
-							<b:commandButton value="Supprimer"
-								action="#{paquetController.delete(paquet)}" />
-						</b:dataTableColumn>
-					</b:dataTable>
-				</h:form>
-			</b:well>
+			<h3>Détails</h3>
+			<div class="paquetDetails">
+				<b:well>
+					<h4>Produit</h4>
+					<p>#{paquetBean.produit.reference}</p>
+					<p>#{paquetBean.produit.intitule}</p>
+				</b:well>
+			</div>
+			<div class="paquetDetails">
+				<b:well>
+					<h4>Destinataire</h4>
+					<p>#{paquetBean.destinataire.firstname}</p>
+					<p>#{paquetBean.destinataire.lastname}</p>
+					<p>#{paquetBean.destinataire.addressLine1}</p>
+					<p>#{paquetBean.destinataire.city}</p>
+				</b:well>
+			</div>
+			<div class="paquetDetails">
+				<b:well>
+					<h4>Expéditeur</h4>
+					<p>#{paquetBean.expediteur.firstname}</p>
+					<p>#{paquetBean.expediteur.lastname}</p>
+					<p>#{paquetBean.expediteur.addressLine1}</p>
+					<p>#{paquetBean.expediteur.city}</p>
+				</b:well>
+			</div>
 		</b:container>
-	</h:body>
+	</h:panelGroup>
+</h:body>
 </html>

@@ -14,9 +14,7 @@ import org.slf4j.LoggerFactory;
 import fr.formation.gestioncolis.bean.CoordonneeBean;
 import fr.formation.gestioncolis.bean.PaquetBean;
 import fr.formation.gestioncolis.bean.ProductBean;
-import fr.formation.gestioncolis.dao.CoordonneeDao;
 import fr.formation.gestioncolis.dao.PaquetDao;
-import fr.formation.gestioncolis.dao.ProductDao;
 import fr.formation.gestioncolis.entity.Paquet;
 import fr.formation.gestioncolis.exception.CreateEntityException;
 import fr.formation.gestioncolis.exception.DeleteEntityException;
@@ -37,19 +35,13 @@ public class PaquetController implements Serializable {
 	@ManagedProperty("#{productBean}")
 	private ProductBean productBean;
 
-	@ManagedProperty("#{coordonneeDao}")
-	private CoordonneeDao coordonneeDao;
-
-	@ManagedProperty("#{productDao}")
-	private ProductDao productDao;
-
 	@ManagedProperty("#{paquetDao}")
 	private PaquetDao paquetDao;
 
 	@ManagedProperty("#{paquetBean}")
 	private PaquetBean paquetBean;
 
-	List<Paquet> paquets;
+	private List<Paquet> paquets;
 
 	@PostConstruct
 	public void _init() {
@@ -71,12 +63,18 @@ public class PaquetController implements Serializable {
 		return "/views/paquet/display";
 	}
 
-	public CoordonneeBean getCoordonneeBean() {
-		return this.coordonneeBean;
+	public void details(final Integer paquetId) {
+		PaquetController.LOGGER.debug("DBG: paquetId={}", paquetId);
+		final Paquet paquet = this.paquetDao.read(paquetId);
+		this.paquetBean.setId(paquetId);
+		this.paquetBean.setProduit(paquet.getColi());
+		this.paquetBean.setDestinataire(paquet.getCoordonnee1());
+		this.paquetBean.setExpediteur(paquet.getCoordonnee2());
+		this.paquetBean.setDateRecepice(paquet.getDateRecipisse());
 	}
 
-	public CoordonneeDao getCoordonneeDao() {
-		return this.coordonneeDao;
+	public CoordonneeBean getCoordonneeBean() {
+		return this.coordonneeBean;
 	}
 
 	public PaquetBean getPaquetBean() {
@@ -93,10 +91,6 @@ public class PaquetController implements Serializable {
 
 	public ProductBean getProductBean() {
 		return this.productBean;
-	}
-
-	public ProductDao getProductDao() {
-		return this.productDao;
 	}
 
 	public String save() {
@@ -124,10 +118,6 @@ public class PaquetController implements Serializable {
 		this.coordonneeBean = coordonneeBean;
 	}
 
-	public void setCoordonneeDao(final CoordonneeDao coordonneeDao) {
-		this.coordonneeDao = coordonneeDao;
-	}
-
 	public void setPaquetBean(final PaquetBean paquetBean) {
 		this.paquetBean = paquetBean;
 	}
@@ -143,9 +133,4 @@ public class PaquetController implements Serializable {
 	public void setProductBean(final ProductBean productBean) {
 		this.productBean = productBean;
 	}
-
-	public void setProductDao(final ProductDao productDao) {
-		this.productDao = productDao;
-	}
-
 }

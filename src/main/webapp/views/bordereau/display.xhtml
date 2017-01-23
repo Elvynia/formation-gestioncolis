@@ -2,59 +2,69 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:b="http://bootsfaces.net/ui">
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:b="http://bootsfaces.net/ui">
 
 <ui:composition template="../template.xhtml">
-    <ui:define name="content">
-        <div class="col-md-5">
-            <h2>Liste des bordereaux :</h2>
-            <h:form>
-                <b:dataTable value="#{bordereauController.bordereaux}" var="bordereau">
-                    <b:dataTableColumn>
-                        <f:facet name="header">Id</f:facet>
-                        <h:outputText value="#{bordereau.id}"/>
-                    </b:dataTableColumn>
-                    <b:dataTableColumn>
-                        <f:facet name="header">Commande</f:facet>
-                        <h:outputText value="#{bordereau.commandeBean.getId()}"/>
-                    </b:dataTableColumn>
-                    <b:dataTableColumn>
-                        <f:facet name="header">Date</f:facet>
-                        <h:outputText value="#{bordereau.dateSignature}"/>
-                    </b:dataTableColumn>
+	<ui:define name="content">
+		<div class="col-md-5">
+			<h2>Liste des bordereaux :</h2>
+			<h:form>
+				<b:dataTable value="#{bordereauController.bordereaux}"
+					var="bordereau">
 
-                    <b:dataTableColumn>
-                        <f:facet name="header">Detail</f:facet>
-                        <b:commandButton value=">"
-                                         action="#{bordereauController.detail(bordereau.id)}">
+					<b:dataTableColumn>
+						<f:facet name="header">&nbsp;</f:facet>
+						<b:commandButton icon-spin="true" iconAwesome="thumbs-down" look="danger" value="Supprimer"
+							action="#{bordereauController.delete(bordereau.id)}">
+						</b:commandButton>
+					</b:dataTableColumn>
+					<b:dataTableColumn>
+						<f:facet name="header">Id</f:facet>
+						<h:outputText value="#{bordereau.id}" />
+					</b:dataTableColumn>
+					<b:dataTableColumn>
+						<f:facet name="header">Commande</f:facet>
+						<h:outputText value="#{bordereau.commandeBean.getId()}" />
+					</b:dataTableColumn>
+					<b:dataTableColumn>
+						<f:facet name="header">Date</f:facet>
+						<h:outputText value="#{bordereau.dateSignature}" />
+					</b:dataTableColumn>
 
-                        </b:commandButton>
+					<b:dataTableColumn>
+						<f:facet name="header">Detail</f:facet>
+						<b:commandButton  icon-spin="true" icon="cd" icon-size="1x" value=">"
+							action="#{bordereauController.detail(bordereau.id)}">
 
-                    </b:dataTableColumn>
-                </b:dataTable>
-            </h:form>
-        </div>
-        <h:panelGroup rendered="#{bordereauBean.id != null}">
-            <div class="col-md-7">
-                <h3>Detail du bordereau :</h3>
-                <h:form>
-                    <div>
-                        <h4>Bordereau n° #{bordereauBean.id}</h4>
-                        <b:inputTextarea readonly="true" label="Détail" value="#{bordereauBean.detail}"/>
-                        <b:inputText readonly="true" label="Date signature" value="#{bordereauBean.dateSignature}">
-                            <f:convertDateTime pattern="EEE d MMM yyyy 'à' hh'h'"/>
-                        </b:inputText>
-                    </div>
+						</b:commandButton>
 
-                    <div>
-                        <ui:include src="../commande/commande_display_fragment.xhtml" />
-                    </div>
-                </h:form>
-            </div>
-        </h:panelGroup>
-    </ui:define>
+					</b:dataTableColumn>
+				</b:dataTable>
+			</h:form>
+		</div>
+		<h:panelGroup rendered="#{bordereauBean.id != null}">
+			<div class="col-md-7">
+				<h3>Detail du bordereau :</h3>
+				<h:form>
+					<div>
+						<h4>Bordereau n° #{bordereauBean.id}</h4>
+						<b:inputTextarea readonly="true" label="Détail"
+							value="#{bordereauBean.detail}" />
+						<b:inputText readonly="true" label="Date signature"
+							value="#{bordereauBean.dateSignature}">
+							<f:convertDateTime pattern="EEE d MMM yyyy 'à' hh'h'" />
+						</b:inputText>
+					</div>
+
+					<div>
+						<ui:include src="../commande/commande_display_fragment.xhtml" />
+					</div>
+				</h:form>
+			</div>
+		</h:panelGroup>
+	</ui:define>
 </ui:composition>
 </html>
