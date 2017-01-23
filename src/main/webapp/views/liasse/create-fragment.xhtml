@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:b="http://bootsfaces.net/ui" 
+	xmlns:p="http://primefaces.org/ui">
+
+<h:body>
+
+<!-- CSS DES STEPS -->
+<style type="text/css">
+.ui-steps .ui-steps-item {
+	width: 24%;
+}
+
+.ui-state-highlight {
+	text-shadow: none !important;
+}
+
+.ui-steps.custom {
+	margin-bottom: 30px;
+}
+
+.ui-steps.custom .ui-steps-item .ui-menuitem-link {
+	height: 10px;
+	padding: 0 1em;
+}
+
+.ui-steps.custom .ui-steps-item .ui-steps-number {
+	background-color: #0081c2;
+	color: #FFFFFF;
+	display: inline-block;
+	width: 30px;
+	border-radius: 10px;
+	margin-top: -10px;
+	margin-bottom: 10px;
+}
+
+.ui-steps.custom .ui-steps-item.ui-state-highlight .ui-steps-title {
+	color: #555;
+}
+</style>
+
+
+
+	<!-- CONTENU -->
+	<b:container>
+		<h3>Création de liasse</h3>
+		<h:form>
+			<p:steps id="step" activeIndex="0" styleClass="custom" readonly="false">
+				<p:menuitem value="Création" url="#" />
+				<p:menuitem value="Récapitulatif" action="/views/liasse/create-fragment" />
+				<p:menuitem value="Validation" url="#" />
+			</p:steps>
+			<br />
+			<br />
+			<br />
+				<p:selectOneMenu id="basic" value="#{commandeBean}" editable="false" effect="slide" effectSpeed="fast">
+		            <f:selectItems value="#{commandeController.commandes}" itemValue="#{commandeBean.id}" itemLabel="#{commandeBean.id}" />
+		        </p:selectOneMenu>
+			<br />
+			<br />
+			<!-- <p:autoComplete value="" completeMethod="" forceSelection="false" minQueryLength="1"  /> -->
+			<p:inputNumber decimalSeparator="," thousandSeparator="." placeholder="Valeur estimée du colis" required="true" symbol=" €"
+				symbolPosition="s" />
+			<br />
+			<br />
+			<p:selectOneMenu id="nature" value="#{liasseController.liasseBean.nature}" editable="false" effect="slide" effectSpeed="fast">
+				<f:selectItem itemLabel="Sélectionnez la nature du colis" itemValue="" />
+				<f:selectItems value="#{liasseController.selectNature}" />
+			</p:selectOneMenu>
+			<br />
+			<br />
+			<p:calendar effect="slide" placeholder="Date de prise en charge" id="button" value="#{calendarViewBean.date1}" showOn="button" pattern="dd-MM-yyyy HH:mm:ss" />
+			<br />
+			<br />
+			<p style="text-align: left;">
+				<p:commandButton value="suivant" />
+			</p>
+		</h:form>
+	</b:container>
+	
+</h:body>
+
+</html>

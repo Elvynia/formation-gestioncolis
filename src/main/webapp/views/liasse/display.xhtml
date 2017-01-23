@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
@@ -9,16 +9,17 @@
 
 <ui:composition template="../template.xhtml">
 	<ui:define name="content">
-		<h2>Gestion des liasses :</h2>
-
-		<b:dataTable value="#{liasseController.liasses}" var="liasse">
-			<b:dataTableColumn value="#{liasse.commandeBean.id}" label="Commande" />
-			<b:dataTableColumn value="#{liasse.id}" label="N° de liasse"/>
-			<b:dataTableColumn value="#{liasse.valeur}" label="Valeur" />
-			<b:dataTableColumn value="#{liasse.nature}"  label="Nature"/>
-			<b:dataTableColumn value="#{liasse.dateSignature}" order="asc" label="Date de prise en charge" />
-		</b:dataTable>
-
+		<b:container>
+			<h3>Liste des liasses</h3>
+			<b:dataTable value="#{liasseController.liasses}" var="liasse">
+				<b:dataTableColumn value="#{liasse.commandeBean.id}" label="Commande n°" />
+				<b:dataTableColumn value="#{liasse.id}" label="Liasse n°" />
+				<b:dataTableColumn value="#{liasse.valeur}" label="Valeur" />
+				<b:dataTableColumn value="#{liasse.nature}" label="Nature"/>
+				<b:dataTableColumn value="#{liasse.dateSignature}" label="Date de prise en charge" order="asc" />
+			</b:dataTable>	
+		</b:container>
 	</ui:define>
 </ui:composition>
+
 </html>

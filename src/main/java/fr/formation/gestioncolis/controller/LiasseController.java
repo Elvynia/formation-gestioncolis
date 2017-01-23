@@ -1,6 +1,7 @@
 package fr.formation.gestioncolis.controller;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -33,13 +34,22 @@ public class LiasseController implements Serializable {
 	private LiasseDao liasseDao;
 
 	private List<Liasse> liasses;
+	
+	private List<String> selectNature;
 
 	@PostConstruct
 	public void _init() {
 		LiasseController.LOGGER.debug("Chargement de la liste des liasses");
 		this.liasses = this.liasseDao.readAll();
+		this.selectNature = new ArrayList<>();
+		this.selectNature.add("Cadeaux");
+		this.selectNature.add("Document");
+		this.selectNature.add("Echantillons commercial");
+		this.selectNature.add("Retour marchandise");
+		this.selectNature.add("Autres...");
 	}
-
+	
+	
 	/**
 	 *
 	 * LISTE DES GETTERS SETTERS
@@ -75,6 +85,16 @@ public class LiasseController implements Serializable {
 
 	public void setLiasses(final List<Liasse> liasses) {
 		this.liasses = liasses;
+	}
+
+
+	public List<String> getSelectNature() {
+		return this.selectNature;
+	}
+
+
+	public void setSelectNature(List<String> selectNature) {
+		this.selectNature = selectNature;
 	}
 
 }

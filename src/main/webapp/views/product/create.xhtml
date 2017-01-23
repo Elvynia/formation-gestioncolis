@@ -21,7 +21,7 @@
 		<!-- Tag permettant d'encapsuler un autre tag sans générer d'HTML supplémentaire. La balise
 		fragment disparait lors de l'étape RenderView qui génère le code HTML. -->
 		<ui:fragment rendered="#{empty productController.productId}">
-			<h2>Créer un nouveau produit :</h2>
+			
 		</ui:fragment>
 		<!-- L'attribut rendered permet de conditionner (true/false) la présence d'un tag dans le code HTML.
 		Cet attribut permet donc de conditionner l'affichage, mais il faut bien se rappeler qu'il gère
@@ -29,30 +29,32 @@
 		qu'on ne peut altérer côté client en CSS ou JS, car un élément dont le rendered est à false ne
 		sera pas du tout dans la page. -->
 		<ui:fragment rendered="#{!empty productController.productId}">
-			<h2>Modifier un produit :</h2>
 		</ui:fragment>
-		<b:form>
-			<!-- Ce champ n'est visible qu'en édition est n'est pas modifiable (readonly).
-			Il existe en CSS un sélecteur ':read-only' qui permet de modifier facilement le style. -->
-			<b:inputText label="Id" value="#{productController.productId}"
-				rendered="#{!empty productController.productId}"
-				readonly="true" />
-			<b:inputText label="Intitulé" value="#{productBean.intitule}">
-				<!-- Rend la saisie du champ obligatoire. -->
-				<f:validateRequired />
-			</b:inputText>
-			<b:inputText type="number" label="Poids" value="#{productBean.poids}">
-				<!-- La saisie doit pouvoir être transformée en float Java. -->
-				<f:validateRequired />
-				<f:validateDoubleRange />
-			</b:inputText>
-			<b:inputText label="Référence (unique)"
-				value="#{productBean.reference}">
-				<f:validateRequired />
-				<f:validateLength minimum="3" maximum="32" />	
-			</b:inputText>
-			<b:commandButton value="Valider" action="#{productController.save}" />
-		</b:form>
+		<b:container>
+			<h3>Créer un nouveau produit :</h3>
+			<b:form>
+				<!-- Ce champ n'est visible qu'en édition est n'est pas modifiable (readonly).
+				Il existe en CSS un sélecteur ':read-only' qui permet de modifier facilement le style. -->
+				<b:inputText label="Id" value="#{productController.productId}"
+					rendered="#{!empty productController.productId}"
+					readonly="true" />
+				<b:inputText label="Intitulé" value="#{productBean.intitule}">
+					<!-- Rend la saisie du champ obligatoire. -->
+					<f:validateRequired />
+				</b:inputText>
+				<b:inputText type="number" label="Poids" value="#{productBean.poids}">
+					<!-- La saisie doit pouvoir être transformée en float Java. -->
+					<f:validateRequired />
+					<f:validateDoubleRange />
+				</b:inputText>
+				<b:inputText label="Référence (unique)"
+					value="#{productBean.reference}">
+					<f:validateRequired />
+					<f:validateLength minimum="3" maximum="32" />	
+				</b:inputText>
+				<b:commandButton value="Valider" action="#{productController.save}" />
+			</b:form>
+		</b:container>
 	</ui:define>
 </ui:composition>
 </html>

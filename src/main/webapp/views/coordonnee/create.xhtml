@@ -9,17 +9,19 @@
 
 <ui:composition template="../template.xhtml">
 	<ui:define name="content">
-		<h2>Créer une nouvelle coordonnée :</h2>
-		<b:form>
-			<b:inputText label="Prénom" value="#{coordonneeBean.firstname}" />
-			<b:inputText label="Nom" value="#{coordonneeBean.lastname}" />
-			<b:inputText label="Adresse" value="#{coordonneeBean.addressLine1}" />
-			<b:inputText value="#{coordonneeBean.addressLine2}" />
-			<b:inputText label="Ville" value="#{coordonneeBean.city}" />
-			<b:inputText label="Pays" value="#{coordonneeBean.country}" />
-			<b:inputText type="number" label="Code postal" value="#{coordonneeBean.postalCode}" />
-			<b:commandButton value="Valider" action="#{coordonneeController.save}" />
-		</b:form>
+		<b:container>
+		<h3>Créer une nouvelle coordonnée :</h3>
+			<b:form>
+				<b:inputText label="Prénom" value="#{coordonneeBean.firstname}" />
+				<b:inputText label="Nom" value="#{coordonneeBean.lastname}" />
+				<b:inputText label="Adresse" value="#{coordonneeBean.addressLine1}" />
+				<b:inputText value="#{coordonneeBean.addressLine2}" />
+				<b:inputText label="Ville" value="#{coordonneeBean.city}" />
+				<b:inputText label="Pays" value="#{coordonneeBean.country}" />
+				<b:inputText type="number" label="Code postal" value="#{coordonneeBean.postalCode}" />
+				<b:commandButton value="Valider" action="#{coordonneeController.save}" />
+			</b:form>
+		</b:container>
 	</ui:define>
 </ui:composition>
 </html>
