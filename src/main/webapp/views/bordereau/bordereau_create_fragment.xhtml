@@ -5,10 +5,12 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:b="http://bootsfaces.net/ui">
+      xmlns:b="http://bootsfaces.net/ui"
+	  xmlns:gc="http://formation.org/facelets">
 <h:body>
     <h2>Effectuer un nouveau bordereau :</h2>
     <h:form>
+    	<gc:csrf />
         <b:selectOneMenu label="Sélectionner une commande" value="#{bordereauBean.commande}" required="true">
             <f:selectItem noSelectionOption="true" itemLabel="Sélectionner..." itemValue=""/>
             <f:selectItems value="#{commandeController.commandes}"

@@ -6,7 +6,8 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:b="http://bootsfaces.net/ui" 
-	xmlns:p="http://primefaces.org/ui">
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:gc="http://formation.org/facelets">
 
 <ui:composition template="../template.xhtml">
 	<ui:define name="content">
@@ -14,6 +15,7 @@
 		<b:container>
 			<div class="etatList">
 				<h:form id="etatListForm">
+					<gc:csrf />
 					<h3>Ordre des états :</h3>
 					<h:inputHidden id="etatId" value="#{etatController.etatId}" />
 					<p:orderList responsive="true" id="etatList" controlsLocation="right"
@@ -39,6 +41,7 @@
 			</div>
 			<div class="etat">
 				<b:form id="etatForm">
+					<gc:csrf />
 					<h3>Créer un nouvel état</h3>
 					<b:inputText label="Nom" value="#{etatBean.nom}">
 

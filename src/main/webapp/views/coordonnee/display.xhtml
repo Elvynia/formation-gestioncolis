@@ -5,12 +5,14 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:b="http://bootsfaces.net/ui">
+	xmlns:b="http://bootsfaces.net/ui"
+	xmlns:gc="http://formation.org/facelets">
 
 <ui:composition template="../template.xhtml">
 	<ui:define name="content">
 		<h2>Liste des coordonnées :</h2>
 		<h:form>
+			<gc:csrf />
 			<b:dataTable value="#{coordonneeController.coordonnees}" var="coord">
 				<b:dataTableColumn>
 					<f:facet name="header">Id</f:facet>

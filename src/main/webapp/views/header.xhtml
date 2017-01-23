@@ -5,7 +5,8 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:b="http://bootsfaces.net/ui">
+	xmlns:b="http://bootsfaces.net/ui"
+	xmlns:gc="http://formation.org/facelets">
 
 <h:head>
 	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
@@ -18,6 +19,7 @@
 	<b:navBar brand="GestionColis"
 		brandHref="#{request.contextPath}/views/dashboard.html">
 		<h:form>
+			<gc:csrf />
 			<b:navbarLinks>
 				<b:dropMenu value="Coordonnées">
 					<b:navCommandLink value="Créer une coordonnée"

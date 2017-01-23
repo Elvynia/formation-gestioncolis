@@ -18,7 +18,7 @@ public class Role implements Serializable {
 	@Id
 	private int id;
 
-	private int name;
+	private String name;
 
 	public Role() {
 	}
@@ -27,21 +27,21 @@ public class Role implements Serializable {
 		return this.id;
 	}
 
+	/**
+	 * @return the name
+	 */
+	public String getName() {
+		return this.name;
+	}
+
 	public void setId(final int id) {
 		this.id = id;
 	}
 
 	/**
-	 * @return the name
-	 */
-	public int getName() {
-		return name;
-	}
-
-	/**
 	 * @param name the name to set
 	 */
-	public void setName(int name) {
+	public void setName(final String name) {
 		this.name = name;
 	}
 

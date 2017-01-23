@@ -7,13 +7,15 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:b="http://bootsfaces.net/ui"
 	xmlns:c="http://java.sun.com/jsp/jstl/core"
-	xmlns:p="http://primefaces.org/ui">
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:gc="http://formation.org/facelets">
 
 <ui:composition template="../template.xhtml">
 	<ui:define name="content">
 	<b:container>
 		<h2>Gestion des commandes</h2>
 		<h:form>
+			<gc:csrf />
 			<b:dataTable value="#{commandeController.commandes}" var="commande">
 				<b:dataTableColumn>
 					<f:facet name="header">ID Paquet</f:facet>
