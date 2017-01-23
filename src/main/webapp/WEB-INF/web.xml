@@ -22,7 +22,7 @@
 	</context-param>
 	<context-param>
 		<param-name>facelets.LIBRARIES</param-name>
-		<param-value>/WEB-INF/gestioncolis.taglib.xml</param-value>
+		<param-value>/WEB-INF/gestioncolis.taglib.xml;/WEB-INF/springsecurity.taglib.xml</param-value>
 	</context-param>
 
 	<servlet>
