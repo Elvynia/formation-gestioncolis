@@ -39,3 +39,16 @@ a {
 	margin-top: 10px;
 	margin-left: 20px;
 }
+
+#disconnectForm label {
+	position: absolute;
+	right: 2%;
+	font-weight: bold;
+	font-size: 1.5em;
+}
+
+#disconnectForm button {
+	position: absolute;
+	bottom: 0;
+	right: 0;
+}

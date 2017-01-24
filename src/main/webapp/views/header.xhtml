@@ -66,7 +66,7 @@
 				</b:navbarLinks>
 			</h:form>
 			<b:navbarLinks pull="right">
-				<form method="post" action="#{request.getContextPath()}/logout">
+				<form id="disconnectForm" method="post" action="#{request.getContextPath()}/logout">
 					<input type="hidden" name="${_csrf.parameterName}"
 						value="${_csrf.token}" />
 					<h:outputLabel
