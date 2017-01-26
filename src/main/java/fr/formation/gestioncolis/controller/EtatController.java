@@ -14,11 +14,8 @@ import org.slf4j.LoggerFactory;
 
 import fr.formation.gestioncolis.bean.EtatBean;
 import fr.formation.gestioncolis.bean.EtatOrderBean;
-import fr.formation.gestioncolis.dao.EtatDao;
 import fr.formation.gestioncolis.entity.Etat;
-import fr.formation.gestioncolis.exception.CreateEntityException;
-import fr.formation.gestioncolis.exception.DeleteEntityException;
-import fr.formation.gestioncolis.exception.UpdateEntityException;
+import fr.formation.gestioncolis.service.EtatService;
 import net.bootsfaces.utils.FacesMessages;
 
 @ManagedBean
@@ -33,13 +30,13 @@ public class EtatController implements Serializable {
 	@ManagedProperty("#{etatBean}")
 	private EtatBean etatBean;
 
-	@ManagedProperty("#{etatDao}")
-	private EtatDao etatDao;
-
 	private int etatId;
 
 	@ManagedProperty("#{etatOrderBean}")
 	private EtatOrderBean etatOrderBean;
+
+	@ManagedProperty("#{etatService}")
+	private EtatService etatService;
 
 	@PostConstruct
 	public void _init() {
@@ -47,22 +44,14 @@ public class EtatController implements Serializable {
 	}
 
 	public void delete() {
-		if (this.etatId >= 0) {
-			try {
-				this.etatDao.delete(this.etatId);
-				FacesMessages.info(
-						"Etat d'id " + this.etatId + " supprimé avec succès.");
-			} catch (final DeleteEntityException e) {
-				EtatController.LOGGER.error(
-						"Erreur pendant la suppression d'un nouvel etat", e);
-				FacesMessages.error(
-						"Impossible de supprimer l'état d'id " + this.etatId);
-			}
+		if (this.etatService.delete(this.etatId)) {
+			FacesMessages.info(
+					"Etat d'id " + this.etatId + " supprimé avec succès.");
 			this.etatId = -1;
 			this.etatOrderBean.refresh();
 		} else {
-			FacesMessages
-					.error("Impossible de supprimer : aucun état sélectionné.");
+			FacesMessages.error(
+					"Impossible de supprimer l'état d'id " + this.etatId);
 		}
 	}
 
@@ -75,22 +64,19 @@ public class EtatController implements Serializable {
 
 	public void save() {
 		EtatController.LOGGER.debug("Sauvegarde de etatBean en BDD.");
-		if (this.etatBean.getId() == null) {
-			try {
-				final Etat etat = new Etat(this.etatBean.getNom());
-				etat.setOrdre(this.etatOrderBean.getList().size());
-				this.etatDao.create(etat);
-				FacesMessages.info("Nouvel état '" + this.etatBean.getNom()
-						+ "' créé avec succès.");
-				this.etatBean.setNom(null);
-			} catch (final CreateEntityException e) {
-				EtatController.LOGGER.error(
-						"Erreur pendant la création d'un nouvel etat", e);
-				FacesMessages.error("Impossible de créer l'état avec le nom "
-						+ this.etatBean.getNom());
-			}
+		final Etat etat = new Etat(this.etatBean.getNom());
+		if (this.etatBean.getId() != null) {
+			etat.setId(this.etatBean.getId());
 		} else {
-			// TODO: Modification.
+			etat.setOrdre(this.etatOrderBean.getList().size());
+		}
+		if (this.etatService.save(etat)) {
+			FacesMessages.info("Nouvel état '" + this.etatBean.getNom()
+					+ "' créé avec succès.");
+			this.etatBean.setNom(null);
+		} else {
+			FacesMessages.error("Impossible de créer l'état avec le nom "
+					+ this.etatBean.getNom());
 		}
 		this.etatId = -1;
 		this.etatOrderBean.refresh();
@@ -98,19 +84,18 @@ public class EtatController implements Serializable {
 
 	public void saveOrder() {
 		EtatController.LOGGER.debug("Sauvegarde de l'ordre des états");
-		try {
-			for (final Etat etat : this.etatOrderBean.getList()) {
-				EtatController.LOGGER.debug("Etat : id={}, nom={}, ordre={}",
-						etat.getId(), etat.getNom(), etat.getOrdre());
-				this.etatDao.update(etat);
-			}
+		boolean success = true;
+		for (final Etat etat : this.etatOrderBean.getList()) {
+			EtatController.LOGGER.debug("Etat : id={}, nom={}, ordre={}",
+					etat.getId(), etat.getNom(), etat.getOrdre());
+			success = success && this.etatService.save(etat);
+		}
+		if (success) {
 			FacesMessages
 					.info("L'ordre des états à été sauvegadé avec succès.");
-		} catch (final UpdateEntityException e) {
-			EtatController.LOGGER.error(
-					"Erreur pendant la mise à jour de l'ordre des états.", e);
-			FacesMessages
-					.error("Impossible de mettre à jour l'ordre des états.");
+		} else {
+			FacesMessages.error(
+					"Un problème est survenu pendant la sauvegarde de l'ordre des états.");
 		}
 	}
 
@@ -126,13 +111,6 @@ public class EtatController implements Serializable {
 	}
 
 	/**
-	 * @param etatDao the etatDao to set
-	 */
-	public void setEtatDao(final EtatDao etatDao) {
-		this.etatDao = etatDao;
-	}
-
-	/**
 	 * @param etatId the etatId to set
 	 */
 	public void setEtatId(final int etatId) {
@@ -144,6 +122,13 @@ public class EtatController implements Serializable {
 	 */
 	public void setEtatOrderBean(final EtatOrderBean etatOrderBean) {
 		this.etatOrderBean = etatOrderBean;
+	}
+
+	/**
+	 * @param etatService the etatService to set
+	 */
+	public void setEtatService(final EtatService etatService) {
+		this.etatService = etatService;
 	}
 
 	public void unselectEtat(final UnselectEvent event) {

@@ -52,7 +52,7 @@
 				<b:dataTableColumn>
 					<f:facet name="header">Actions</f:facet>
 					<b:commandButton value="Passer à l'état #{commandeController.nextState(commande)}" 
-					rendered="#{commande.etatBean.ordre != 3}" 
+					rendered="#{commande.etatBean.ordre != etatService.maxOrder}" 
 					action="#{commandeController.update(commande)}" />
 					<b:commandButton look="danger" tooltip="Supprimer" icon="remove" 
 					action="#{commandeController.delete(commande)}" />

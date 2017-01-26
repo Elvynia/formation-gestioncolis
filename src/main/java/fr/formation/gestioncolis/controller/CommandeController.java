@@ -16,12 +16,12 @@ import org.slf4j.LoggerFactory;
 import fr.formation.gestioncolis.bean.CommandeBean;
 import fr.formation.gestioncolis.bean.CreateCommandeBean;
 import fr.formation.gestioncolis.dao.CommandeDao;
-import fr.formation.gestioncolis.dao.EtatDao;
 import fr.formation.gestioncolis.entity.Commande;
 import fr.formation.gestioncolis.exception.CreateEntityException;
 import fr.formation.gestioncolis.exception.DeleteEntityException;
 import fr.formation.gestioncolis.exception.UpdateEntityException;
 import fr.formation.gestioncolis.service.CommandeService;
+import fr.formation.gestioncolis.service.EtatService;
 import net.bootsfaces.utils.FacesMessages;
 
 @ManagedBean
@@ -47,8 +47,8 @@ public class CommandeController implements Serializable {
 	@ManagedProperty("#{createCommandeBean}")
 	private CreateCommandeBean createCommandeBean;
 
-	@ManagedProperty("#{etatDao}")
-	private EtatDao etatDao;
+	@ManagedProperty("#{etatService}")
+	private EtatService etatService;
 
 	@PostConstruct
 	public void _init() {
@@ -81,16 +81,6 @@ public class CommandeController implements Serializable {
 		}
 		return "/views/commande/display";
 	}
-	
-	/*
-	 * Méthode appelée dans la page display pour le nom du bouton
-	 * gérant le passage à l'état suivant.
-	 */
-	public String nextState(Commande commande) {
-		String next = this.etatDao.read(commande.getEtatBean().getId()+1).getNom();
-		
-		return next;
-	}
 
 	public Integer getCommandeId() {
 		return this.commandeId;
@@ -101,8 +91,8 @@ public class CommandeController implements Serializable {
 	}
 
 	/*
-	 * Méthode de mise de jour de l'état et des dates de la commande,
-	 * passée en paramètre de l'update.
+	 * Méthode de mise de jour de l'état et des dates de la commande, passée en
+	 * paramètre de l'update.
 	 */
 	private Commande majDatesCommande(final Commande commande) {
 		final Date date = new Date();
@@ -110,18 +100,34 @@ public class CommandeController implements Serializable {
 		formater = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		formater.format(date);
 
-		if (commande.getEtatBean().getOrdre() == 0) {
-			commande.setDateEnvoi(date);
-			commande.setEtatBean(this.etatDao.read(commande.getEtatBean().getId()+1));
-		} else if (commande.getEtatBean().getOrdre() == 1) {
-			commande.setAckSent(date);
-			commande.setEtatBean(this.etatDao.read(commande.getEtatBean().getId()+1));
-		} else if (commande.getEtatBean().getOrdre() == 2) {
-			commande.setAckReceived(date);
-			commande.setEtatBean(this.etatDao.read(commande.getEtatBean().getId()+1));
+		final int curOrder = commande.getEtatBean().getOrdre();
+		if (curOrder < this.etatService.getMaxOrder()) {
+			if (curOrder == 0) {
+				commande.setDateEnvoi(date);
+			} else if (curOrder == 1) {
+				commande.setAckSent(date);
+			} else if (curOrder == 2) {
+				commande.setAckReceived(date);
+			}
+			commande.setEtatBean(this.etatService
+					.getNext(commande.getEtatBean().getOrdre()));
 		}
 
 		return commande;
+	}
+
+	/**
+	 * Méthode appelée dans la page display pour le nom du bouton gérant le
+	 * passage à l'état suivant.
+	 */
+	public String nextState(final Commande commande) {
+		if (commande.getEtatBean().getOrdre() < this.etatService
+				.getMaxOrder()) {
+			return this.etatService.getNext(commande.getEtatBean().getOrdre())
+					.getNom();
+		} else {
+			return null;
+		}
 	}
 
 	public String save() {
@@ -190,15 +196,18 @@ public class CommandeController implements Serializable {
 		this.createCommandeBean = createCommandeBean;
 	}
 
-	public void setEtatDao(final EtatDao etatDao) {
-		this.etatDao = etatDao;
+	/**
+	 * @param etatService the etatService to set
+	 */
+	public void setEtatService(final EtatService etatService) {
+		this.etatService = etatService;
 	}
 
 	public void update(final Commande commande) {
 		try {
 			this.commandeDao.update(this.majDatesCommande(commande));
-			CommandeController.LOGGER
-					.debug("Mise à jour de la commande d'id={}", commande.getId());
+			CommandeController.LOGGER.debug(
+					"Mise à jour de la commande d'id={}", commande.getId());
 			FacesMessages.info("Mise à jour de la commande.");
 		} catch (final UpdateEntityException e) {
 			CommandeController.LOGGER
