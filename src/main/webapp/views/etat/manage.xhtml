@@ -11,12 +11,12 @@
 <ui:composition template="../template.xhtml">
 	<ui:define name="content">
 		<b:container>
-			<h2>Gérer les états de commande :</h2>
+			<h3>Gérer les états de commande</h3>
 			<div class="etatList">
 				<b:well>
 					<h:form id="etatListForm">
 						<gc:csrf />
-						<h3>Ordre des états :</h3>
+						<h4>Ordre des états</h4>
 						<h:inputHidden id="etatId" value="#{etatController.etatId}" />
 						<p:orderList responsive="true" id="etatList"
 							controlsLocation="right" itemLabel="#{etat.nom}"
@@ -44,7 +44,7 @@
 				<b:well>
 					<b:form id="etatForm">
 						<gc:csrf />
-						<h3>Créer un nouvel état</h3>
+						<h4>Créer un nouvel état</h4>
 						<b:inputText label="Nom" value="#{etatBean.nom}">
 
 						</b:inputText>
