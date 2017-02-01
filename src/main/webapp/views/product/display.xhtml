@@ -16,7 +16,7 @@
 				<h:form>
 					<gc:csrf />
 					<b:dataTable value="#{productController.products}" var="product"
-					customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/French.json">
+						customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/French.json">
 						<b:dataTableColumn>
 							<f:facet name="header">Id</f:facet>
 							<h:outputText value="#{product.id}" />
@@ -35,14 +35,13 @@
 						</b:dataTableColumn>
 						<b:dataTableColumn>
 							<f:facet name="header">Action</f:facet>
-						<b:commandButton class="btn btn-sm btn-primary" look="danger"
-							tooltip="Supprimer" icon="remove"
-							action="#{productController.delete(product)}" />
+							<b:commandButton class="btn btn-sm btn-primary" look="danger"
+								tooltip="Supprimer" icon="remove"
+								action="#{productController.delete(product)}" />
 							<!-- Bouton directement lié à un changement de vue, 
 						sans passer par une méthode Java. -->
-						<b:commandButton class="btn btn-sm btn-primary" look="warning"
-							tooltip="Éditer" icon="edit"
-							 action="/views/product/create">
+							<b:commandButton class="btn btn-sm btn-primary" look="warning"
+								tooltip="Éditer" icon="edit" action="/views/product/create">
 								<!-- Ajout d'un paramètre dans la requête POST générée
 							par le tag h:form. Cela permet sa récupération par
 							ExternalContext.getRequestParameterMap() dans un bean. -->
