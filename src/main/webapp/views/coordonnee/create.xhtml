@@ -13,7 +13,7 @@
 		<f:metadata>
 			<f:viewParam name="coortId" value="coordonneeController.coordId" />
 			<f:event type="preRenderView"
-				listener="coodonneeController.prepareEdit" />
+				listener="#{coordonneeController.prepareEdit}" />
 		</f:metadata>
 		<b:container>
 			<ui:fragment rendered="#{empty coordonneeController.coordId}">
@@ -25,6 +25,9 @@
 			<b:well>
 				<b:form>
 					<gc:csrf />
+<!-- 						<ui:fragment  rendered="#{!empty coordonneeController.coordId}"> -->
+							<b:inputText rendered="false" id="id" value="#{coordonneeController.coordId}"/>
+<!-- 						</ui:fragment> -->
 					<b:panelGrid colSpans="5,7">
 						<b:inputText label="Prénom" value="#{coordonneeBean.firstname}" />
 						<b:inputText label="Nom" value="#{coordonneeBean.lastname}" />
