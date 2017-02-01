@@ -54,9 +54,9 @@ public class ProductController implements Serializable {
 			this.products.remove(product);
 			FacesMessages.info("Le produit a été supprimé avec succès.");
 		} catch (final DeleteEntityException e) {
-			ProductController.LOGGER
-					.error("Erreur lors de la suppression du produit d'id="
-							+ product.getId(), e);
+			ProductController.LOGGER.error(
+					"Erreur lors de la suppression du produit d'id=" + product.getId(),
+					e);
 			FacesMessages.error(
 					"Impossible de supprimer le produit car il est utilisé dans un paquet.");
 		}
@@ -75,18 +75,17 @@ public class ProductController implements Serializable {
 	}
 
 	/**
-	 * Méthode déclanchée avant le RenderView grâce au tag f:event dans
-	 * create.xhtml. On récupère l'id dans les paramètres de la requête HTTP et
-	 * si il est présent on charge productBean avec les informations de la base
-	 * de données.
+	 * Méthode déclenchée avant le RenderView grâce au tag f:event dans
+	 * create.xhtml. On récupère l'id dans les paramètres de la requête HTTP et si
+	 * il est présent on charge productBean avec les informations de la base de
+	 * données.
 	 */
 	public void prepareEdit() {
 		final String paramId = FacesContext.getCurrentInstance()
 				.getExternalContext().getRequestParameterMap().get("productId");
 		if (paramId != null) {
 			this.productId = Integer.parseInt(paramId);
-			final Product editProduct = this.productDao
-					.read(this.getProductId());
+			final Product editProduct = this.productDao.read(this.getProductId());
 			this.productBean.setIntitule(editProduct.getIntitule());
 			this.productBean.setPoids(editProduct.getPoids());
 			this.productBean.setReference(editProduct.getReference());
@@ -107,19 +106,17 @@ public class ProductController implements Serializable {
 				FacesMessages.info("Le produit a été créé avec succès.");
 			} else {
 				product.setId(this.getProductId());
-				ProductController.LOGGER.debug("Mise à jour du produit {}",
-						product);
+				ProductController.LOGGER.debug("Mise à jour du produit {}", product);
 				this.productDao.update(product);
 				FacesMessages.info("Le produit a été mis à jour avec succès.");
 			}
 		} catch (final CreateEntityException e) {
-			ProductController.LOGGER.error(
-					"Erreur pendant la création d'un nouveau produit.", e);
+			ProductController.LOGGER
+					.error("Erreur pendant la création d'un nouveau produit.", e);
 			FacesMessages.error("Impossible de créer le produit.");
 		} catch (final UpdateEntityException e) {
-			ProductController.LOGGER
-					.error("Erreur pendant la mise à jour du produit d'id="
-							+ this.productId, e);
+			ProductController.LOGGER.error(
+					"Erreur pendant la mise à jour du produit d'id=" + this.productId, e);
 			FacesMessages.error("Impossible de mettre à jour ce produit.");
 		}
 
@@ -127,21 +124,24 @@ public class ProductController implements Serializable {
 	}
 
 	/**
-	 * @param productBean the productBean to set
+	 * @param productBean
+	 *          the productBean to set
 	 */
 	public void setProductBean(final ProductBean productBean) {
 		this.productBean = productBean;
 	}
 
 	/**
-	 * @param productDao the productDao to set
+	 * @param productDao
+	 *          the productDao to set
 	 */
 	public void setProductDao(final ProductDao productDao) {
 		this.productDao = productDao;
 	}
 
 	/**
-	 * @param productId the productId to set
+	 * @param productId
+	 *          the productId to set
 	 */
 	public void setProductId(final Integer productId) {
 		this.productId = productId;

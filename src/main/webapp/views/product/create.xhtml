@@ -16,7 +16,7 @@
 			C'est simplement contextuel à la vue. -->
 			<f:viewParam name="productId" value="#{productController.productId}" />
 			<!-- Ce tag permet de déclancher une méthode Java lors d'un "process event" du cycle de vie
-			JSF. Le preRenderView est l'événement déclanché avant la dernière étape du cycle 'RenderView'. -->
+			JSF. Le preRenderView est l'événement déclenché avant la dernière étape du cycle 'RenderView'. -->
 			<f:event type="preRenderView"
 				listener="#{productController.prepareEdit}" />
 		</f:metadata>
