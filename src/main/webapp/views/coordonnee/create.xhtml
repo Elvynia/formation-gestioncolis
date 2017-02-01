@@ -5,22 +5,45 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:b="http://bootsfaces.net/ui">
+	xmlns:b="http://bootsfaces.net/ui"
+	xmlns:gc="http://formation.org/facelets">
 
 <ui:composition template="../template.xhtml">
 	<ui:define name="content">
+		<f:metadata>
+			<f:viewParam name="coortId" value="coordonneeController.coordId" />
+			<f:event type="preRenderView"
+				listener="coodonneeController.prepareEdit" />
+		</f:metadata>
 		<b:container>
-		<h3>Créer une nouvelle coordonnée :</h3>
-			<b:form>
-				<b:inputText label="Prénom" value="#{coordonneeBean.firstname}" />
-				<b:inputText label="Nom" value="#{coordonneeBean.lastname}" />
-				<b:inputText label="Adresse" value="#{coordonneeBean.addressLine1}" />
-				<b:inputText value="#{coordonneeBean.addressLine2}" />
-				<b:inputText label="Ville" value="#{coordonneeBean.city}" />
-				<b:inputText label="Pays" value="#{coordonneeBean.country}" />
-				<b:inputText type="number" label="Code postal" value="#{coordonneeBean.postalCode}" />
-				<b:commandButton value="Valider" action="#{coordonneeController.save}" />
-			</b:form>
+			<ui:fragment rendered="#{empty coordonneeController.coordId}">
+				<h3>Créer une nouvelle coordonnée</h3>
+			</ui:fragment>
+			<ui:fragment rendered="#{!empty coordonneeController.coordId}">
+				<h3>Modifer une coordonnée</h3>
+			</ui:fragment>
+			<b:well>
+				<b:form>
+					<gc:csrf />
+					<b:panelGrid colSpans="5,7">
+						<b:inputText label="Prénom" value="#{coordonneeBean.firstname}" />
+						<b:inputText label="Nom" value="#{coordonneeBean.lastname}" />
+					</b:panelGrid>
+					<b:panelGrid colSpans="12">
+						<h:outputLabel value="Adresse"/>
+						<b:inputText id="address1" value="#{coordonneeBean.addressLine1}" />
+						<b:inputText id="address2" value="#{coordonneeBean.addressLine2}" />
+					</b:panelGrid>
+					<b:panelGrid colSpans="2,7,3">
+						<b:inputText type="number" label="Code postal"
+							value="#{coordonneeBean.postalCode}" />
+						<b:inputText label="Ville" value="#{coordonneeBean.city}" />
+						<b:inputText label="Pays" value="#{coordonneeBean.country}" />
+					</b:panelGrid>
+					<b:commandButton value="Valider"
+						action="#{coordonneeController.save}" />
+				</b:form>
+			</b:well>
 		</b:container>
 	</ui:define>
 </ui:composition>
