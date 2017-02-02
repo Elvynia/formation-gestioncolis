@@ -11,47 +11,58 @@
 <ui:composition template="../template.xhtml">
 	<ui:define name="content">
 		<b:container>
-			<h3>Liste des coordonnées :</h3>
-			<h:form>
-				<gc:csrf />
-				<b:dataTable value="#{coordonneeController.coordonnees}" var="coord">
-					<b:dataTableColumn>
-						<f:facet name="header">Id</f:facet>
-						<h:outputText value="#{coord.id}" />
-					</b:dataTableColumn>
-					<b:dataTableColumn>
-						<f:facet name="header">Prénom</f:facet>
-						<h:outputText value="#{coord.firstname}" />
-					</b:dataTableColumn>
-					<b:dataTableColumn>
-						<f:facet name="header">Nom</f:facet>
-						<h:outputText value="#{coord.lastname}" />
-					</b:dataTableColumn>
-					<b:dataTableColumn>
-						<f:facet name="header">Adresse</f:facet>
-						<h:outputText value="#{coord.addressLine1}" />
-						<h:outputText value="#{coord.addressLine2}"
-							rendered="#{!empty coord.addressLine2}" />
-					</b:dataTableColumn>
-					<b:dataTableColumn>
-						<f:facet name="header">Ville</f:facet>
-						<h:outputText value="#{coord.city}" />
-					</b:dataTableColumn>
-					<b:dataTableColumn>
-						<f:facet name="header">Pays</f:facet>
-						<h:outputText value="#{coord.country}" />
-					</b:dataTableColumn>
-					<b:dataTableColumn>
-						<f:facet name="header">Code postal</f:facet>
-						<h:outputText value="#{coord.postalCode}" />
-					</b:dataTableColumn>
-					<b:dataTableColumn>
-						<f:facet name="header">&nbsp;</f:facet>
-						<b:commandButton value="Supprimer"
-							action="#{coordonneeController.delete(coord)}" />
-					</b:dataTableColumn>
-				</b:dataTable>
-			</h:form>
+			<h3>Liste des coordonnées</h3>
+			<b:well>
+				<h:form>
+					<gc:csrf />
+					<b:dataTable value="#{coordonneeController.coordonnees}"
+						var="coord"
+						customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/French.json">
+						<b:dataTableColumn>
+							<f:facet name="header">Id</f:facet>
+							<h:outputText value="#{coord.id}" />
+						</b:dataTableColumn>
+						<b:dataTableColumn>
+							<f:facet name="header">Prénom</f:facet>
+							<h:outputText value="#{coord.firstname}" />
+						</b:dataTableColumn>
+						<b:dataTableColumn>
+							<f:facet name="header">Nom</f:facet>
+							<h:outputText value="#{coord.lastname}" />
+						</b:dataTableColumn>
+						<b:dataTableColumn>
+							<f:facet name="header">Adresse</f:facet>
+							<h:outputText value="#{coord.addressLine1}" />
+							<h:outputText value="#{coord.addressLine2}"
+								rendered="#{!empty coord.addressLine2}" />
+						</b:dataTableColumn>
+						<b:dataTableColumn>
+							<f:facet name="header">Ville</f:facet>
+							<h:outputText value="#{coord.city}" />
+						</b:dataTableColumn>
+						<b:dataTableColumn>
+							<f:facet name="header">Pays</f:facet>
+							<h:outputText value="#{coord.country}" />
+						</b:dataTableColumn>
+						<b:dataTableColumn>
+							<f:facet name="header">Code postal</f:facet>
+							<h:outputText value="#{coord.postalCode}" />
+						</b:dataTableColumn>
+						<b:dataTableColumn>
+							<f:facet name="header">Action</f:facet>
+						<b:commandButton class="btn btn-sm btn-primary" look="danger"
+							tooltip="Supprimer" icon="remove"
+								action="#{coordonneeController.delete(coord)}" />
+						<b:commandButton class="btn btn-sm btn-primary" look="warning"
+							tooltip="Éditer" icon="edit"
+							 action="/views/coordonnee/create">
+								<f:param name="coordId" value="#{coord.id}" />
+							</b:commandButton>
+
+						</b:dataTableColumn>
+					</b:dataTable>
+				</h:form>
+			</b:well>
 		</b:container>
 	</ui:define>
 </ui:composition>

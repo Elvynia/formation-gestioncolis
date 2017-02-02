@@ -5,53 +5,56 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:b="http://bootsfaces.net/ui" 
-	xmlns:p="http://primefaces.org/ui"
+	xmlns:b="http://bootsfaces.net/ui" xmlns:p="http://primefaces.org/ui"
 	xmlns:gc="http://formation.org/facelets">
 
 <ui:composition template="../template.xhtml">
 	<ui:define name="content">
-		<h2>Gérer les états de commande :</h2>
 		<b:container>
+			<h3>Gérer les états de commande</h3>
 			<div class="etatList">
-				<h:form id="etatListForm">
-					<gc:csrf />
-					<h3>Ordre des états :</h3>
-					<h:inputHidden id="etatId" value="#{etatController.etatId}" />
-					<p:orderList responsive="true" id="etatList" controlsLocation="right"
-						itemLabel="#{etat.nom}" itemValue="#{etat.id}"
-						value="#{etatOrderBean.list}" var="etat">
-						<p:ajax event="select" update="etatId deleteBtn"
-							listener="#{etatController.selectEtat}" />
-						<p:ajax event="unselect" update="etatId deleteBtn"
-							listener="#{etatController.unselectEtat}" />
-					</p:orderList>
-					<b:commandButton value="Valider">
-						<f:ajax execute="@form" render="messages"
-							listener="#{etatController.saveOrder}" />
-					</b:commandButton>
-					<h:panelGroup id="deleteBtn">
-						<b:commandButton value="Supprimer"
-							rendered="#{etatController.etatId gt -1}">
-							<f:ajax execute="@form" render="@form messages"
-								listener="#{etatController.delete}" />
+				<b:well>
+					<h:form id="etatListForm">
+						<gc:csrf />
+						<h4>Ordre des états</h4>
+						<h:inputHidden id="etatId" value="#{etatController.etatId}" />
+						<p:orderList responsive="true" id="etatList"
+							controlsLocation="right" itemLabel="#{etat.nom}"
+							itemValue="#{etat.id}" value="#{etatOrderBean.list}" var="etat">
+							<p:ajax event="select" update="etatId deleteBtn"
+								listener="#{etatController.selectEtat}" />
+							<p:ajax event="unselect" update="etatId deleteBtn"
+								listener="#{etatController.unselectEtat}" />
+						</p:orderList>
+						<b:commandButton value="Valider">
+							<f:ajax execute="@form" render="messages"
+								listener="#{etatController.saveOrder}" />
 						</b:commandButton>
-					</h:panelGroup>
-				</h:form>
+						<h:panelGroup id="deleteBtn">
+							<b:commandButton value="Supprimer"
+								rendered="#{etatController.etatId gt -1}">
+								<f:ajax execute="@form" render="@form messages"
+									listener="#{etatController.delete}" />
+							</b:commandButton>
+						</h:panelGroup>
+					</h:form>
+				</b:well>
 			</div>
 			<div class="etat">
-				<b:form id="etatForm">
-					<gc:csrf />
-					<h3>Créer un nouvel état</h3>
-					<b:inputText label="Nom" value="#{etatBean.nom}">
+				<b:well>
+					<b:form id="etatForm">
+						<gc:csrf />
+						<h4>Créer un nouvel état</h4>
+						<b:inputText label="Nom" value="#{etatBean.nom}">
 
-					</b:inputText>
-					<b:commandButton value="Valider">
-						<f:ajax execute="@form"
-							render="@form etatListForm:etatList messages"
-							listener="#{etatController.save}" />
-					</b:commandButton>
-				</b:form>
+						</b:inputText>
+						<b:commandButton value="Valider">
+							<f:ajax execute="@form"
+								render="@form etatListForm:etatList messages"
+								listener="#{etatController.save}" />
+						</b:commandButton>
+					</b:form>
+				</b:well>
 			</div>
 		</b:container>
 	</ui:define>

@@ -10,64 +10,69 @@
 
 <ui:composition template="../template.xhtml">
 	<ui:define name="content">
-		<div class="col-md-5">
-			<h2>Liste des bordereaux :</h2>
-			<h:form>
-				<gc:csrf />
-				<b:dataTable value="#{bordereauController.bordereaux}"
-					var="bordereau">
+		<b:container>
+			<div class="col-md-6">
+				<h3>Liste des bordereaux</h3>
+				<b:well>
+					<h:form>
+						<gc:csrf />
+						<b:dataTable value="#{bordereauController.bordereaux}"
+							var="bordereau"
+							customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/French.json">
 
-					<b:dataTableColumn>
-						<f:facet name="header">&nbsp;</f:facet>
-						<b:commandButton icon-spin="true" iconAwesome="thumbs-down" look="danger" value="Supprimer"
-							action="#{bordereauController.delete(bordereau.id)}">
-						</b:commandButton>
-					</b:dataTableColumn>
-					<b:dataTableColumn>
-						<f:facet name="header">Id</f:facet>
-						<h:outputText value="#{bordereau.id}" />
-					</b:dataTableColumn>
-					<b:dataTableColumn>
-						<f:facet name="header">Commande</f:facet>
-						<h:outputText value="#{bordereau.commandeBean.getId()}" />
-					</b:dataTableColumn>
-					<b:dataTableColumn>
-						<f:facet name="header">Date</f:facet>
-						<h:outputText value="#{bordereau.dateSignature}" />
-					</b:dataTableColumn>
+							<b:dataTableColumn>
+								<f:facet name="header">Id</f:facet>
+								<h:outputText value="#{bordereau.id}" />
+							</b:dataTableColumn>
+							<b:dataTableColumn>
+								<f:facet name="header">Commande</f:facet>
+								<h:outputText value="#{bordereau.commandeBean.getId()}" />
+							</b:dataTableColumn>
+							<b:dataTableColumn>
+								<f:facet name="header">Date</f:facet>
+								<h:outputText value="#{bordereau.dateSignature}" />
+							</b:dataTableColumn>
 
-					<b:dataTableColumn>
-						<f:facet name="header">Detail</f:facet>
-						<b:commandButton  icon-spin="true" icon="cd" icon-size="1x" value=">"
-							action="#{bordereauController.detail(bordereau.id)}">
+							<b:dataTableColumn>
+								<f:facet name="header">Action</f:facet>
+								<b:commandButton class="btn btn-sm btn-primary" icon="remove"
+									look="danger" tooltip="Supprimer"
+									action="#{bordereauController.delete(bordereau.id)}">
+								</b:commandButton>
+								<b:commandButton class="btn btn-sm btn-primary" icon="expand"
+									look="info" tooltip="Détails"
+									action="#{bordereauController.detail(bordereau.id)}">
+								</b:commandButton>
+							</b:dataTableColumn>
 
-						</b:commandButton>
-
-					</b:dataTableColumn>
-				</b:dataTable>
-			</h:form>
-		</div>
-		<h:panelGroup rendered="#{bordereauBean.id != null}">
-			<div class="col-md-7">
-				<h3>Detail du bordereau :</h3>
-				<h:form>
-					<gc:csrf />
-					<div>
-						<h4>Bordereau n° #{bordereauBean.id}</h4>
-						<b:inputTextarea readonly="true" label="Détail"
-							value="#{bordereauBean.detail}" />
-						<b:inputText readonly="true" label="Date signature"
-							value="#{bordereauBean.dateSignature}">
-							<f:convertDateTime pattern="EEE d MMM yyyy 'à' hh'h'" />
-						</b:inputText>
-					</div>
-
-					<div>
-						<ui:include src="../commande/commande_display_fragment.xhtml" />
-					</div>
-				</h:form>
+						</b:dataTable>
+					</h:form>
+				</b:well>
 			</div>
-		</h:panelGroup>
+			<h:panelGroup rendered="#{bordereauBean.id != null}">
+				<div class="col-md-6">
+					<h3>Detail du bordereau</h3>
+					<b:well>
+						<h:form>
+							<gc:csrf />
+							<div>
+								<h4>Bordereau n° #{bordereauBean.id}</h4>
+								<b:inputTextarea readonly="true" label="Détail"
+									value="#{bordereauBean.detail}" />
+								<b:inputText readonly="true" label="Date signature"
+									value="#{bordereauBean.dateSignature}">
+									<f:convertDateTime pattern="EEE d MMM yyyy 'à' hh'h'" />
+								</b:inputText>
+							</div>
+
+							<div>
+								<ui:include src="../commande/commande_display_fragment.xhtml" />
+							</div>
+						</h:form>
+					</b:well>
+				</div>
+			</h:panelGroup>
+		</b:container>
 	</ui:define>
 </ui:composition>
 </html>

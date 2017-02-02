@@ -11,15 +11,19 @@
 	<ui:define name="content">
 		<b:container>
 			<h3>Liste des liasses</h3>
-			<b:dataTable value="#{liasseController.liasses}" var="liasse">
-				<b:dataTableColumn value="#{liasse.commandeBean.id}" label="Commande n°" />
-				<b:dataTableColumn value="#{liasse.id}" label="Liasse n°" />
-				<b:dataTableColumn value="#{liasse.valeur}" label="Valeur" />
-				<b:dataTableColumn value="#{liasse.nature}" label="Nature"/>
-				<b:dataTableColumn value="#{liasse.dateSignature}" label="Date de prise en charge" order="asc" />
-			</b:dataTable>	
+			<b:well>
+				<b:dataTable value="#{liasseController.liasses}" var="liasse"
+					customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/French.json">
+					<b:dataTableColumn value="#{liasse.commandeBean.id}"
+						label="Commande n°" />
+					<b:dataTableColumn value="#{liasse.id}" label="Liasse n°" />
+					<b:dataTableColumn value="#{liasse.valeur}" label="Valeur" />
+					<b:dataTableColumn value="#{liasse.nature}" label="Nature" />
+					<b:dataTableColumn value="#{liasse.dateSignature}"
+						label="Date de prise en charge" order="asc" />
+				</b:dataTable>
+			</b:well>
 		</b:container>
 	</ui:define>
 </ui:composition>
-
 </html>

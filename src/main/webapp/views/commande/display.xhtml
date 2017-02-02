@@ -12,54 +12,58 @@
 
 <ui:composition template="../template.xhtml">
 	<ui:define name="content">
-	<b:container>
-		<h3>Gestion des commandes</h3>
-		<h:form>
-			<gc:csrf />
-			<b:dataTable value="#{commandeController.commandes}" var="commande">
-				<b:dataTableColumn>
-					<f:facet name="header">ID Paquet</f:facet>
-					<h:outputText value="#{commande.paquetBean.id}" />
-				</b:dataTableColumn>
-				<b:dataTableColumn>
-					<f:facet name="header">Date commande</f:facet>
-					<h:outputText value="#{commande.dateCommande}">
-						<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
-					</h:outputText>
-				</b:dataTableColumn>
-				<b:dataTableColumn>
-					<f:facet name="header">Date envoi (fournisseur)</f:facet>
-					<h:outputText value="#{commande.dateEnvoi}">
-						<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
-					</h:outputText>
-				</b:dataTableColumn>
-				<b:dataTableColumn>
-					<f:facet name="header">Date envoi (client)</f:facet>
-					<h:outputText value="#{commande.ackSent}">
-						<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
-					</h:outputText>
-				</b:dataTableColumn>
-				<b:dataTableColumn>
-					<f:facet name="header">Etat</f:facet>
-						<h:outputText value="#{commande.etatBean.nom}" />
-				</b:dataTableColumn>
-				<b:dataTableColumn>
-					<f:facet name="header">Date réception</f:facet>
-					<h:outputText value="#{commande.ackReceived}">
-						<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
-					</h:outputText>
-				</b:dataTableColumn>
-				<b:dataTableColumn>
-					<f:facet name="header">Actions</f:facet>
-					<b:commandButton value="Passer à l'état #{commandeController.nextState(commande)}" 
-					rendered="#{commande.etatBean.ordre != etatService.maxOrder}" 
-					action="#{commandeController.update(commande)}" />
-					<b:commandButton look="danger" tooltip="Supprimer" icon="remove" 
-					action="#{commandeController.delete(commande)}" />
-				</b:dataTableColumn>
-			</b:dataTable>
-		</h:form>
-	</b:container>
+		<b:container>
+			<h3>Gestion des commandes</h3>
+			<b:well>
+				<h:form>
+					<gc:csrf />
+					<b:dataTable value="#{commandeController.commandes}" var="commande"
+						customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/French.json">
+						<b:dataTableColumn>
+							<f:facet name="header">ID Paquet</f:facet>
+							<h:outputText value="#{commande.paquetBean.id}" />
+						</b:dataTableColumn>
+						<b:dataTableColumn>
+							<f:facet name="header">Date commande</f:facet>
+							<h:outputText value="#{commande.dateCommande}">
+								<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
+							</h:outputText>
+						</b:dataTableColumn>
+						<b:dataTableColumn>
+							<f:facet name="header">Date envoi (fournisseur)</f:facet>
+							<h:outputText value="#{commande.dateEnvoi}">
+								<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
+							</h:outputText>
+						</b:dataTableColumn>
+						<b:dataTableColumn>
+							<f:facet name="header">Date envoi (client)</f:facet>
+							<h:outputText value="#{commande.ackSent}">
+								<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
+							</h:outputText>
+						</b:dataTableColumn>
+						<b:dataTableColumn>
+							<f:facet name="header">Etat</f:facet>
+							<h:outputText value="#{commande.etatBean.nom}" />
+						</b:dataTableColumn>
+						<b:dataTableColumn>
+							<f:facet name="header">Date réception</f:facet>
+							<h:outputText value="#{commande.ackReceived}">
+								<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
+							</h:outputText>
+						</b:dataTableColumn>
+						<b:dataTableColumn>
+							<f:facet name="header">Actions</f:facet>
+							<b:commandButton
+								value="Passer à l'état #{commandeController.nextState(commande)}"
+								rendered="#{commande.etatBean.ordre != etatService.maxOrder}"
+								action="#{commandeController.update(commande)}" />
+							<b:commandButton look="danger" tooltip="Supprimer" icon="remove"
+								action="#{commandeController.delete(commande)}" />
+						</b:dataTableColumn>
+					</b:dataTable>
+				</h:form>
+			</b:well>
+		</b:container>
 	</ui:define>
 </ui:composition>
 </html>

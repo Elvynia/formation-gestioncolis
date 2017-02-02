@@ -9,22 +9,25 @@
 
 <h:body>
 	<b:container>
-		<h3>Liste des commandes :</h3>
-		<b:dataTable value="#{commandeController.commandes}" var="commande">
-			<b:dataTableColumn>
-				<f:facet name="header">Id</f:facet>
-				<h:outputText value="#{commande.id}" />
-			</b:dataTableColumn>
-			<b:dataTableColumn>
-				<f:facet name="header">Date de création</f:facet>
-				<h:outputText value="#{commande.dateCommande}" />
-			</b:dataTableColumn>
-			<b:dataTableColumn>
-				<f:facet name="header">Etat</f:facet>
-				<h:outputText value="#{commande.etatBean.nom}" />
-			</b:dataTableColumn>
-			<ui:insert name="buttons" />
-		</b:dataTable>
+		<h3>Liste des commandes</h3>
+		<b:well>
+			<b:dataTable value="#{commandeController.commandes}" var="commande"
+			customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/French.json">
+				<b:dataTableColumn>
+					<f:facet name="header">Id</f:facet>
+					<h:outputText value="#{commande.id}" />
+				</b:dataTableColumn>
+				<b:dataTableColumn>
+					<f:facet name="header">Date de création</f:facet>
+					<h:outputText value="#{commande.dateCommande}" />
+				</b:dataTableColumn>
+				<b:dataTableColumn>
+					<f:facet name="header">Etat</f:facet>
+					<h:outputText value="#{commande.etatBean.nom}" />
+				</b:dataTableColumn>
+				<ui:insert name="buttons" />
+			</b:dataTable>
+		</b:well>
 	</b:container>
 </h:body>
 </html>

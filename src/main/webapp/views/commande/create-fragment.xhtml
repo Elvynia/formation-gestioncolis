@@ -7,23 +7,33 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:b="http://bootsfaces.net/ui"
 	xmlns:gc="http://formation.org/facelets">
-	
-	<h:body>
 
-		<b:container>
-			<h3>Effectuer une commande :</h3>
+<h:body>
+
+	<b:container>
+		<h3>Effectuer une commande</h3>
+		<b:well>
 			<h:form>
 				<gc:csrf />
-				<b:selectOneMenu label="Sélectionner un produit" value="#{createCommandeBean.productId}">
-					<f:selectItem noSelectionOption="true" itemLabel="Sélectionner..." itemValue="" />
-					<f:selectItems value="#{productController.products}" var="product" itemValue="#{product.id}" itemLabel="#{product.intitule}"/>
+				<b:selectOneMenu label="Sélectionner un produit"
+					value="#{createCommandeBean.productId}">
+					<f:selectItem noSelectionOption="true" itemLabel="Sélectionner..."
+						itemValue="" />
+					<f:selectItems value="#{productController.products}" var="product"
+						itemValue="#{product.id}" itemLabel="#{product.intitule}" />
 				</b:selectOneMenu>
-				<b:selectOneMenu label="Sélectionner une adresse de livraison" value="#{createCommandeBean.coordonneeId}">
-					<f:selectItem noSelectionOption="true" itemLabel="Sélectionner..." itemValue="" />
-					<f:selectItems value="#{coordonneeController.coordonnees}" var="coordonnee" itemValue="#{coordonnee.id}" itemLabel="#{coordonnee}"/>
+				<b:selectOneMenu label="Sélectionner une adresse de livraison"
+					value="#{createCommandeBean.coordonneeId}">
+					<f:selectItem noSelectionOption="true" itemLabel="Sélectionner..."
+						itemValue="" />
+					<f:selectItems value="#{coordonneeController.coordonnees}"
+						var="coordonnee" itemValue="#{coordonnee.id}"
+						itemLabel="#{coordonnee}" />
 				</b:selectOneMenu>
-				<b:commandButton value="Valider" action="#{commandeController.create}" />
+				<b:commandButton value="Valider"
+					action="#{commandeController.create}" />
 			</h:form>
-		</b:container>
-	</h:body>
+		</b:well>
+	</b:container>
+</h:body>
 </html>
