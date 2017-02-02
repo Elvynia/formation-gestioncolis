@@ -60,19 +60,17 @@
 			<div class="paquetDetails">
 				<b:well>
 					<h4>Destinataire</h4>
-					<p>#{paquetBean.destinataire.firstname}</p>
-					<p>#{paquetBean.destinataire.lastname}</p>
+					<p>#{paquetBean.destinataire.firstname} #{paquetBean.destinataire.lastname}</p>
 					<p>#{paquetBean.destinataire.addressLine1}</p>
-					<p>#{paquetBean.destinataire.city}</p>
+					<p>#{paquetBean.destinataire.postalCode} #{paquetBean.destinataire.city}</p>
 				</b:well>
 			</div>
 			<div class="paquetDetails">
 				<b:well>
 					<h4>Expéditeur</h4>
-					<p>#{paquetBean.expediteur.firstname}</p>
-					<p>#{paquetBean.expediteur.lastname}</p>
+					<p>#{paquetBean.expediteur.firstname} #{paquetBean.expediteur.lastname}</p>
 					<p>#{paquetBean.expediteur.addressLine1}</p>
-					<p>#{paquetBean.expediteur.city}</p>
+					<p>#{paquetBean.expediteur.postalCode} #{paquetBean.expediteur.city}</p>
 				</b:well>
 			</div>
 		</b:container>
