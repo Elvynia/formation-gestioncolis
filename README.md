@@ -1,10 +1,10 @@
 # GestionColis
 Etude de cas permettant de mettre en oeuvre la création d'une application J2EE dans un contexte réel de besoin d'entreprise.
 
-API utilisées : JSF, JPA, JTA, JNDI
-Frameworks utilisés : Primefaces, Bootsfaces, Spring security, Hibernate, Logback
-Outils utilisés : Eclipse, Maven, Glassfish
-Base de données : MySQL
+- API utilisées : JSF, JPA, JTA, JNDI
+- Frameworks utilisés : Primefaces, Bootsfaces, Spring security, Hibernate, Logback
+- Outils utilisés : Eclipse, Maven, Glassfish
+- Base de données : MySQL
 
 ## Sujet
 Une entreprise qui commercialise des biens souhaite pouvoir expédier ses produits en ligne.
@@ -29,7 +29,7 @@ Le client indique les points suivants comme nécessaires à l'application web qu
 
 ### Conception
 
-Architecture : OOA, MVC
-Modèle de données : <lien>
+- Architecture : OOA, MVC
+- Modèle de données : <lien>
 
 ...suite à venir
