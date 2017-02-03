@@ -28,7 +28,7 @@
 						itemValue="" />
 					<f:selectItems value="#{coordonneeController.coordonnees}"
 						var="coordonnee" itemValue="#{coordonnee.id}"
-						itemLabel="#{coordonnee}" />
+						itemLabel="#{coordonnee.firstname} #{coordonnee.lastname} #{coordonnee.addressLine1} #{coordonnee.city}" />
 				</b:selectOneMenu>
 				<b:commandButton value="Valider"
 					action="#{commandeController.create}" />

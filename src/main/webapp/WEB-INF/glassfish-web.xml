@@ -1,0 +1,5 @@
+<glassfish-web-app>
+
+   <parameter-encoding default-charset="UTF-8"/>
+
+</glassfish-web-app>
