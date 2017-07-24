@@ -5,6 +5,7 @@ import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.NamedQuery;
+import javax.persistence.Table;
 
 /**
  * The persistent class for the role database table.
@@ -12,6 +13,7 @@ import javax.persistence.NamedQuery;
  */
 @Entity
 @NamedQuery(name = "Role.findAll", query = "SELECT r FROM Role r")
+@Table(name="role")
 public class Role implements Serializable {
 	private static final long serialVersionUID = 1L;
 

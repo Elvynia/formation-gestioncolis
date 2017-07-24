@@ -7,22 +7,5 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:sec="http://www.springframework.org/security/tags">
 
-<ui:composition template="template.xhtml">
-	<ui:define name="content">
-		<h:panelGroup>
-			<ui:insert name="commandes">
-				<sec:authorize ifAnyGranted="ROLE_MANAGER, ROLE_ADMIN">
-					<ui:include src="/views/commande/display-fragment.xhtml" />
-				</sec:authorize>
-			</ui:insert>
-		</h:panelGroup>
-		<h:panelGroup>
-			<ui:insert name="actions">
-				<sec:authorize ifAnyGranted="ROLE_CLIENT, ROLE_ADMIN">
-					<ui:include src="/views/commande/create-fragment.xhtml" />
-				</sec:authorize>
-			</ui:insert>
-		</h:panelGroup>
-	</ui:define>
-</ui:composition>
+	
 </html>
