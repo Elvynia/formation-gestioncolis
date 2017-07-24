@@ -48,10 +48,15 @@
 			<artifactId>primefaces</artifactId>
 			<version>6.0</version>
 		</dependency>
-		<dependency>
+		<!--dependency>
 			<groupId>org.primefaces.themes</groupId>
 			<artifactId>bootstrap</artifactId>
 			<version>1.0.10</version>
+		</dependency-->
+		<dependency>
+			<groupId>org.primefaces.extensions</groupId>
+			<artifactId>all-themes</artifactId>
+			<version>1.0.8</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.commons</groupId>
@@ -95,12 +100,12 @@
 		</dependency>
 	</dependencies>
 
-	<repositories>
+	<!-- <repositories>
 		<repository>
 			<id>Primefaces</id>
 			<url>http://repository.primefaces.org/</url>
 		</repository>
-	</repositories>
+	</repositories> -->
 
 	<build>
 		<finalName>gestioncolis</finalName>
