@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:b="http://bootsfaces.net/ui">
+
+<h:head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Application de gestion de colis</title>	
+</h:head>
+<h:body>
+	<b:container>
+		<b:navBar brand="GestionColis"
+			brand-href="#{request.contextPath}/views/dashboard.html">
+			<h:form>
+				<input type="hidden" name="${_csrf.parameterName}"
+					value="${_csrf.token}" />
+				<b:navbarLinks>
+					<b:dropMenu value="Coordonnées">
+						<b:navCommandLink value="Créer une adresse"
+							action="/views/coordonnees/edit" />
+						<b:navCommandLink value="Liste des adresses"
+							action="/views/coordonnees/list" />
+					</b:dropMenu>
+					<b:dropMenu value="Produits">
+						<b:navCommandLink value="Créer un produit"
+							action="/views/product/edit" />
+						<b:navCommandLink value="Liste des produits"
+							action="/views/product/list" />
+					</b:dropMenu>
+					<b:dropMenu value="Factures">
+						<b:navCommandLink value="Créer une facture"
+							action="/views/facture/edit" />
+						<b:navCommandLink value="Liste des factures"
+							action="/views/facture/list" />
+					</b:dropMenu>
+				</b:navbarLinks>
+			</h:form>
+		</b:navBar>
+	</b:container>
+</h:body>
+</html>

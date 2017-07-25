@@ -4,8 +4,17 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:sec="http://www.springframework.org/security/tags">
-
+	xmlns:ui="http://java.sun.com/jsf/facelets">
 	
+	<ui:composition template="template.xhtml">
+		<ui:define name="content">
+			<h2>Bienvenue dans votre tableau de bord !</h2>
+			<ui:insert name="list">
+				
+			</ui:insert>
+			<ui:insert name="edit">
+				
+			</ui:insert>
+		</ui:define>
+	</ui:composition>
 </html>
