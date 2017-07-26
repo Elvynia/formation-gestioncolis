@@ -2,6 +2,9 @@ package fr.formation.gestioncolis.entity;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
+import fr.formation.gestioncolis.bean.CoordonneeBean;
+
 import java.util.List;
 
 
@@ -50,6 +53,15 @@ public class Coordonnee implements Serializable {
 	private List<Paquet> paquets2;
 
 	public Coordonnee() {
+	}
+	
+	public Coordonnee(final CoordonneeBean bean) {
+		this.addressLine1 = bean.getAddressLine1();
+		this.addressLine2 = bean.getAddressLine2();
+		this.city = bean.getCity();
+		this.country = bean.getCountry();
+		this.firstname = bean.getFirstname();
+		this.lastname = bean.getLastname();
 	}
 
 	public int getId() {

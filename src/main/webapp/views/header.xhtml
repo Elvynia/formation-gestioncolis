@@ -14,7 +14,7 @@
 </h:head>
 <h:body>
 	<b:container>
-		<b:navBar brand="GestionColis"
+		<b:navBar brand="GestionColis" fixed="top"
 			brand-href="#{request.contextPath}/views/dashboard.html">
 			<h:form>
 				<input type="hidden" name="${_csrf.parameterName}"
@@ -22,9 +22,9 @@
 				<b:navbarLinks>
 					<b:dropMenu value="Coordonnées">
 						<b:navCommandLink value="Créer une adresse"
-							action="/views/coordonnees/edit" />
+							action="/views/coordonnee/edit" />
 						<b:navCommandLink value="Liste des adresses"
-							action="/views/coordonnees/list" />
+							action="/views/coordonnee/list" />
 					</b:dropMenu>
 					<b:dropMenu value="Produits">
 						<b:navCommandLink value="Créer un produit"
