@@ -10,10 +10,10 @@
 		<ui:define name="content">
 			<h2>Bienvenue dans votre tableau de bord !</h2>
 			<ui:insert name="list">
-				
+				<ui:include src="commande/list-fragment.xhtml" />
 			</ui:insert>
 			<ui:insert name="edit">
-				
+				<ui:include src="commande/edit-fragment.xhtml" />
 			</ui:insert>
 		</ui:define>
 	</ui:composition>

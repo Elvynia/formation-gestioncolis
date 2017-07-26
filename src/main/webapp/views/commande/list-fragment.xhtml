@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:b="http://bootsfaces.net/ui">
+	
+<h:body>
+	<b:container>
+		<h3>Liste des commandes :</h3>
+		<b:well>
+			<b:dataTable id="commandeList" value="#{commandeController.commandes}"
+				var="commande">
+				<b:dataTableColumn>
+					<f:facet name="header">Id</f:facet>
+					<h:outputText value="#{commande.id}" />
+				</b:dataTableColumn>
+				<b:dataTableColumn>
+					<f:facet name="header">Date de création</f:facet>
+					<h:outputText value="#{commande.dateCommande}">
+						<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
+					</h:outputText>
+				</b:dataTableColumn>
+				<b:dataTableColumn>
+					<f:facet name="header">Date d'envoi</f:facet>
+					<h:outputText value="#{commande.dateEnvoi}">
+						<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
+					</h:outputText>
+				</b:dataTableColumn>
+				<b:dataTableColumn>
+					<f:facet name="header">Date d'envoi (client)</f:facet>
+					<h:outputText value="#{commande.ackSent}">
+						<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
+					</h:outputText>
+				</b:dataTableColumn>
+				<b:dataTableColumn>
+					<f:facet name="header">Etat</f:facet>
+					<h:outputText value="#{commande.etatBean.nom}" />
+				</b:dataTableColumn>
+				<b:dataTableColumn>
+					<f:facet name="header">Date de reception</f:facet>
+					<h:outputText value="#{commande.ackReceived}">
+						<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
+					</h:outputText>
+				</b:dataTableColumn>
+			</b:dataTable>
+		</b:well>
+	</b:container>
+</h:body>
+</html>
