@@ -23,7 +23,7 @@ DROP TABLE IF EXISTS `etat`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `etat` (
-  `ID` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `ID` int(10) NOT NULL AUTO_INCREMENT,
   `NOM` varchar(24) NOT NULL,
   `ORDRE` int(11) NOT NULL,
   PRIMARY KEY (`ID`)
